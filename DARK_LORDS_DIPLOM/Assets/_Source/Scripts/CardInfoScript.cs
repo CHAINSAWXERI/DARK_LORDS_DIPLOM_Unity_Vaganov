@@ -25,6 +25,6 @@ public class CardInfoScript : MonoBehaviour
 
     private void Start()
     {
-        ShowCardInfo(CardManagerStatic.AllCards[transform.GetSiblingIndex()]);
+        //ShowCardInfo(CardManagerStatic.AllCards[transform.GetSiblingIndex()]);
     }
 }

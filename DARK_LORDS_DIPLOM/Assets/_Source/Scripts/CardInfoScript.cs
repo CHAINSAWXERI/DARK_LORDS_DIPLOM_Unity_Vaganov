@@ -11,9 +11,10 @@ public class CardInfoScript : MonoBehaviour
     public TextMeshProUGUI Name;
     public TextMeshProUGUI Attack;
     public TextMeshProUGUI Health;
+    public int ID;
 
 
-    public void ShowCardInfo(Card card)
+    public void ShowCardInfo(Card card, int id)
     {
         SelfCard = card;
         Logo.sprite = card.Logo;
@@ -21,6 +22,7 @@ public class CardInfoScript : MonoBehaviour
         Name.text = card.Name;
         Attack.text = card.Attack.ToString();
         Health.text = card.Health.ToString();
+        ID = id;
     }
 
     private void Start()

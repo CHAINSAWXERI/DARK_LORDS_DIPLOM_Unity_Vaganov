@@ -6,14 +6,15 @@ public struct Card
 {
     public string Name;
     public Sprite Logo;
-    public int Attack, Health;
+    public int Attack, Health, Power;
 
-    public Card(string name, Sprite logo, int attack, int health)
+    public Card(string name, Sprite logo, int attack, int health, int power)
     {
         Name = name;
         Logo = logo;
         Attack = attack;
         Health = health;
+        Power = power;
     }
 }
 
@@ -35,7 +36,7 @@ public class CardManager : MonoBehaviour
 
         foreach (var card in CardsAll)
         {
-            CardManagerStatic.AllCards.Add(new Card(card.name, card.Logo, card.Attack, card.Health));
+            CardManagerStatic.AllCards.Add(new Card(card.name, card.Logo, card.Attack, card.Health, card.Power));
         }
     }
 }

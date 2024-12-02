@@ -131,10 +131,6 @@ public class GameManager : MonoBehaviour
             while (TurnTime-- > 0)
             {
                 TurnTimeTxt.text = TurnTime.ToString();
-                if (firstCard == true && secondCard == true)
-                {
-                    BlockPhone.SetActive(true);
-                }
                 yield return new WaitForSeconds(1);
             }
         }

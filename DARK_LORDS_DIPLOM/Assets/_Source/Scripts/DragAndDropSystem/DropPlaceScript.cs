@@ -38,6 +38,12 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
         CardMoveScript card = eventData.pointerDrag.gameObject.GetComponent<CardMoveScript>();
         CardInfoScript cardInfo = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
 
+        if (currentCard != null)
+        {
+            eventData.pointerDrag.gameObject.transform.SetParent(eventData.pointerDrag.gameObject.GetComponent<CardMoveScript>().DeafoultParent);
+            return;
+        }
+
         GameManager.PlayerHandCards.RemoveAll(c => c.ID == cardInfo.ID);
 
         if (card)
@@ -91,6 +97,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
             else
             {
                 GameManager.secondCard = true;
+                GameManager.BlockPhone.SetActive(true);
             }
         }
     }

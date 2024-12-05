@@ -155,8 +155,12 @@ public class GameManager : MonoBehaviour
         bool firstCard = true;
         for (int i = 0; i < 2; i++)
         {
+            if (cards.Count == 0) // Проверяем, есть ли карты
+            {
+                break; // Выходим из цикла, если карт больше нет
+            }
             int maxpower = -1;
-            int maxPowerIndex = 0;
+            int maxPowerIndex = -1;
 
             for (int o = 0; o < cards.Count; o++)
             {
@@ -212,6 +216,11 @@ public class GameManager : MonoBehaviour
                     cards.RemoveAll(c => c.ID == cards[maxPowerIndex].ID);
                     cardIsPlace = true;
                     firstCard = false;
+                }
+
+                if (cardIsPlace == false)
+                {
+                    return;
                 }
             }
             else

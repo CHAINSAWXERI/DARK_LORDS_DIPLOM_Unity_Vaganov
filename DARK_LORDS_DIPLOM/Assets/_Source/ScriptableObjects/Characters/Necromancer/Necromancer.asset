@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Necromancer
   m_EditorClassIdentifier: 
   Deck:
-  - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
-  - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
-  - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
-  - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
-  - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
-  - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
-  - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
-  - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
+  - {fileID: 11400000, guid: 377d64f8a7f820740aaee41f8cf8f049, type: 2}
+  - {fileID: 11400000, guid: 7bc13e46b05af3c4a98d432306132b47, type: 2}
+  - {fileID: 11400000, guid: a20b859256fbade4e947084a794cebc8, type: 2}
+  - {fileID: 11400000, guid: a20b859256fbade4e947084a794cebc8, type: 2}
+  - {fileID: 11400000, guid: 09efdd59ebdce15409910137a39b3665, type: 2}
+  - {fileID: 11400000, guid: 09efdd59ebdce15409910137a39b3665, type: 2}
+  - {fileID: 11400000, guid: a6761d41d847b884d9f1482a0c5d09d0, type: 2}
+  - {fileID: 11400000, guid: a6761d41d847b884d9f1482a0c5d09d0, type: 2}
   - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
   - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}
   - {fileID: 11400000, guid: a61c1820a3a93e448a0a16230113c057, type: 2}

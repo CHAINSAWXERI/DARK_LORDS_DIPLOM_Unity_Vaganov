@@ -16,3 +16,4 @@ MonoBehaviour:
   Logo: {fileID: 21300000, guid: 84679d4333e57af4aa586946729d4f78, type: 3}
   Attack: 1
   Health: 2
+  Power: 0

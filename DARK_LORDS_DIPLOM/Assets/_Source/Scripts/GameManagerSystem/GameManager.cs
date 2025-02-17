@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     public CardInfoScript CardEnemyField3;
     public CardInfoScript CardEnemyField4;
 
-    public CardInfoScript CardPlayerField1;
+    public CardInfoScript CardPlayerField1; ////////////////////////////////////////////////////////////////////////////////////////////////
     public CardInfoScript CardPlayerField2;
     public CardInfoScript CardPlayerField3;
     public CardInfoScript CardPlayerField4;
@@ -438,7 +438,7 @@ public class GameManager : MonoBehaviour
 
                     if (CardEnemyField1.SelfCard.Health <= 0)
                     {
-                        PlayerDiscardedDeck.Add(CardEnemyField1.SelfCard);
+                        EnemyDiscardedDeck.Add(CardEnemyField1.SelfCard);
                         Destroy(EnemyField1.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject);
                         EnemyField1.gameObject.GetComponent<DropPlaceScript>().ClearCurrentCard();
                         CardEnemyField1 = null;
@@ -468,7 +468,7 @@ public class GameManager : MonoBehaviour
 
                     if (CardEnemyField2.SelfCard.Health <= 0)
                     {
-                        PlayerDiscardedDeck.Add(CardEnemyField2.SelfCard);
+                        EnemyDiscardedDeck.Add(CardEnemyField2.SelfCard);
                         Destroy(EnemyField2.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject);
                         EnemyField2.gameObject.GetComponent<DropPlaceScript>().ClearCurrentCard();
                         CardEnemyField2 = null;
@@ -498,7 +498,7 @@ public class GameManager : MonoBehaviour
 
                     if (CardEnemyField3.SelfCard.Health <= 0)
                     {
-                        PlayerDiscardedDeck.Add(CardEnemyField3.SelfCard);
+                        EnemyDiscardedDeck.Add(CardEnemyField3.SelfCard);
                         Destroy(EnemyField3.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject);
                         EnemyField3.gameObject.GetComponent<DropPlaceScript>().ClearCurrentCard();
                         CardEnemyField3 = null;
@@ -528,7 +528,7 @@ public class GameManager : MonoBehaviour
 
                     if (CardEnemyField4.SelfCard.Health <= 0)
                     {
-                        PlayerDiscardedDeck.Add(CardEnemyField4.SelfCard);
+                        EnemyDiscardedDeck.Add(CardEnemyField4.SelfCard);
                         Destroy(EnemyField4.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject);
                         EnemyField4.gameObject.GetComponent<DropPlaceScript>().ClearCurrentCard();
                         CardEnemyField4 = null;

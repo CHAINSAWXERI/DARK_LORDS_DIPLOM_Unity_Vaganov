@@ -55,15 +55,31 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                 {
                     case FieldNum.Num1:
                         GameManager.CardPlayerField1 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                        if (GameManager.CardPlayerField1.SelfCard.PassiveAbilities != null)
+                        {
+                            GameManager.CardPlayerField1.SelfCard.PassiveAbilities.ActivatePassiveAbilities();
+                        }
                         break;
                     case FieldNum.Num2:
                         GameManager.CardPlayerField2 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                        if (GameManager.CardPlayerField2.SelfCard.PassiveAbilities != null)
+                        {
+                            GameManager.CardPlayerField2.SelfCard.PassiveAbilities.ActivatePassiveAbilities();
+                        }
                         break;
                     case FieldNum.Num3:
                         GameManager.CardPlayerField3 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                        if (GameManager.CardPlayerField3.SelfCard.PassiveAbilities != null)
+                        {
+                            GameManager.CardPlayerField3.SelfCard.PassiveAbilities.ActivatePassiveAbilities();
+                        }
                         break;
                     case FieldNum.Num4:
                         GameManager.CardPlayerField4 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                        if (GameManager.CardPlayerField4.SelfCard.PassiveAbilities != null)
+                        {
+                            GameManager.CardPlayerField4.SelfCard.PassiveAbilities.ActivatePassiveAbilities();
+                        }
                         break;
                 }
             }
@@ -73,15 +89,31 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                 {
                     case FieldNum.Num1:
                         GameManager.CardEnemyField1 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                        if (GameManager.CardEnemyField1.SelfCard.PassiveAbilities != null)
+                        {
+                            GameManager.CardEnemyField1.SelfCard.PassiveAbilities.ActivatePassiveAbilities();
+                        }
                         break;
                     case FieldNum.Num2:
                         GameManager.CardEnemyField2 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                        if (GameManager.CardEnemyField2.SelfCard.PassiveAbilities != null)
+                        {
+                            GameManager.CardEnemyField2.SelfCard.PassiveAbilities.ActivatePassiveAbilities();
+                        }
                         break;
                     case FieldNum.Num3:
                         GameManager.CardEnemyField3 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                        if (GameManager.CardEnemyField3.SelfCard.PassiveAbilities != null)
+                        {
+                            GameManager.CardEnemyField3.SelfCard.PassiveAbilities.ActivatePassiveAbilities();
+                        }
                         break;
                     case FieldNum.Num4:
                         GameManager.CardEnemyField4 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                        if (GameManager.CardEnemyField4.SelfCard.PassiveAbilities != null)
+                        {
+                            GameManager.CardEnemyField4.SelfCard.PassiveAbilities.ActivatePassiveAbilities();
+                        }
                         break;
                 }
             }

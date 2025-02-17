@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+//using static System.Net.Mime.MediaTypeNames;
 
 public class CardInfoScript : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class CardInfoScript : MonoBehaviour
     public TextMeshProUGUI Name;
     public TextMeshProUGUI Attack;
     public TextMeshProUGUI Health;
+    public TextMeshProUGUI PassiveAbilitiesText;
     public int ID;
 
 
@@ -22,6 +24,7 @@ public class CardInfoScript : MonoBehaviour
         Name.text = card.Name;
         Attack.text = card.Attack.ToString();
         Health.text = card.Health.ToString();
+        PassiveAbilitiesText.text = card.PassiveAbilities.GetPassiveAbilityText();
         ID = id;
     }
 

@@ -7,14 +7,18 @@ public struct Card
     public string Name;
     public Sprite Logo;
     public int Attack, Health, Power;
+    public IPassiveAbilitiesCard PassiveAbilities;
+    public string PassiveAbilitiesText;
 
-    public Card(string name, Sprite logo, int attack, int health, int power)
+    public Card(string name, Sprite logo, int attack, int health, int power, IPassiveAbilitiesCard passiveAbilities, string passiveAbilitiesText)
     {
         Name = name;
         Logo = logo;
         Attack = attack;
         Health = health;
         Power = power;
+        PassiveAbilities = passiveAbilities;
+        PassiveAbilitiesText = passiveAbilitiesText;
     }
 }
 
@@ -36,7 +40,7 @@ public class CardManager : MonoBehaviour
 
         foreach (var card in CardsAll)
         {
-            CardManagerStatic.AllCards.Add(new Card(card.name, card.Logo, card.Attack, card.Health, card.Power));
+            CardManagerStatic.AllCards.Add(new Card(card.name, card.Logo, card.Attack, card.Health, card.Power, card.PassiveAbilities, card.PassiveAbilities.GetPassiveAbilityText()));
         }
     }
 }

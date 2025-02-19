@@ -7,10 +7,10 @@ public struct Card
     public string Name;
     public Sprite Logo;
     public int Attack, Health, Power;
-    public IPassiveAbilitiesCard PassiveAbilities;
+    public PassiveAbilitiesCard PassiveAbilities;
     public string PassiveAbilitiesText;
 
-    public Card(string name, Sprite logo, int attack, int health, int power, IPassiveAbilitiesCard passiveAbilities, string passiveAbilitiesText)
+    public Card(string name, Sprite logo, int attack, int health, int power, PassiveAbilitiesCard passiveAbilities, string passiveAbilitiesText)
     {
         Name = name;
         Logo = logo;

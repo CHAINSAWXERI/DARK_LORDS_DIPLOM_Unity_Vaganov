@@ -10,5 +10,5 @@ public class CardScriptable : ScriptableObject
     [SerializeField] public int Attack;
     [SerializeField] public int Health;
     [SerializeField] public int Power;
-    [SerializeField] public PassiveAbilitiesCard PassiveAbilities; // Изменено на конкретный класс
+    [SerializeField] public PassiveAbility PassiveAbilities; // Поле для пассивного умения
 }

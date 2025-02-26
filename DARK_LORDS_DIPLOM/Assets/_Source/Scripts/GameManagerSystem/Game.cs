@@ -15,7 +15,7 @@ public class Game
         List<Card> list = new List<Card>();
         for (int i = 0; i < Deck.Count; i++)
         {
-            Card card = new Card(Deck[i].Name, Deck[i].Logo, Deck[i].Attack, Deck[i].Health, Deck[i].Power, Deck[i].PassiveAbilities, Deck[i].PassiveAbilities.GetPassiveAbilityText());
+            Card card = new Card(Deck[i].Name, Deck[i].Logo, Deck[i].Attack, Deck[i].Health, Deck[i].Power, Deck[i].PassiveAbilities);
             list.Add(card);
         }
 

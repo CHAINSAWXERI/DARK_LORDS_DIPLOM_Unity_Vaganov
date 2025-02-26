@@ -17,3 +17,4 @@ MonoBehaviour:
   Attack: 1
   Health: 4
   Power: 6
+  PassiveAbilities: {fileID: 11400000, guid: d71f53382e87b334589cd4ee35abe747, type: 2}

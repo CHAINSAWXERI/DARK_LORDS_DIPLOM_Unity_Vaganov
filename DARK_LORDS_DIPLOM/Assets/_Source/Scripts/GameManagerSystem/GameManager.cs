@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using System.Dynamic;
 using Unity.VisualScripting;
+using static Unity.VisualScripting.Member;
+
 public class GameManager : MonoBehaviour
 {
     public Game CurrentGame;
@@ -88,16 +90,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TurnFunc());
     }
 
-    void GiveHandCards(List<Card> deck, List<CardInfoScript> hand, Transform handTransform)
+    public void GiveHandCards(List<Card> deck, List<CardInfoScript> hand, Transform handTransform)
     {
         int i = 0;
         while (i++ < 4)
         {
-            GiveCardsToHand(deck, hand, handTransform);
+            GiveCardsToHand(deck, hand, handTransform); 
         }
     }
 
-    void GiveCardsToHand(List<Card> deck, List<CardInfoScript> hand, Transform handTransform)
+    public void GiveCardsToHand(List<Card> deck, List<CardInfoScript> hand, Transform handTransform)
     {
         if (deck.Count == 0)
         {
@@ -110,9 +112,9 @@ public class GameManager : MonoBehaviour
         }
 
         Card card = deck[0];
-
         GameObject cardGO = Instantiate(CardPref, handTransform, false);
-        cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount);
+
+        cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this);
         IdPlayerCardCount++;
         hand.Add(cardGO.GetComponent<CardInfoScript>());
 
@@ -171,7 +173,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            cards[maxPowerIndex].ShowCardInfo(cards[maxPowerIndex].SelfCard, IdEnemyCardCount);
+            cards[maxPowerIndex].ShowCardInfo(cards[maxPowerIndex].SelfCard, IdEnemyCardCount, this);
             IdEnemyCardCount++;
 
             bool cardIsPlace = false;
@@ -181,41 +183,53 @@ public class GameManager : MonoBehaviour
                 {
                     cards[maxPowerIndex].transform.SetParent(EnemyField1);
                     CardEnemyField1 = cards[maxPowerIndex];
+                    //CardEnemyField1.ShowCardInfo(CardEnemyField1.SelfCard, CardEnemyField1.ID, this);
                     EnemyField1.gameObject.GetComponent<DropPlaceScript>().currentCard = cards[maxPowerIndex].gameObject.GetComponent<CardMoveScript>();
 
                     cards.RemoveAll(c => c.ID == cards[maxPowerIndex].ID);
                     cardIsPlace = true;
                     firstCard = false;
+
+                    CardEnemyField1.SelfCard.PassiveAbilities.Activate(EnemyField1.gameObject.GetComponent<DropPlaceScript>(), CardEnemyField1, CardPlayerField1, CardEnemyField2, null, this);
                 }
                 if (PlayerField2.gameObject.GetComponent<DropPlaceScript>().currentCard != null && EnemyField2.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
                 {
                     cards[maxPowerIndex].transform.SetParent(EnemyField2);
                     CardEnemyField2 = cards[maxPowerIndex];
+                    //CardEnemyField2.ShowCardInfo(CardEnemyField2.SelfCard, CardEnemyField2.ID, this);
                     EnemyField2.gameObject.GetComponent<DropPlaceScript>().currentCard = cards[maxPowerIndex].gameObject.GetComponent<CardMoveScript>();
 
                     cards.RemoveAll(c => c.ID == cards[maxPowerIndex].ID);
                     cardIsPlace = true;
                     firstCard = false;
+
+                    CardEnemyField2.SelfCard.PassiveAbilities.Activate(EnemyField2.gameObject.GetComponent<DropPlaceScript>(), CardEnemyField2, CardPlayerField2, CardEnemyField3, CardEnemyField1, this);
                 }
                 if (PlayerField3.gameObject.GetComponent<DropPlaceScript>().currentCard != null && EnemyField3.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
                 {
                     cards[maxPowerIndex].transform.SetParent(EnemyField3);
                     CardEnemyField3 = cards[maxPowerIndex];
+                    //CardEnemyField3.ShowCardInfo(CardEnemyField3.SelfCard, CardEnemyField3.ID, this);
                     EnemyField3.gameObject.GetComponent<DropPlaceScript>().currentCard = cards[maxPowerIndex].gameObject.GetComponent<CardMoveScript>();
 
                     cards.RemoveAll(c => c.ID == cards[maxPowerIndex].ID);
                     cardIsPlace = true;
                     firstCard = false;
+
+                    CardEnemyField3.SelfCard.PassiveAbilities.Activate(EnemyField3.gameObject.GetComponent<DropPlaceScript>(), CardEnemyField3, CardPlayerField3, CardEnemyField4, CardEnemyField2, this);
                 }
                 if (PlayerField4.gameObject.GetComponent<DropPlaceScript>().currentCard != null && EnemyField4.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
                 {
                     cards[maxPowerIndex].transform.SetParent(EnemyField4);
                     CardEnemyField4 = cards[maxPowerIndex];
+                    //CardEnemyField4.ShowCardInfo(CardEnemyField4.SelfCard, CardEnemyField4.ID, this);
                     EnemyField4.gameObject.GetComponent<DropPlaceScript>().currentCard = cards[maxPowerIndex].gameObject.GetComponent<CardMoveScript>();
 
                     cards.RemoveAll(c => c.ID == cards[maxPowerIndex].ID);
                     cardIsPlace = true;
                     firstCard = false;
+
+                    CardEnemyField4.SelfCard.PassiveAbilities.Activate(EnemyField4.gameObject.GetComponent<DropPlaceScript>(), CardEnemyField4, CardPlayerField4, null, CardEnemyField3, this);
                 }
 
                 if (cardIsPlace == false)
@@ -225,41 +239,57 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                if (PlayerField1.gameObject.GetComponent<DropPlaceScript>().currentCard == null && EnemyField1.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
+                if (PlayerField1.gameObject.GetComponent<DropPlaceScript>().currentCard != null && EnemyField1.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
                 {
                     cards[maxPowerIndex].transform.SetParent(EnemyField1);
                     CardEnemyField1 = cards[maxPowerIndex];
+                    //CardEnemyField1.ShowCardInfo(CardEnemyField1.SelfCard, CardEnemyField1.ID, this);
                     EnemyField1.gameObject.GetComponent<DropPlaceScript>().currentCard = cards[maxPowerIndex].gameObject.GetComponent<CardMoveScript>();
 
                     cards.RemoveAll(c => c.ID == cards[maxPowerIndex].ID);
                     cardIsPlace = true;
+                    firstCard = false;
+
+                    CardEnemyField1.SelfCard.PassiveAbilities.Activate(EnemyField1.gameObject.GetComponent<DropPlaceScript>(), CardEnemyField1, CardPlayerField1, CardEnemyField2, null, this);
                 }
-                if (PlayerField2.gameObject.GetComponent<DropPlaceScript>().currentCard == null && EnemyField2.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
+                if (PlayerField2.gameObject.GetComponent<DropPlaceScript>().currentCard != null && EnemyField2.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
                 {
                     cards[maxPowerIndex].transform.SetParent(EnemyField2);
                     CardEnemyField2 = cards[maxPowerIndex];
+                    //CardEnemyField2.ShowCardInfo(CardEnemyField2.SelfCard, CardEnemyField2.ID, this);
                     EnemyField2.gameObject.GetComponent<DropPlaceScript>().currentCard = cards[maxPowerIndex].gameObject.GetComponent<CardMoveScript>();
 
                     cards.RemoveAll(c => c.ID == cards[maxPowerIndex].ID);
                     cardIsPlace = true;
+                    firstCard = false;
+
+                    CardEnemyField2.SelfCard.PassiveAbilities.Activate(EnemyField2.gameObject.GetComponent<DropPlaceScript>(), CardEnemyField2, CardPlayerField2, CardEnemyField3, CardEnemyField1, this);
                 }
-                if (PlayerField3.gameObject.GetComponent<DropPlaceScript>().currentCard == null && EnemyField3.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
+                if (PlayerField3.gameObject.GetComponent<DropPlaceScript>().currentCard != null && EnemyField3.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
                 {
                     cards[maxPowerIndex].transform.SetParent(EnemyField3);
                     CardEnemyField3 = cards[maxPowerIndex];
+                    //CardEnemyField3.ShowCardInfo(CardEnemyField3.SelfCard, CardEnemyField3.ID, this);
                     EnemyField3.gameObject.GetComponent<DropPlaceScript>().currentCard = cards[maxPowerIndex].gameObject.GetComponent<CardMoveScript>();
 
                     cards.RemoveAll(c => c.ID == cards[maxPowerIndex].ID);
                     cardIsPlace = true;
+                    firstCard = false;
+
+                    CardEnemyField3.SelfCard.PassiveAbilities.Activate(EnemyField3.gameObject.GetComponent<DropPlaceScript>(), CardEnemyField3, CardPlayerField3, CardEnemyField4, CardEnemyField2, this);
                 }
-                if (PlayerField4.gameObject.GetComponent<DropPlaceScript>().currentCard == null && EnemyField4.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
+                if (PlayerField4.gameObject.GetComponent<DropPlaceScript>().currentCard != null && EnemyField4.gameObject.GetComponent<DropPlaceScript>().currentCard == null && cardIsPlace == false)
                 {
                     cards[maxPowerIndex].transform.SetParent(EnemyField4);
                     CardEnemyField4 = cards[maxPowerIndex];
+                    //CardEnemyField4.ShowCardInfo(CardEnemyField4.SelfCard, CardEnemyField4.ID, this);
                     EnemyField4.gameObject.GetComponent<DropPlaceScript>().currentCard = cards[maxPowerIndex].gameObject.GetComponent<CardMoveScript>();
 
                     cards.RemoveAll(c => c.ID == cards[maxPowerIndex].ID);
                     cardIsPlace = true;
+                    firstCard = false;
+
+                    CardEnemyField4.SelfCard.PassiveAbilities.Activate(EnemyField4.gameObject.GetComponent<DropPlaceScript>(), CardEnemyField4, CardPlayerField4, null, CardEnemyField3, this);
                 }
             }
             cardIsPlace = false;
@@ -279,11 +309,12 @@ public class GameManager : MonoBehaviour
 
         if (IsPlayerTurn)
         {
-            GiveNewCards();
+            GiveCardsToHand(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand);
             BlockPhone.SetActive(false);
         }
         else
         {
+            GiveCardsToHand(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand);
             BlockPhone.SetActive(true);
         }
 
@@ -294,18 +325,12 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void GiveNewCards()
-    {
-        GiveCardsToHand(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand);
-        GiveCardsToHand(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand);
-    }
-
     public void Attack()
     {
         if (IsPlayerTurn)
         {
             Debug.Log("АТАКА ВРАГА!!!");
-            if (CardEnemyField1 != null)
+            if (CardEnemyField1 != null && CardEnemyField1.SelfCard.Attack > 0)
             {
                 if (CardPlayerField1 != null)
                 {
@@ -335,7 +360,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (CardEnemyField2 != null)
+            if (CardEnemyField2 != null && CardEnemyField2.SelfCard.Attack > 0)
             {
                 if (CardPlayerField2 != null)
                 {
@@ -365,7 +390,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (CardEnemyField3 != null)
+            if (CardEnemyField3 != null && CardEnemyField3.SelfCard.Attack > 0)
             {
                 if (CardPlayerField3 != null)
                 {
@@ -395,7 +420,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (CardEnemyField4 != null)
+            if (CardEnemyField4 != null && CardEnemyField4.SelfCard.Attack > 0)
             {
                 if (CardPlayerField4 != null)
                 {
@@ -429,7 +454,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("АТАКА ИГРОКА!!!");
 
-            if (CardPlayerField1 != null)
+            if (CardPlayerField1 != null && CardPlayerField1.SelfCard.Attack > 0)
             {
                 if (CardEnemyField1 != null)
                 {
@@ -459,7 +484,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (CardPlayerField2 != null)
+            if (CardPlayerField2 != null && CardPlayerField2.SelfCard.Attack > 0)
             {
                 if (CardEnemyField2 != null)
                 {
@@ -489,7 +514,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (CardPlayerField3 != null)
+            if (CardPlayerField3 != null && CardPlayerField3.SelfCard.Attack > 0)
             {
                 if (CardEnemyField3 != null)
                 {
@@ -519,7 +544,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (CardPlayerField4 != null)
+            if (CardPlayerField4 != null && CardPlayerField4.SelfCard.Attack > 0)
             {
                 if (CardEnemyField4 != null)
                 {

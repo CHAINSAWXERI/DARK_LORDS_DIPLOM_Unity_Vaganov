@@ -373,6 +373,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 149402560}
   FieldOpposite: {fileID: 214876621}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 3
   fieldNum: 1
@@ -505,6 +507,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
   FieldOpposite: {fileID: 0}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 0
   fieldNum: 0
@@ -967,6 +971,8 @@ MonoBehaviour:
   BlockPhone: {fileID: 45721949}
   LoseScreen: {fileID: 34330164}
   WinScreen: {fileID: 696409673}
+  firstCard: 0
+  secondCard: 0
 --- !u!4 &149402561
 Transform:
   m_ObjectHideFlags: 0
@@ -1099,6 +1105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 149402560}
   FieldOpposite: {fileID: 214876621}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 1
   fieldNum: 1
@@ -1369,6 +1377,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 149402560}
   FieldOpposite: {fileID: 1620763470}
+  FieldRight: {fileID: 214876621}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 1
   fieldNum: 0
@@ -1912,6 +1922,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 149402560}
   FieldOpposite: {fileID: 1110873721}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 1
   fieldNum: 2
@@ -2269,6 +2281,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
   FieldOpposite: {fileID: 0}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 0
   fieldNum: 0
@@ -2582,6 +2596,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 149402560}
   FieldOpposite: {fileID: 768349478}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 3
   fieldNum: 2
@@ -3473,6 +3489,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
   FieldOpposite: {fileID: 0}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 2
   fieldNum: 0
@@ -3791,6 +3809,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 149402560}
   FieldOpposite: {fileID: 1633116178}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 1
   fieldNum: 3
@@ -4171,6 +4191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 149402560}
   FieldOpposite: {fileID: 452672383}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 3
   fieldNum: 0
@@ -4291,6 +4313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 149402560}
   FieldOpposite: {fileID: 1539292441}
+  FieldRight: {fileID: 0}
+  FieldLeft: {fileID: 0}
   currentCard: {fileID: 0}
   fieldType: 3
   fieldNum: 3

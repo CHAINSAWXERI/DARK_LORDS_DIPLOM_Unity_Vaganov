@@ -1520,7 +1520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerHP: 20
-  DeckObj: {fileID: 11400000, guid: 999c234664cc80a4389bfc952d005c07, type: 2}
+  DeckObj: {fileID: 11400000, guid: f72827893fb19a846a8ec382c0c2131e, type: 2}
 --- !u!1 &650142606
 GameObject:
   m_ObjectHideFlags: 0
@@ -4497,7 +4497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerHP: 20
-  DeckObj: {fileID: 11400000, guid: 38e9aa83e95e0c0408a36c5b960050dc, type: 2}
+  DeckObj: {fileID: 11400000, guid: f72827893fb19a846a8ec382c0c2131e, type: 2}
 --- !u!1 &1773386899
 GameObject:
   m_ObjectHideFlags: 0

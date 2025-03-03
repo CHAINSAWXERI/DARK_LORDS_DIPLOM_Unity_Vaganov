@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,12 +11,10 @@ public class BoostByOpCardsAbilitie : PassiveAbility
     {
         if (dropPlaceOn.fieldType == FieldType.SELF_FIELD)
         {
-            Debug.Log(gameManager.EnemyHandCards.Count);
             fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + gameManager.EnemyHandCards.Count;
         }
         if (dropPlaceOn.fieldType == FieldType.ENEMY_FIELD)
         {
-            Debug.Log(gameManager.PlayerHandCards.Count);
             fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + gameManager.PlayerHandCards.Count;
         }
         //

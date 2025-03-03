@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
-  m_Name: Young Infantryman
+  m_Name: New ScriptableObjects
   m_EditorClassIdentifier: 
-  Name: "\u041C\u043E\u043B\u043E\u0434\u043E\u0439 \u041F\u0435\u0445\u043E\u0442\u0438\u043D\u0435\u0446"
-  Logo: {fileID: 21300000, guid: 84679d4333e57af4aa586946729d4f78, type: 3}
-  Attack: 1
-  Health: 2
-  Power: 1
-  PassiveAbilities: {fileID: 11400000, guid: df517c8f1266fea4c8824a50114f10b0, type: 2}
+  Name: 
+  Logo: {fileID: 0}
+  Attack: 0
+  Health: 0
+  Power: 0
+  PassiveAbilities: {fileID: 0}

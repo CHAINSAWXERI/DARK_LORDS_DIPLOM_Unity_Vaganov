@@ -46,6 +46,7 @@ public class CardInfoScript : MonoBehaviour
 
     private void ClearDeadCards(GameManager gameManager)
     {
+        Debug.Log("ПОДЧИСТКА");
         if (this == gameManager.CardPlayerField1)
         {
             gameManager.PlayerDiscardedDeck.Add(gameManager.CardPlayerField1.SelfCard);

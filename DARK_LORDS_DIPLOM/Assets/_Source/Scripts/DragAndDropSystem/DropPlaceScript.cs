@@ -59,8 +59,6 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                         if (GameManager.CardPlayerField1.SelfCard.PassiveAbilities != null)
                         {
                             GameManager.CardPlayerField1.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField1, GameManager.CardEnemyField1, GameManager.CardPlayerField2, null, GameManager);
-                            
-                            //card.modify_stats(stats);
                         }
                         break;
                     case FieldNum.Num2:
@@ -124,41 +122,6 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                         break;
                 }
             }
-            /*
-            if (GameManager.CardPlayerField1 != null)
-            {
-                GameManager.CardPlayerField1.ShowCardInfo(GameManager.CardPlayerField1.SelfCard, GameManager.CardPlayerField1.ID, GameManager);
-            }
-            if (GameManager.CardPlayerField2 != null)
-            {
-                GameManager.CardPlayerField2.ShowCardInfo(GameManager.CardPlayerField2.SelfCard, GameManager.CardPlayerField2.ID, GameManager);
-            }
-            if (GameManager.CardPlayerField3 != null)
-            {
-                GameManager.CardPlayerField3.ShowCardInfo(GameManager.CardPlayerField3.SelfCard, GameManager.CardPlayerField3.ID, GameManager);
-            }
-            if (GameManager.CardPlayerField4 != null)
-            {
-                GameManager.CardPlayerField4.ShowCardInfo(GameManager.CardPlayerField4.SelfCard, GameManager.CardPlayerField4.ID, GameManager);
-            }
-
-            if (GameManager.CardEnemyField1 != null)
-            {
-                GameManager.CardEnemyField1.ShowCardInfo(GameManager.CardEnemyField1.SelfCard, GameManager.CardEnemyField1.ID, GameManager);
-            }
-            if (GameManager.CardEnemyField2 != null)
-            {
-                GameManager.CardEnemyField2.ShowCardInfo(GameManager.CardEnemyField2.SelfCard, GameManager.CardEnemyField2.ID, GameManager);
-            }
-            if (GameManager.CardEnemyField3 != null)
-            {
-                GameManager.CardEnemyField3.ShowCardInfo(GameManager.CardEnemyField3.SelfCard, GameManager.CardEnemyField3.ID, GameManager);
-            }
-            if (GameManager.CardEnemyField4 != null)
-            {
-                GameManager.CardEnemyField4.ShowCardInfo(GameManager.CardEnemyField4.SelfCard, GameManager.CardEnemyField4.ID, GameManager);
-            }
-            */
 
             card.DeafoultParent = transform;
             currentCard = card;

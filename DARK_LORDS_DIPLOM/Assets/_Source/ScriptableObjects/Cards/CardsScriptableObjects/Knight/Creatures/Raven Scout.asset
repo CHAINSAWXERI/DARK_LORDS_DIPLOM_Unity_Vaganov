@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
   m_Name: Raven Scout
   m_EditorClassIdentifier: 
+  CardType: 0
   Name: "\u0412\u043E\u0440\u043E\u043D \u0420\u0430\u0437\u0432\u0435\u0434\u0447\u0438\u043A"
   Logo: {fileID: 21300000, guid: f3b4b3c4b6c2ff9418e87d1cfd8e8f3c, type: 3}
   Attack: 1
   Health: 1
   Power: 3
   PassiveAbilities: {fileID: 11400000, guid: df517c8f1266fea4c8824a50114f10b0, type: 2}
+  WhoseCard: 0

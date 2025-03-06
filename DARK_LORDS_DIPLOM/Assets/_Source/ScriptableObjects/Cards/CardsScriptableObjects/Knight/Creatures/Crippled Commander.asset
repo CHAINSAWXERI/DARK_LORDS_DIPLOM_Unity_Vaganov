@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
   m_Name: Crippled Commander
   m_EditorClassIdentifier: 
+  CardType: 0
   Name: "\u0418\u0441\u043A\u0430\u043B\u0435\u0447\u0435\u043D\u043D\u044B\u0439
     \u041A\u043E\u043C\u0430\u043D\u0434\u0438\u0440"
   Logo: {fileID: 21300000, guid: 7d8f10daade2dbd4ea92a305c52e1971, type: 3}
@@ -19,3 +20,4 @@ MonoBehaviour:
   Health: 2
   Power: 2
   PassiveAbilities: {fileID: 11400000, guid: df517c8f1266fea4c8824a50114f10b0, type: 2}
+  WhoseCard: 0

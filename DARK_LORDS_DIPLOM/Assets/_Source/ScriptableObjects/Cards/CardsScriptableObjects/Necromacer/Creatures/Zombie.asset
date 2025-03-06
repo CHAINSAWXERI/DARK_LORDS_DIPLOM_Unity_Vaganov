@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
   m_Name: Zombie
   m_EditorClassIdentifier: 
+  CardType: 0
   Name: "\u0417\u043E\u043C\u0431\u0438"
   Logo: {fileID: 21300000, guid: 14d492cbbe7dc9a4c86fce693b9849b1, type: 3}
   Attack: 1
   Health: 0
   Power: 4
   PassiveAbilities: {fileID: 11400000, guid: 2da224d0448d190449b72a6a07146097, type: 2}
+  WhoseCard: 0

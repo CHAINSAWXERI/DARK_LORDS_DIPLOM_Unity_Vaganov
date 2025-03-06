@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
-  m_Name: Phantom Soldier
+  m_Name: magic
   m_EditorClassIdentifier: 
-  CardType: 0
-  Name: "\u0424\u0430\u043D\u0442\u043E\u043C\u043D\u044B\u0439 \u0421\u043E\u043B\u0434\u0430\u0442"
-  Logo: {fileID: 21300000, guid: fcc5f54530bbfcf4f84a5d13c0b5f2a1, type: 3}
-  Attack: 1
-  Health: 4
-  Power: 6
-  PassiveAbilities: {fileID: 11400000, guid: d71f53382e87b334589cd4ee35abe747, type: 2}
+  CardType: 1
+  Name: "\u041C\u0410\u0413\u0418\u042F"
+  Logo: {fileID: 0}
+  Attack: 0
+  Health: 0
+  Power: 0
+  PassiveAbilities: {fileID: 11400000, guid: 8d40a0728d9e0b646bc370fccc45ae27, type: 2}
   WhoseCard: 0

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
   m_Name: Fire Lich
   m_EditorClassIdentifier: 
+  CardType: 0
   Name: "\u041E\u0433\u043D\u0435\u043D\u043D\u044B\u0439 \u041B\u0438\u0447"
   Logo: {fileID: 21300000, guid: 47b007b839dabdb4ba1e2d83bbd31ddf, type: 3}
   Attack: 3
   Health: 3
   Power: 8
   PassiveAbilities: {fileID: 11400000, guid: df517c8f1266fea4c8824a50114f10b0, type: 2}
+  WhoseCard: 0

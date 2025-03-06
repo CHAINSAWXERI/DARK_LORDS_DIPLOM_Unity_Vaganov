@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
   m_Name: Cultist
   m_EditorClassIdentifier: 
+  CardType: 0
   Name: "\u041A\u0443\u043B\u044C\u0442\u0438\u0441\u0442"
   Logo: {fileID: 21300000, guid: f41b7effc0dfb1949b0b26fc02270311, type: 3}
   Attack: 1
   Health: 2
   Power: 0
   PassiveAbilities: {fileID: 11400000, guid: df517c8f1266fea4c8824a50114f10b0, type: 2}
+  WhoseCard: 0

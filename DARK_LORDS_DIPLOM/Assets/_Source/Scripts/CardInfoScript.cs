@@ -15,11 +15,14 @@ public class CardInfoScript : MonoBehaviour
     public TextMeshProUGUI Health;
     public TextMeshProUGUI PassiveAbilitiesText;
     public int ID;
+    public WhoseCard WhoseCard;
+    public GameManager GameManager;
 
 
-    public void ShowCardInfo(Card card, int id, GameManager gameManager)
+    public void ShowCardInfo(Card card, int id, GameManager gameManager, WhoseCard whoseCard)
     {
         SelfCard = card;
+        GameManager = gameManager;
 
         if (card.Attack < 0)
         {
@@ -28,7 +31,7 @@ public class CardInfoScript : MonoBehaviour
         if (card.Health <= 0)
         {
             card.Health = 0;
-            ClearDeadCards(gameManager);
+            ClearDeadCards(GameManager);
         }
         Logo.sprite = card.Logo;
         Logo.preserveAspect = true;
@@ -37,6 +40,9 @@ public class CardInfoScript : MonoBehaviour
         Health.text = card.Health.ToString();
         PassiveAbilitiesText.text = card.PassiveAbilities.GetAbilityText();
         ID = id;
+        WhoseCard = whoseCard;
+        Debug.Log(card.WhoseCard.ToString());
+        Debug.Log(whoseCard.ToString());
     }
 
     private void Start()
@@ -46,6 +52,7 @@ public class CardInfoScript : MonoBehaviour
 
     private void ClearDeadCards(GameManager gameManager)
     {
+        Debug.Log("ПОДЧИСТКА");
         if (this == gameManager.CardPlayerField1)
         {
             gameManager.PlayerDiscardedDeck.Add(gameManager.CardPlayerField1.SelfCard);

@@ -12,4 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22def444bc94eb442aeba82797143fba, type: 3}
   m_Name: corrTest
   m_EditorClassIdentifier: 
-  Deck: []
+  Deck:
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: 7b73aa3ab5591ff41b0b6b03fd1c428d, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}
+  - {fileID: 11400000, guid: a283f2662e694be48ae1d33d3ec32e85, type: 2}

@@ -13,7 +13,7 @@ public class DebuffAttackAbility : PassiveAbility
         {
             fieldOpposite.SelfCard.Attack = fieldOpposite.SelfCard.Attack - 2;
 
-            fieldOpposite.ShowCardInfo(fieldOpposite.SelfCard, fieldOpposite.ID, gameManager);
+            fieldOpposite.ShowCardInfo(fieldOpposite.SelfCard, fieldOpposite.ID, gameManager, fieldOpposite.SelfCard.WhoseCard);
         }
     }
 

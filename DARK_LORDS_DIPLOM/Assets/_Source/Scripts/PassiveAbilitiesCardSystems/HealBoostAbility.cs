@@ -32,7 +32,7 @@ public class HealBoostAbility : PassiveAbility
             }
         }
         //
-        fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager);
+        fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager, fieldOn.WhoseCard);
     }
 
     public override string GetAbilityText()

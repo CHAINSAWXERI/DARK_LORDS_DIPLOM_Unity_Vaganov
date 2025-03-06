@@ -4,18 +4,18 @@ using UnityEngine;
 public class Game
 {
     public List<Card> EnemyDeck, PlayerDeck;
-    public Game(List<CardScriptable> enemyDeck, List<CardScriptable> playerDeck) // (DeckObj playerDeck, DeckObj enemyDeck)
+    public Game(List<CardScriptable> enemyDeck, List<CardScriptable> playerDeck, WhoseCard whoseCardEnemy, WhoseCard whoseCardPlayer) // (DeckObj playerDeck, DeckObj enemyDeck)
     {
-        EnemyDeck = GiveDeckCard(enemyDeck); // (enemyDeck.ListDeck)
-        PlayerDeck = GiveDeckCard(playerDeck); // (playerDeck.ListDeck)
+        EnemyDeck = GiveDeckCard(enemyDeck, whoseCardEnemy); // (enemyDeck.ListDeck)
+        PlayerDeck = GiveDeckCard(playerDeck, whoseCardPlayer); // (playerDeck.ListDeck)
     }
 
-    List<Card> GiveDeckCard(List<CardScriptable> Deck) 
+    List<Card> GiveDeckCard(List<CardScriptable> Deck, WhoseCard whoseCard) 
     {
         List<Card> list = new List<Card>();
         for (int i = 0; i < Deck.Count; i++)
         {
-            Card card = new Card(Deck[i].Name, Deck[i].Logo, Deck[i].Attack, Deck[i].Health, Deck[i].Power, Deck[i].PassiveAbilities);
+            Card card = new Card(Deck[i].Name, Deck[i].Logo, Deck[i].Attack, Deck[i].Health, Deck[i].Power, Deck[i].PassiveAbilities, Deck[i].CardType, whoseCard);
             list.Add(card);
         }
 

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
   m_Name: Vampire Medic
   m_EditorClassIdentifier: 
+  CardType: 0
   Name: "\u0412\u0430\u043C\u043F\u0438\u0440 \u041C\u0435\u0434\u0438\u043A"
   Logo: {fileID: 21300000, guid: 42f0c58f7a6a73e4480cea4c76652888, type: 3}
   Attack: 1
   Health: 6
   Power: 4
   PassiveAbilities: {fileID: 11400000, guid: df517c8f1266fea4c8824a50114f10b0, type: 2}
+  WhoseCard: 0

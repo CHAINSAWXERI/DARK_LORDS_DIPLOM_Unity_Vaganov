@@ -782,6 +782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a0a6af8a65af246bf51c242af69ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardInfoScript: {fileID: -4785135995237626347}
   DeafoultParent: {fileID: 0}
   isDraggable: 0
 --- !u!114 &-4785135995237626347
@@ -802,6 +803,8 @@ MonoBehaviour:
   Health: {fileID: 3760233704442287886}
   PassiveAbilitiesText: {fileID: 4928027568161655537}
   ID: 0
+  whoseCard: 0
+  GameManager: {fileID: 0}
 --- !u!225 &3776698513044787978
 CanvasGroup:
   m_ObjectHideFlags: 0

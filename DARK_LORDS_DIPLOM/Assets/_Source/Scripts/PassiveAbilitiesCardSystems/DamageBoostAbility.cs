@@ -31,7 +31,7 @@ public class DamageBoostAbility : PassiveAbility
                 fieldOn.SelfCard.Attack = 6;
             }
         }
-        fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager);
+        fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager, fieldOn.WhoseCard);
     }
 
     public override string GetAbilityText()

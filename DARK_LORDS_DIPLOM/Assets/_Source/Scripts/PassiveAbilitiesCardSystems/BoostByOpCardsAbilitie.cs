@@ -20,7 +20,7 @@ public class BoostByOpCardsAbilitie : PassiveAbility
             fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + gameManager.PlayerHandCards.Count;
         }
         //
-        fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager);
+        fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager, fieldOn.WhoseCard);
     }
 
     public override string GetAbilityText()

@@ -10,12 +10,12 @@ public class AddCardsAbilitie : PassiveAbility
     public override void Activate(DropPlaceScript dropPlaceOn, CardInfoScript fieldOn, CardInfoScript fieldOpposite, CardInfoScript fieldRight, CardInfoScript fieldLeft, GameManager gameManager)
     {
         Debug.Log("ВОРОН АКТИВИРОВАН");
-        if (dropPlaceOn.fieldType == FieldType.SELF_FIELD)
+        if ((dropPlaceOn.fieldType == FieldType.SELF_FIELD) || (dropPlaceOn.fieldType == FieldType.SELF_SPELL_FIELD))
         {
             Debug.Log("С ТВОЕЙ СТОРОНЫ");
             gameManager.GiveCardsToHand(gameManager.CurrentGame.PlayerDeck, gameManager.PlayerHandCards, gameManager.PlayerHand, WhoseCard.BluePlayer);
         }
-        if (dropPlaceOn.fieldType == FieldType.ENEMY_FIELD)
+        if ((dropPlaceOn.fieldType == FieldType.ENEMY_FIELD) || (dropPlaceOn.fieldType == FieldType.ENEMY_SPELL_FIELD))
         {
             Debug.Log("СО СТОРОНЫ ВРАГА");
             gameManager.GiveCardsToHand(gameManager.CurrentGame.EnemyDeck, gameManager.EnemyHandCards, gameManager.EnemyHand, WhoseCard.RedPlayer);

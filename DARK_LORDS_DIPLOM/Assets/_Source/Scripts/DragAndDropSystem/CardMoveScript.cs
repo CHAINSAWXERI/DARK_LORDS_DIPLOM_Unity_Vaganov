@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    [SerializeField] public CardInfoScript cardInfoScript;
     private Camera MainCamera;
     private Vector3 offset;
     public Transform DeafoultParent;
@@ -34,6 +35,15 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
         transform.SetParent(DeafoultParent.parent);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+        if ((cardInfoScript.SelfCard.CardType == CardType.Spell) && (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer) && (cardInfoScript.GameManager.IsPlayerTurn == true))
+        {
+            cardInfoScript.GameManager.BlueSpellScreen.gameObject.SetActive(true);
+        }
+        if ((cardInfoScript.SelfCard.CardType == CardType.Spell) && (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer) && (cardInfoScript.GameManager.IsPlayerTurn == false))
+        {
+            cardInfoScript.GameManager.RedSpellScreen.gameObject.SetActive(true);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -53,6 +63,8 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             return;
         }
+        cardInfoScript.GameManager.RedSpellScreen.gameObject.SetActive(false);
+        cardInfoScript.GameManager.BlueSpellScreen.gameObject.SetActive(false);
         transform.SetParent(DeafoultParent);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
     }

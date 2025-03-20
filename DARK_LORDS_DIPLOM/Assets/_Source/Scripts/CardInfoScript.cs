@@ -36,8 +36,16 @@ public class CardInfoScript : MonoBehaviour
         Logo.sprite = card.Logo;
         Logo.preserveAspect = true;
         Name.text = card.Name;
-        Attack.text = card.Attack.ToString();
-        Health.text = card.Health.ToString();
+        if (SelfCard.CardType != CardType.Spell)
+        {
+            Attack.text = card.Attack.ToString();
+            Health.text = card.Health.ToString();
+        }
+        else
+        {
+            Attack.text = "";
+            Health.text = "";
+        }
         PassiveAbilitiesText.text = card.PassiveAbilities.GetAbilityText();
         ID = id;
         WhoseCard = whoseCard;

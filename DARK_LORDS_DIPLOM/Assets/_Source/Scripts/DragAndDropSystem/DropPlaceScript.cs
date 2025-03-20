@@ -142,16 +142,6 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
 
                 card.DeafoultParent = transform;
                 currentCard = card;
-
-                if (GameManager.firstCard == false)
-                {
-                    GameManager.firstCard = true;
-                }
-                else
-                {
-                    GameManager.secondCard = true;
-                    GameManager.BlockPhone.SetActive(true);
-                }
             }
         }
         else
@@ -170,40 +160,70 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                 return;
             }
 
-            GameManager.PlayerHandCards.RemoveAll(c => c.ID == cardInfo.ID);
-
-            if (card)
+            // Проверяем, является ли карта BluePlayer и поле SELF_FIELD
+            if (cardInfo.WhoseCard == WhoseCard.BluePlayer && fieldType == FieldType.SELF_HAND)
             {
-
-                card.DeafoultParent = transform;
-                currentCard = card;
+                Debug.Log("Карту Вернули В руку");
                 if (fieldType == FieldType.SELF_SPELL_FIELD)
                 {
-                    GameManager.PlayerDiscardedDeck.Add(currentCard.GetComponent<CardInfoScript>().SelfCard);
-                    Destroy(currentCard.gameObject);
-                    currentCard = null;
+                    gameObject.SetActive(false);
                 }
+                return;
+            }
+
+            // Проверяем, является ли карта RedPlayer и поле ENEMY_FIELD
+            if (cardInfo.WhoseCard == WhoseCard.RedPlayer && fieldType == FieldType.ENEMY_HAND)
+            {
+                Debug.Log("Карту Вернули В руку");
                 if (fieldType == FieldType.ENEMY_SPELL_FIELD)
                 {
-                    GameManager.PlayerDiscardedDeck.Add(currentCard.GetComponent<CardInfoScript>().SelfCard);
-                    Destroy(currentCard.gameObject);
-                    currentCard = null;
+                    gameObject.SetActive(false);
                 }
+                return;
+            }
 
+            GameManager.PlayerHandCards.RemoveAll(c => c.ID == cardInfo.ID);
+        }
+
+        if (card)
+        {
+            card.DeafoultParent = transform;
+            currentCard = card;
+            if (fieldType == FieldType.SELF_SPELL_FIELD)
+            {
+                Debug.Log("11111111111111111111111111111111111111111");
+                CardInfoScript newPlayerSpell = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                newPlayerSpell.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
+                Debug.Log("000");
+                GameManager.PlayerDiscardedDeck.Add(currentCard.GetComponent<CardInfoScript>().SelfCard);
+                Destroy(currentCard.gameObject);
+                currentCard = null;
                 gameObject.SetActive(false);
-
-
-                if (GameManager.firstCard == false)
-                {
-                    GameManager.firstCard = true;
-                }
-                else
-                {
-                    GameManager.secondCard = true;
-                    GameManager.BlockPhone.SetActive(true);
-                }
+            }
+            if (fieldType == FieldType.ENEMY_SPELL_FIELD)
+            {
+                Debug.Log("22222222222222222222222222222222222222222");
+                CardInfoScript newEnemySpell = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+                newEnemySpell.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
+                GameManager.PlayerDiscardedDeck.Add(currentCard.GetComponent<CardInfoScript>().SelfCard);
+                Destroy(currentCard.gameObject);
+                currentCard = null;
+                gameObject.SetActive(false);
             }
         }
+
+        if (GameManager.firstCard == false)
+        {
+            Debug.Log("ПЕРВАЯ КАРТА!");
+            GameManager.firstCard = true;
+        }
+        else
+        {
+            Debug.Log("Вторая КАРТА!");
+            GameManager.secondCard = true;
+            GameManager.BlockPhone.SetActive(true);
+        }
+
     }
 
     public CardMoveScript GetCurrentCard()

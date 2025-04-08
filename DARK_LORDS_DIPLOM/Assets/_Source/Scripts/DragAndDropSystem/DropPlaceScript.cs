@@ -212,16 +212,27 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
             }
         }
 
-        if (GameManager.firstCard == false)
+        if (GameManager.firstCardEnemy == false)
         {
             Debug.Log("ПЕРВАЯ КАРТА!");
-            GameManager.firstCard = true;
+            GameManager.firstCardEnemy = true;
         }
         else
         {
             Debug.Log("Вторая КАРТА!");
-            GameManager.secondCard = true;
+            GameManager.secondCardEnemy = true;
             GameManager.BlockPhone.SetActive(true);
+        }
+        if (GameManager.firstCardPlayer == false)
+        {
+            Debug.Log("ПЕРВАЯ КАРТА ИГРОКА!");
+            GameManager.firstCardPlayer = true;
+        }
+        else
+        {
+            Debug.Log("Вторая КАРТА ИГРОКА!");
+            GameManager.secondCardPlayer = true;
+            GameManager.BlockPhoneEnemy.SetActive(true);
         }
 
     }

@@ -7,10 +7,18 @@ using System.Dynamic;
 using Unity.VisualScripting;
 using static Unity.VisualScripting.Member;
 
+public enum GameType
+{
+    PVE,
+    PVP
+}
+
+
 public class GameManager : MonoBehaviour
 {
     public Game CurrentGame;
 
+    [SerializeField] public GameType GameType;
     [SerializeField] public PlayerInfo Enemy;
     [SerializeField] public PlayerInfo Player;
 
@@ -53,6 +61,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Transform PlayerField4;
 
     [SerializeField] public GameObject BlockPhone;
+    [SerializeField] public GameObject BlockPhoneEnemy;
     [SerializeField] public GameObject LoseScreen;
     [SerializeField] public GameObject WinScreen;
 
@@ -64,8 +73,10 @@ public class GameManager : MonoBehaviour
 
     private bool gameContinues = true;
 
-    [HideInInspector] public bool firstCard = false;
-    [HideInInspector] public bool secondCard = false;
+    [HideInInspector] public bool firstCardPlayer = false;
+    [HideInInspector] public bool secondCardPlayer = false;
+    [HideInInspector] public bool firstCardEnemy = false;
+    [HideInInspector] public bool secondCardEnemy = false;
 
     public bool IsPlayerTurn
     {
@@ -80,6 +91,7 @@ public class GameManager : MonoBehaviour
         LoseScreen.SetActive(false);
         LoseScreen.SetActive(false);
         BlockPhone.SetActive(false);
+        BlockPhoneEnemy.SetActive(false);
         BlueSpellScreen.SetActive(false);
         RedSpellScreen.SetActive(false);
 
@@ -159,8 +171,9 @@ public class GameManager : MonoBehaviour
 
         if (IsPlayerTurn)
         {
-            firstCard = false;
-            secondCard = false;
+            BlockPhoneEnemy.SetActive(true);
+            firstCardPlayer = false;
+            secondCardPlayer = false;
             while (TurnTime-- > 0)
             {
                 TurnTimeTxt.text = TurnTime.ToString();
@@ -169,15 +182,29 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            while (TurnTime-- > 27)
+            BlockPhone.SetActive(true);
+            if (GameType == GameType.PVE)
             {
-                TurnTimeTxt.text = TurnTime.ToString();
-                yield return new WaitForSeconds(1);
-            }
+                while (TurnTime-- > 27)
+                {
+                    TurnTimeTxt.text = TurnTime.ToString();
+                    yield return new WaitForSeconds(1);
+                }
 
-            if (EnemyHandCards.Count > 0)
+                if (EnemyHandCards.Count > 0)
+                {
+                    EnemyTurn(EnemyHandCards, EnemyField1, EnemyField2, EnemyField3, EnemyField4);
+                }
+            }
+            if (GameType == GameType.PVP)
             {
-                EnemyTurn(EnemyHandCards, EnemyField1, EnemyField2, EnemyField3, EnemyField4);
+                firstCardEnemy = false;
+                secondCardEnemy = false;
+                while (TurnTime-- > 0)
+                {
+                    TurnTimeTxt.text = TurnTime.ToString();
+                    yield return new WaitForSeconds(1);
+                }
             }
         }
         ChangeTurn();
@@ -336,17 +363,19 @@ public class GameManager : MonoBehaviour
             Attack();
         }
 
-        EndTurnBtn.interactable = IsPlayerTurn;
+        //EndTurnBtn.interactable = IsPlayerTurn;
 
         if (IsPlayerTurn)
         {
             GiveCardsToHand(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand, WhoseCard.BluePlayer);
             BlockPhone.SetActive(false);
+            BlockPhoneEnemy.SetActive(true);
         }
         else
         {
             GiveCardsToHand(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer);
             BlockPhone.SetActive(true);
+            BlockPhoneEnemy.SetActive(false);
         }
 
         if (gameContinues)

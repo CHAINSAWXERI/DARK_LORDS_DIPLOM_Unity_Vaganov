@@ -8,24 +8,45 @@ using UnityEngine.EventSystems;
 public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] public CardInfoScript cardInfoScript;
-    private Camera MainCamera;
+    public Camera MainCamera;
     private Vector3 offset;
     public Transform DeafoultParent;
     public bool isDraggable;
 
-    void Awake()
+    void Start()
     {
-        MainCamera = Camera.allCameras[0];
+        Debug.Log("1111111111111111111111111111111111111111111111111111111");
+        if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
+        {
+            MainCamera = Camera.allCameras[0];
+            Debug.Log("Название камеры 0: " + Camera.allCameras[0].name); //Enemy
+        }
+        if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
+        {
+            MainCamera = Camera.allCameras[1];
+            Debug.Log("Название камеры 1: " + Camera.allCameras[1].name); //Player
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+
+        if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
+        {
+            Debug.Log("Название камеры 0: " + Camera.allCameras[0].name); //Enemy
+        }
+        if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
+        {
+            Debug.Log("Название камеры 1: " + Camera.allCameras[1].name); //Player
+        }
+
         offset = transform.position - MainCamera.ScreenToWorldPoint(eventData.position);
         DeafoultParent = transform.parent;
 
-        if (DeafoultParent.GetComponent<DropPlaceScript>().fieldType == FieldType.SELF_HAND)
+        if ((DeafoultParent.GetComponent<DropPlaceScript>().fieldType == FieldType.SELF_HAND) || (DeafoultParent.GetComponent<DropPlaceScript>().fieldType == FieldType.ENEMY_HAND))
         {
             isDraggable = true;
+            Debug.Log("2222222222222222222222222222222222222222222222222222");
         }
         else
         {

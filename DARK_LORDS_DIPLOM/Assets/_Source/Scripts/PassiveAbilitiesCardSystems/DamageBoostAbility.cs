@@ -13,10 +13,12 @@ public class DamageBoostAbility : PassiveAbility
         {
             if ((fieldOn.SelfCard.Attack + gameManager.PlayerDiscardedDeck.Count) < 6)
             {
+                fieldOn.SelfCard.MaxAttack = fieldOn.SelfCard.MaxAttack + gameManager.PlayerDiscardedDeck.Count;
                 fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + gameManager.PlayerDiscardedDeck.Count;
             }
             else
             {
+                fieldOn.SelfCard.MaxAttack = 6;
                 fieldOn.SelfCard.Attack = 6;
             }
         }
@@ -24,10 +26,12 @@ public class DamageBoostAbility : PassiveAbility
         {
             if ((fieldOn.SelfCard.Attack + gameManager.EnemyDiscardedDeck.Count) < 6)
             {
+                fieldOn.SelfCard.MaxAttack = fieldOn.SelfCard.MaxAttack + gameManager.EnemyDiscardedDeck.Count;
                 fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + gameManager.EnemyDiscardedDeck.Count;
             }
             else
             {
+                fieldOn.SelfCard.MaxAttack = 6;
                 fieldOn.SelfCard.Attack = 6;
             }
         }

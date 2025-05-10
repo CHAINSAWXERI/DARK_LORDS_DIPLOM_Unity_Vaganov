@@ -7,7 +7,7 @@ public struct Card
 {
     public string Name;
     public Sprite Logo;
-    public int Attack, Health, Power;
+    public int Attack, Health, Power, MaxHealth, MaxAttack;
     public PassiveAbility PassiveAbilities; // Ссылка на базовый класс
     public string PassiveAbilitiesText;
     public CardType CardType;
@@ -19,6 +19,8 @@ public struct Card
         Logo = logo;
         Attack = attack;
         Health = health;
+        MaxAttack = attack;
+        MaxHealth = health;
         Power = power;
         PassiveAbilities = passiveAbilities;
         PassiveAbilitiesText = passiveAbilities.GetAbilityText(); // Получаем текст способности

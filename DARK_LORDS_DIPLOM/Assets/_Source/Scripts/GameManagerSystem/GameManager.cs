@@ -131,8 +131,31 @@ public class GameManager :  NetworkBehaviour //MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        Debug.Log("START!!!");
+    }
+
     void Start()
     {
+        Debug.Log("START!!!");
+        if (PlayerHandCards != null)
+        {
+            Debug.Log("PlayerHandCards is Not Null");
+        }
+        else
+        {
+            Debug.Log("PlayerHandCards is Null");
+        }
+        if (EnemyHandCards != null)
+        {
+            Debug.Log("EnemyHandCards is Not Null");
+        }
+        else
+        {
+            Debug.Log("EnemyHandCards is  Null");
+        }
+
         WinScreenPlayer.SetActive(false);
         LoseScreenPlayer.SetActive(false);
         WinScreenEnemy.SetActive(false);

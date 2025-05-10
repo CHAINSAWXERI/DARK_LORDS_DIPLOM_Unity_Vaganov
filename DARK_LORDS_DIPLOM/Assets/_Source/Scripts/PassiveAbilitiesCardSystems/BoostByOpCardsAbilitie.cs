@@ -13,11 +13,13 @@ public class BoostByOpCardsAbilitie : PassiveAbility
         {
             Debug.Log(gameManager.EnemyHandCards.Count);
             fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + gameManager.EnemyHandCards.Count;
+            fieldOn.SelfCard.MaxAttack = fieldOn.SelfCard.MaxAttack + gameManager.EnemyHandCards.Count;
         }
         if (dropPlaceOn.fieldType == FieldType.ENEMY_FIELD)
         {
             Debug.Log(gameManager.PlayerHandCards.Count);
             fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + gameManager.PlayerHandCards.Count;
+            fieldOn.SelfCard.MaxAttack = fieldOn.SelfCard.MaxAttack + gameManager.PlayerHandCards.Count;
         }
         //
         fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager, fieldOn.WhoseCard);

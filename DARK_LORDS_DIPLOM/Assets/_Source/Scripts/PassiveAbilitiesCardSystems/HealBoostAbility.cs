@@ -13,22 +13,26 @@ public class HealBoostAbility : PassiveAbility
         {
             if ((fieldOn.SelfCard.Health + gameManager.PlayerDiscardedDeck.Count) < 8)
             {
+                fieldOn.SelfCard.MaxHealth = fieldOn.SelfCard.MaxHealth + gameManager.PlayerDiscardedDeck.Count;
                 fieldOn.SelfCard.Health = fieldOn.SelfCard.Health + gameManager.PlayerDiscardedDeck.Count;
             }
             else
             {
                 fieldOn.SelfCard.Health = 8;
+                fieldOn.SelfCard.MaxHealth = 8;
             }
         }
         if (dropPlaceOn.fieldType == FieldType.ENEMY_FIELD)
         {
             if ((fieldOn.SelfCard.Health + gameManager.EnemyDiscardedDeck.Count) < 8)
             {
+                fieldOn.SelfCard.MaxHealth = fieldOn.SelfCard.MaxHealth + gameManager.PlayerDiscardedDeck.Count;
                 fieldOn.SelfCard.Health = fieldOn.SelfCard.Health + gameManager.PlayerDiscardedDeck.Count;
             }
             else
             {
                 fieldOn.SelfCard.Health = 8;
+                fieldOn.SelfCard.MaxHealth = 8;
             }
         }
         //

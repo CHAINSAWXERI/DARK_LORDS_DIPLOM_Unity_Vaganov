@@ -1,4 +1,4 @@
-﻿using Mirror;
+﻿//using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +22,7 @@ public enum FieldNum
     Num4
 }
 
-public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
+public class DropPlaceScript : MonoBehaviour, IDropHandler //NetworkBehaviour
 {
     [SerializeField] public GameManager GameManager;
     [SerializeField] public DropPlaceScript FieldOpposite;

@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ebe48bacffc4a4bb96acc748e292c0, type: 3}
   m_Name: DamageAbilitieSpell
   m_EditorClassIdentifier: 
-  TextPassiveAbility: 
+  TextPassiveAbility: "\u041D\u0430\u043D\u043E\u0441\u0438\u0442 \u0432\u0441\u0435\u043C
+    \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0430\u043C \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u0430
+    1 \u0443\u0440\u043E\u043D"

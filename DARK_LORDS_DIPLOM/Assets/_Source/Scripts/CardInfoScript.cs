@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Mirror;
+//using Mirror;
 //using static System.Net.Mime.MediaTypeNames;
 
-public class CardInfoScript : NetworkBehaviour //MonoBehaviour
+public class CardInfoScript : MonoBehaviour //NetworkBehaviour
 {
     public Card SelfCard;
     public Image Logo;
@@ -48,8 +48,6 @@ public class CardInfoScript : NetworkBehaviour //MonoBehaviour
         PassiveAbilitiesText.text = card.PassiveAbilities.GetAbilityText();
         ID = id;
         WhoseCard = whoseCard;
-        Debug.Log(card.WhoseCard.ToString());
-        Debug.Log(whoseCard.ToString());
     }
 
     private void Start()

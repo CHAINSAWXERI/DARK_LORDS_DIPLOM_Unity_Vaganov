@@ -1,11 +1,11 @@
-﻿using Mirror;
+﻿//using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInfo : NetworkBehaviour //MonoBehaviour
+public class PlayerInfo : MonoBehaviour //NetworkBehaviour
 {
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public int PlayerHP;
     [SerializeField] public DeckScriptable DeckObj;
 

@@ -16,15 +16,22 @@ public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler,
 
     void Start()
     {
-        if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
+        if (cardInfoScript.GameManager.GameType == GameType.PVP)
         {
-            MainCamera = GameObject.Find("CameraPlayer").GetComponent<Camera>(); //Player
-            Debug.Log("PLAYER CARD");
+            if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
+            {
+                MainCamera = GameObject.Find("CameraPlayer").GetComponent<Camera>(); //Player
+                Debug.Log("PLAYER CARD");
+            }
+            if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
+            {
+                MainCamera = GameObject.Find("CameraEnemy").GetComponent<Camera>(); //Enemy
+                Debug.Log("ENEMY CARD");
+            }
         }
-        if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
+        else
         {
-            MainCamera = GameObject.Find("CameraEnemy").GetComponent<Camera>(); //Enemy
-            Debug.Log("ENEMY CARD");
+            MainCamera = Camera.main;
         }
     }
 

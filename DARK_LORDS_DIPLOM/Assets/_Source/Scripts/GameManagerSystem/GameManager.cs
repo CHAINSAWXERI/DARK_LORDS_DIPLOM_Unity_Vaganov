@@ -215,14 +215,16 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
             return;
         }
 
-        Card card = deck[0];
+        Card card = deck[deck.Count - 1];
+        card.Health = card.MaxHealth;
+        card.Attack = card.MaxAttack;
 
         GameObject cardGO = Instantiate(CardPref, handTransform, false);
 
         cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
         IdPlayerCardCount++;
         hand.Add(cardGO.GetComponent<CardInfoScript>());
-        deck.RemoveAt(0);
+        deck.RemoveAt(deck.Count - 1);
     }
 
     //[ClientRpc]

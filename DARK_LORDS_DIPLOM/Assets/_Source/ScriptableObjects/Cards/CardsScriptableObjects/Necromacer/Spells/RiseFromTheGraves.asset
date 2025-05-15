@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardType: 1
   Name: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u0438\u0435 \u0418\u0437 \u041C\u043E\u0433\u0438\u043B"
-  Logo: {fileID: 21300000, guid: 4b66f21097323d44ab40669b2fb9c53d, type: 3}
+  Logo: {fileID: 21300000, guid: 0820a9ceb7f6d04498201d1aee801aaf, type: 3}
   Attack: 0
   Health: 0
   Power: 0

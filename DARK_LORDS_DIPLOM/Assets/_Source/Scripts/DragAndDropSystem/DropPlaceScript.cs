@@ -76,17 +76,17 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler //NetworkBehaviour
                             GameManager.CardPlayerField1 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
                             if (GameManager.CardPlayerField1.SelfCard.PassiveAbilities != null)
                             {
+                                card.DeafoultParent = transform;
+                                currentCard = card;
                                 GameManager.CardPlayerField1.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField1, GameManager.CardEnemyField1, GameManager.CardPlayerField2, null, GameManager);
-                            }
-                            if (GameManager.CardPlayerField1.SelfCard.CardType == CardType.Spell)
-                            {
-
                             }
                             break;
                         case FieldNum.Num2:
                             GameManager.CardPlayerField2 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
                             if (GameManager.CardPlayerField2.SelfCard.PassiveAbilities != null)
                             {
+                                card.DeafoultParent = transform;
+                                currentCard = card;
                                 GameManager.CardPlayerField2.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField2, GameManager.CardEnemyField2, GameManager.CardPlayerField3, GameManager.CardPlayerField1, GameManager);
                             }
                             break;
@@ -94,6 +94,8 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler //NetworkBehaviour
                             GameManager.CardPlayerField3 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
                             if (GameManager.CardPlayerField3.SelfCard.PassiveAbilities != null)
                             {
+                                card.DeafoultParent = transform;
+                                currentCard = card;
                                 GameManager.CardPlayerField3.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField3, GameManager.CardEnemyField3, GameManager.CardPlayerField4, GameManager.CardPlayerField2, GameManager);
                             }
                             break;
@@ -101,6 +103,8 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler //NetworkBehaviour
                             GameManager.CardPlayerField4 = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
                             if (GameManager.CardPlayerField4.SelfCard.PassiveAbilities != null)
                             {
+                                card.DeafoultParent = transform;
+                                currentCard = card;
                                 GameManager.CardPlayerField4.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField4, GameManager.CardEnemyField4, null, GameManager.CardPlayerField3, GameManager);
                             }
                             break;
@@ -115,6 +119,8 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler //NetworkBehaviour
                             if (GameManager.CardEnemyField1.SelfCard.PassiveAbilities != null)
                             {
                                 Debug.Log("11111111111");
+                                card.DeafoultParent = transform;
+                                currentCard = card;
                                 GameManager.CardEnemyField1.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField1, GameManager.CardPlayerField1, GameManager.CardEnemyField2, null, GameManager);
                             }
                             break;
@@ -123,6 +129,8 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler //NetworkBehaviour
                             if (GameManager.CardEnemyField2.SelfCard.PassiveAbilities != null)
                             {
                                 Debug.Log("222222222222");
+                                card.DeafoultParent = transform;
+                                currentCard = card;
                                 GameManager.CardEnemyField2.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField2, GameManager.CardPlayerField2, GameManager.CardEnemyField3, GameManager.CardEnemyField1, GameManager);
                             }
                             break;
@@ -131,6 +139,8 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler //NetworkBehaviour
                             if (GameManager.CardEnemyField3.SelfCard.PassiveAbilities != null)
                             {
                                 Debug.Log("33333333333");
+                                card.DeafoultParent = transform;
+                                currentCard = card;
                                 GameManager.CardEnemyField3.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField3, GameManager.CardPlayerField3, GameManager.CardEnemyField4, GameManager.CardEnemyField2, GameManager);
                             }
                             break;
@@ -139,14 +149,18 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler //NetworkBehaviour
                             if (GameManager.CardEnemyField4.SelfCard.PassiveAbilities != null)
                             {
                                 Debug.Log("44444444444");
+                                card.DeafoultParent = transform;
+                                currentCard = card;
                                 GameManager.CardEnemyField4.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField4, GameManager.CardPlayerField4, null, GameManager.CardEnemyField3, GameManager);
                             }
                             break;
                     }
                 }
 
-                card.DeafoultParent = transform;
-                currentCard = card;
+                ////////////!!!!!!!!!!!!!!
+                //card.DeafoultParent = transform;
+                //currentCard = card;
+                ////////////!!!!!!!!!!!!!! Каким то образом перенести это на верх
             }
         }
         else

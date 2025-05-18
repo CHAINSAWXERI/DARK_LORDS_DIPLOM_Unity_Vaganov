@@ -62,7 +62,7 @@ public class CardInfoScript : MonoBehaviour //NetworkBehaviour
         {
             Debug.Log("ПОДЧИСТКА ИГРОК ТРИГЕР 11111111111111111111111111111");
             gameManager.PlayerDiscardedDeck.Add(gameManager.CardPlayerField1.SelfCard);
-            Destroy(gameManager.PlayerField1.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject);
+            Destroy(gameManager.PlayerField1.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject); /////
             gameManager.PlayerField1.gameObject.GetComponent<DropPlaceScript>().ClearCurrentCard();
             gameManager.CardPlayerField1 = null;
         }
@@ -94,7 +94,7 @@ public class CardInfoScript : MonoBehaviour //NetworkBehaviour
         if (this == gameManager.CardEnemyField1)
         {
             Debug.Log("ПОДЧИСТКА ВРАГ ТРИГЕР 11111111111111111111111111111");
-            gameManager.PlayerDiscardedDeck.Add(gameManager.CardEnemyField1.SelfCard);
+            gameManager.EnemyDiscardedDeck.Add(gameManager.CardEnemyField1.SelfCard);
             Destroy(gameManager.EnemyField1.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject);
             gameManager.EnemyField1.gameObject.GetComponent<DropPlaceScript>().ClearCurrentCard();
             gameManager.CardEnemyField1 = null;
@@ -102,7 +102,7 @@ public class CardInfoScript : MonoBehaviour //NetworkBehaviour
         if (this == gameManager.CardEnemyField2)
         {
             Debug.Log("ПОДЧИСТКА ВРАГ ТРИГЕР 222222222222222222222222222222");
-            gameManager.PlayerDiscardedDeck.Add(gameManager.CardEnemyField2.SelfCard);
+            gameManager.EnemyDiscardedDeck.Add(gameManager.CardEnemyField2.SelfCard);
             Destroy(gameManager.EnemyField2.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject);
             gameManager.EnemyField2.gameObject.GetComponent<DropPlaceScript>().ClearCurrentCard();
             gameManager.CardEnemyField2 = null;
@@ -110,7 +110,7 @@ public class CardInfoScript : MonoBehaviour //NetworkBehaviour
         if (this == gameManager.CardEnemyField3)
         {
             Debug.Log("ПОДЧИСТКА ВРАГ ТРИГЕР 33333333333333333333333333333333");
-            gameManager.PlayerDiscardedDeck.Add(gameManager.CardEnemyField3.SelfCard);
+            gameManager.EnemyDiscardedDeck.Add(gameManager.CardEnemyField3.SelfCard);
             Destroy(gameManager.EnemyField3.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject);
             gameManager.EnemyField3.gameObject.GetComponent<DropPlaceScript>().ClearCurrentCard();
             gameManager.CardEnemyField3 = null;
@@ -118,7 +118,7 @@ public class CardInfoScript : MonoBehaviour //NetworkBehaviour
         if (this == gameManager.CardEnemyField4)
         {
             Debug.Log("ПОДЧИСТКА ВРАГ ТРИГЕР 44444444444444444444444444444444");
-            gameManager.PlayerDiscardedDeck.Add(gameManager.CardEnemyField4.SelfCard);
+            gameManager.EnemyDiscardedDeck.Add(gameManager.CardEnemyField4.SelfCard);
             Destroy(gameManager.EnemyField4.gameObject.GetComponent<DropPlaceScript>().currentCard.gameObject);
             gameManager.EnemyField4.gameObject.GetComponent<DropPlaceScript>().ClearCurrentCard();
             gameManager.CardEnemyField4 = null;

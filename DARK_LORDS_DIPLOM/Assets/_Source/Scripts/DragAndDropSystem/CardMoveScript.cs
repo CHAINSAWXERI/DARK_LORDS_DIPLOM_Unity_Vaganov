@@ -1,12 +1,11 @@
-﻿using Mirror;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler //MonoBehaviour
+public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler //NetworkBehaviour
 {
     [SerializeField] public CardInfoScript cardInfoScript;
     public Camera MainCamera;

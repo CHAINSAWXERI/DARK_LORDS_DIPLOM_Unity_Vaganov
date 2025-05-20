@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Mirror;
 using UnityEditor.Networking.PlayerConnection;
 using UnityEngine;
 
-public class StartGameManager : NetworkBehaviour
+public class StartGameManager : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
     private int PlayersCount = 0;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Mirror;
 using System.Dynamic;
 using Unity.VisualScripting;
 using static Unity.VisualScripting.Member;
@@ -16,7 +15,7 @@ public enum GameType
 }
 
 
-public class GameManager : NetworkBehaviour //MonoBehaviour
+public class GameManager : MonoBehaviour //NetworkBehaviour
 {
     public Game CurrentGame;
 
@@ -29,9 +28,9 @@ public class GameManager : NetworkBehaviour //MonoBehaviour
 
     [SerializeField] public Slider EnemyHPSlider;
     [SerializeField] public Slider PlayerHPSlider;
-    [SyncVar]
+//    [SyncVar]
     [HideInInspector] public int EnemyHP;
-    [SyncVar]
+//    [SyncVar]
     [HideInInspector] public int PlayerHP;
 
 
@@ -39,16 +38,16 @@ public class GameManager : NetworkBehaviour //MonoBehaviour
     [SerializeField] public Transform PlayerHand;
     [SerializeField] public GameObject CardPref;
 
-    [SyncVar]
+//    [SyncVar]
     int Turn, TurnTime = 30;
 
 
     [SerializeField] public TextMeshProUGUI TurnTimeTxtPlayer;
     [SerializeField] public TextMeshProUGUI TurnTimeTxtEnemy;
 
-    [SyncVar]
+//    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnPlayer;
-    [SyncVar]
+//    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnEnemy;
 
 //    [SyncVar]
@@ -111,16 +110,16 @@ public class GameManager : NetworkBehaviour //MonoBehaviour
     private int IdPlayerCardCount = 0;
     private int IdEnemyCardCount = 0;
 
-    [SyncVar]
+//    [SyncVar]
     private bool gameContinues = true;
 
-    [SyncVar]
+//    [SyncVar]
     [HideInInspector] public bool firstCardPlayer = false;
-    [SyncVar]
+//    [SyncVar]
     [HideInInspector] public bool secondCardPlayer = false;
-    [SyncVar]
+//    [SyncVar]
     [HideInInspector] public bool firstCardEnemy = false;
-    [SyncVar]
+//    [SyncVar]
     [HideInInspector] public bool secondCardEnemy = false;
 
     

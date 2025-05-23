@@ -10,6 +10,11 @@ public class SwithCamera : MonoBehaviour
     [SerializeField] public Camera PlayerCamera;
     [SerializeField] public GameObject PlayerCanvas;
     [SerializeField] public GameObject EnemyCanvas;
+    [SerializeField] public DeckScriptable KnightDeck;
+    [SerializeField] public DeckScriptable NecroDeck;
+    [SerializeField] public PlayerInfo PlayerInfo;
+    [SerializeField] public PlayerInfo EnemyInfo;
+    [SerializeField] public GameManager gameManager;
 
     void Awake()
     {
@@ -29,5 +34,19 @@ public class SwithCamera : MonoBehaviour
         EnemyCamera.gameObject.SetActive(false);
         PlayerCamera.gameObject.SetActive(true);
         EnemyCanvas.GetComponent<GraphicRaycaster>().enabled = false;
+    }
+
+    public void SwitchToKnightLocal()
+    {
+        PlayerInfo.DeckObj = KnightDeck;
+        EnemyInfo.DeckObj = NecroDeck;
+        gameManager.StartGame();
+    }
+
+    public void SwitchToNecroLocal()
+    {
+        PlayerInfo.DeckObj = NecroDeck;
+        EnemyInfo.DeckObj = KnightDeck;
+        gameManager.StartGame();
     }
 }

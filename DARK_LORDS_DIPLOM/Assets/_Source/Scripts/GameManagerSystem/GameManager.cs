@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
         }
     }
 
-    void Start()
+    public void StartGame()
     {
         Debug.Log("START!!!");
         if (PlayerHandCards != null)
@@ -171,12 +171,6 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
 
         Turn = 0;
         CurrentGame = new Game(Enemy.DeckObj.Deck, Player.DeckObj.Deck, WhoseCard.RedPlayer, WhoseCard.BluePlayer);
-
-        StartGame();
-    }
-
-    public void StartGame()
-    {
         /*
         if (Random.Range(0, 2) == 0)
         {

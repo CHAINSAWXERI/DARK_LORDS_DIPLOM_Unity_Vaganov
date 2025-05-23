@@ -15,12 +15,14 @@ public class CardScriptable : ScriptableObject
     [SerializeField] public WhoseCard WhoseCard;
 }
 
+[System.Serializable]
 public enum CardType
 {
     Creature,
     Spell
 }
 
+[System.Serializable]
 public enum WhoseCard
 {
     None,

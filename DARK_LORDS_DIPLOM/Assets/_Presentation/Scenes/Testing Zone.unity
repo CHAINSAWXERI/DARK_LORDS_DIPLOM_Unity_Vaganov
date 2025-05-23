@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 43423338}
   - component: {fileID: 43423337}
   - component: {fileID: 43423336}
+  - component: {fileID: 43423341}
   m_Layer: 13
   m_Name: EnemyCardPlace4
   m_TagString: Untagged
@@ -190,6 +191,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 512410138}
   FieldRight: {fileID: 1095130106}
@@ -280,6 +284,23 @@ RectTransform:
   m_AnchoredPosition: {x: 405, y: 162}
   m_SizeDelta: {x: 220.18, y: 290.7}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &43423341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43423335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3122028051
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &82698753
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +934,7 @@ GameObject:
   - component: {fileID: 340006319}
   - component: {fileID: 340006318}
   - component: {fileID: 340006317}
+  - component: {fileID: 340006320}
   m_Layer: 0
   m_Name: Necromancer
   m_TagString: Untagged
@@ -996,18 +1018,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 340006315}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &340006318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,6 +1056,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 340006315}
   m_CullTransparentMesh: 1
+--- !u!114 &340006320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340006315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1282602506
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &343594199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,6 +1764,7 @@ GameObject:
   - component: {fileID: 509620569}
   - component: {fileID: 509620568}
   - component: {fileID: 509620567}
+  - component: {fileID: 509620572}
   m_Layer: 13
   m_Name: PlayerCardPlace1
   m_TagString: Untagged
@@ -1756,6 +1784,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 2075978595}
   FieldRight: {fileID: 1454549633}
@@ -1846,6 +1877,23 @@ RectTransform:
   m_AnchoredPosition: {x: -405, y: -162}
   m_SizeDelta: {x: 220.18, y: 290.7}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &509620572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509620566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3468235635
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &512410136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,6 +1907,7 @@ GameObject:
   - component: {fileID: 512410140}
   - component: {fileID: 512410139}
   - component: {fileID: 512410138}
+  - component: {fileID: 512410142}
   m_Layer: 13
   m_Name: PlayerCardPlace4
   m_TagString: Untagged
@@ -1897,6 +1946,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 43423336}
   FieldRight: {fileID: 0}
@@ -1968,6 +2020,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 512410136}
   m_CullTransparentMesh: 1
+--- !u!114 &512410142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512410136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3223907330
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &518884012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2046,6 +2115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -2103,21 +2175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <isClient>k__BackingField: 0
-  <isServer>k__BackingField: 0
-  <isLocalPlayer>k__BackingField: 0
-  <isOwned>k__BackingField: 0
-  clientStarted: 0
-  <netId>k__BackingField: 0
-  sceneId: 1177175493
+  sceneId: 628710155
   _assetId: 0
   serverOnly: 0
-  destroyCalled: 0
-  <NetworkBehaviours>k__BackingField: []
   visibility: 0
   hasSpawned: 0
-  <SpawnedFromInstantiate>k__BackingField: 0
-  hadAuthority: 0
 --- !u!1 &548504539
 GameObject:
   m_ObjectHideFlags: 0
@@ -2261,6 +2323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 583580486}
   - component: {fileID: 583580487}
+  - component: {fileID: 583580488}
   m_Layer: 0
   m_Name: CameraSwithcer
   m_TagString: Untagged
@@ -2295,11 +2358,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c67cbf5acf2ad24e8b218c384e784be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  gameManager: {fileID: 851265994}
   MainCamera: {fileID: 353447563}
   EnemyCamera: {fileID: 1964029806}
   PlayerCamera: {fileID: 1911780762}
   PlayerCanvas: {fileID: 956364605}
   EnemyCanvas: {fileID: 1953879759}
+  PlayerBtn: {fileID: 1321700621}
+  EnemyBtn: {fileID: 340006315}
+--- !u!114 &583580488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583580485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1506299074
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &658830422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2521,6 +2607,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 0}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -2604,21 +2693,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <isClient>k__BackingField: 0
-  <isServer>k__BackingField: 0
-  <isLocalPlayer>k__BackingField: 0
-  <isOwned>k__BackingField: 0
-  clientStarted: 0
-  <netId>k__BackingField: 0
   sceneId: 4047243718
   _assetId: 0
   serverOnly: 0
-  destroyCalled: 0
-  <NetworkBehaviours>k__BackingField: []
   visibility: 0
   hasSpawned: 0
-  <SpawnedFromInstantiate>k__BackingField: 0
-  hadAuthority: 0
 --- !u!1 &825359627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,6 +2842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 851265995}
   - component: {fileID: 851265994}
+  - component: {fileID: 851265996}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2782,7 +2862,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2efdf5b19f768d1408d02854f92bfb43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameType: 1
+  EnemyCamera: {fileID: 1964029804}
+  PlayerCamera: {fileID: 1911780761}
   Enemy: {fileID: 1859306127}
   Player: {fileID: 1119411181}
   EnemyHPSlider: {fileID: 439485167}
@@ -2798,6 +2883,8 @@ MonoBehaviour:
   EndTurnBtnEnemy: {fileID: 548504539}
   PlayerHandCards: []
   EnemyHandCards: []
+  PlayerHandCardIDs: 
+  EnemyHandCardIDs: 
   PlayerDiscardedDeck: []
   EnemyDiscardedDeck: []
   maxCardsInHand: 8
@@ -2838,12 +2925,29 @@ Transform:
   m_GameObject: {fileID: 851265993}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17493409, y: 0.9526968, z: 0.1777452}
+  m_LocalPosition: {x: -7.55, y: 0, z: 0.1777452}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &851265996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851265993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3862042229
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &921746307
 GameObject:
   m_ObjectHideFlags: 0
@@ -2922,6 +3026,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -2979,21 +3086,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <isClient>k__BackingField: 0
-  <isServer>k__BackingField: 0
-  <isLocalPlayer>k__BackingField: 0
-  <isOwned>k__BackingField: 0
-  clientStarted: 0
-  <netId>k__BackingField: 0
-  sceneId: 566937761
+  sceneId: 3003965283
   _assetId: 0
   serverOnly: 0
-  destroyCalled: 0
-  <NetworkBehaviours>k__BackingField: []
   visibility: 0
   hasSpawned: 0
-  <SpawnedFromInstantiate>k__BackingField: 0
-  hadAuthority: 0
 --- !u!1 &956364605
 GameObject:
   m_ObjectHideFlags: 0
@@ -3114,6 +3211,7 @@ GameObject:
   - component: {fileID: 968964555}
   - component: {fileID: 968964554}
   - component: {fileID: 968964553}
+  - component: {fileID: 968964557}
   m_Layer: 0
   m_Name: HandPhone
   m_TagString: Untagged
@@ -3152,6 +3250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 0}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -3223,6 +3324,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 968964551}
   m_CullTransparentMesh: 1
+--- !u!114 &968964557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968964551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3558736316
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1077161308
 GameObject:
   m_ObjectHideFlags: 0
@@ -3580,6 +3698,7 @@ GameObject:
   - component: {fileID: 1095130108}
   - component: {fileID: 1095130107}
   - component: {fileID: 1095130106}
+  - component: {fileID: 1095130111}
   m_Layer: 13
   m_Name: EnemyCardPlace3
   m_TagString: Untagged
@@ -3599,6 +3718,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 1695620549}
   FieldRight: {fileID: 2058024587}
@@ -3689,6 +3811,23 @@ RectTransform:
   m_AnchoredPosition: {x: 135, y: 162}
   m_SizeDelta: {x: 220.18, y: 290.7}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1095130111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095130105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 608220415
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1119411180
 GameObject:
   m_ObjectHideFlags: 0
@@ -4063,6 +4202,7 @@ GameObject:
   - component: {fileID: 1321700625}
   - component: {fileID: 1321700624}
   - component: {fileID: 1321700623}
+  - component: {fileID: 1321700626}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -4146,18 +4286,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1321700621}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1321700624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4196,6 +4324,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321700621}
   m_CullTransparentMesh: 1
+--- !u!114 &1321700626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321700621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4104580463
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1419623819
 GameObject:
   m_ObjectHideFlags: 0
@@ -4205,6 +4350,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1419623823}
+  - component: {fileID: 1419623826}
+  - component: {fileID: 1419623825}
+  - component: {fileID: 1419623824}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -4227,6 +4375,94 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1419623824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419623819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: 7777
+  DualMode: 1
+  NoDelay: 1
+  Interval: 10
+  Timeout: 10000
+  RecvBufferSize: 7361536
+  SendBufferSize: 7361536
+  FastResend: 2
+  ReceiveWindowSize: 4096
+  SendWindowSize: 4096
+  MaxRetransmit: 40
+  MaximizeSocketBuffers: 1
+  ReliableMaxMessageSize: 297433
+  UnreliableMaxMessageSize: 1194
+  debugLog: 0
+  statisticsGUI: 0
+  statisticsLog: 0
+--- !u!114 &1419623825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419623819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetX: 0
+  offsetY: 0
+--- !u!114 &1419623826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419623819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  runInBackground: 1
+  headlessStartMode: 0
+  editorAutoStart: 0
+  sendRate: 60
+  offlineScene: 
+  onlineScene: 
+  offlineSceneLoadDelay: 0
+  transport: {fileID: 1419623824}
+  networkAddress: localhost
+  maxConnections: 2
+  disconnectInactiveConnections: 0
+  disconnectInactiveTimeout: 60
+  authenticator: {fileID: 0}
+  playerPrefab: {fileID: 6039922017711597869, guid: 04888933c641e724f855efac6ff6ce92, type: 3}
+  autoCreatePlayer: 1
+  playerSpawnMethod: 0
+  spawnPrefabs: []
+  exceptionsDisconnect: 1
+  snapshotSettings:
+    bufferTimeMultiplier: 2
+    bufferLimit: 32
+    catchupNegativeThreshold: -1
+    catchupPositiveThreshold: 1
+    catchupSpeed: 0.019999999552965164
+    slowdownSpeed: 0.03999999910593033
+    driftEmaDuration: 1
+    dynamicAdjustment: 1
+    dynamicAdjustmentTolerance: 1
+    deliveryTimeEmaDuration: 2
+  evaluationMethod: 0
+  evaluationInterval: 3
+  timeInterpolationGui: 0
 --- !u!1 &1454549632
 GameObject:
   m_ObjectHideFlags: 0
@@ -4240,6 +4476,7 @@ GameObject:
   - component: {fileID: 1454549635}
   - component: {fileID: 1454549634}
   - component: {fileID: 1454549633}
+  - component: {fileID: 1454549638}
   m_Layer: 13
   m_Name: PlayerCardPlace2
   m_TagString: Untagged
@@ -4259,6 +4496,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 2058024587}
   FieldRight: {fileID: 1695620549}
@@ -4349,6 +4589,23 @@ RectTransform:
   m_AnchoredPosition: {x: -135, y: -162}
   m_SizeDelta: {x: 220.18, y: 290.7}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1454549638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454549632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2786372001
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1477630927
 GameObject:
   m_ObjectHideFlags: 0
@@ -4733,6 +4990,7 @@ GameObject:
   - component: {fileID: 1695620551}
   - component: {fileID: 1695620550}
   - component: {fileID: 1695620549}
+  - component: {fileID: 1695620554}
   m_Layer: 13
   m_Name: PlayerCardPlace3
   m_TagString: Untagged
@@ -4752,6 +5010,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 1095130106}
   FieldRight: {fileID: 512410138}
@@ -4842,6 +5103,23 @@ RectTransform:
   m_AnchoredPosition: {x: 135, y: -162}
   m_SizeDelta: {x: 220.18, y: 290.7}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1695620554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695620548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3356424400
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1716231129
 GameObject:
   m_ObjectHideFlags: 0
@@ -4894,6 +5172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 0}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -4977,21 +5258,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <isClient>k__BackingField: 0
-  <isServer>k__BackingField: 0
-  <isLocalPlayer>k__BackingField: 0
-  <isOwned>k__BackingField: 0
-  clientStarted: 0
-  <netId>k__BackingField: 0
   sceneId: 3613626
   _assetId: 0
   serverOnly: 0
-  destroyCalled: 0
-  <NetworkBehaviours>k__BackingField: []
   visibility: 0
   hasSpawned: 0
-  <SpawnedFromInstantiate>k__BackingField: 0
-  hadAuthority: 0
 --- !u!1 &1813278505
 GameObject:
   m_ObjectHideFlags: 0
@@ -5689,6 +5960,7 @@ GameObject:
   - component: {fileID: 2000166508}
   - component: {fileID: 2000166507}
   - component: {fileID: 2000166506}
+  - component: {fileID: 2000166510}
   m_Layer: 0
   m_Name: HandPhoneEnemy
   m_TagString: Untagged
@@ -5727,6 +5999,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 0}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -5798,6 +6073,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000166504}
   m_CullTransparentMesh: 1
+--- !u!114 &2000166510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000166504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1628470904
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &2058024586
 GameObject:
   m_ObjectHideFlags: 0
@@ -5811,6 +6103,7 @@ GameObject:
   - component: {fileID: 2058024589}
   - component: {fileID: 2058024588}
   - component: {fileID: 2058024587}
+  - component: {fileID: 2058024592}
   m_Layer: 13
   m_Name: EnemyCardPlace2
   m_TagString: Untagged
@@ -5830,6 +6123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 1454549633}
   FieldRight: {fileID: 2075978595}
@@ -5920,6 +6216,23 @@ RectTransform:
   m_AnchoredPosition: {x: -135, y: 162}
   m_SizeDelta: {x: 220.18, y: 290.7}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2058024592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058024586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2808443954
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &2070279858
 GameObject:
   m_ObjectHideFlags: 0
@@ -5965,6 +6278,7 @@ GameObject:
   - component: {fileID: 2075978597}
   - component: {fileID: 2075978596}
   - component: {fileID: 2075978595}
+  - component: {fileID: 2075978600}
   m_Layer: 13
   m_Name: EnemyCardPlace1
   m_TagString: Untagged
@@ -5984,6 +6298,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 509620567}
   FieldRight: {fileID: 0}
@@ -6074,6 +6391,23 @@ RectTransform:
   m_AnchoredPosition: {x: -405, y: 162}
   m_SizeDelta: {x: 220.18, y: 290.7}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2075978600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075978594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4172475804
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

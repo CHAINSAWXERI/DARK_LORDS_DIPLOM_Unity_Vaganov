@@ -704,6 +704,7 @@ GameObject:
   - component: {fileID: 6471586948865349529}
   - component: {fileID: -4785135995237626347}
   - component: {fileID: 3776698513044787978}
+  - component: {fileID: -9144431835057896786}
   m_Layer: 6
   m_Name: CardPref
   m_TagString: Untagged
@@ -783,6 +784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardInfoScript: {fileID: -4785135995237626347}
+  MainCamera: {fileID: 0}
   DeafoultParent: {fileID: 0}
   isDraggable: 0
 --- !u!114 &-4785135995237626347
@@ -797,13 +799,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79946a9bc58aab646a7f38e4278503b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  SelfCard:
+    Name: 
+    Logo: {fileID: 0}
+    Attack: 0
+    Health: 0
+    Power: 0
+    MaxHealth: 0
+    MaxAttack: 0
+    PassiveAbilities: {fileID: 0}
+    PassiveAbilitiesText: 
+    CardType: 0
+    WhoseCard: 0
   Logo: {fileID: 1292140524409604988}
   Name: {fileID: 8815221900913764011}
   Attack: {fileID: 1353964671260084737}
   Health: {fileID: 3760233704442287886}
   PassiveAbilitiesText: {fileID: 4928027568161655537}
   ID: 0
-  whoseCard: 0
+  WhoseCard: 0
   GameManager: {fileID: 0}
 --- !u!225 &3776698513044787978
 CanvasGroup:
@@ -817,3 +834,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &-9144431835057896786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9040527998406349333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 767809235
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0

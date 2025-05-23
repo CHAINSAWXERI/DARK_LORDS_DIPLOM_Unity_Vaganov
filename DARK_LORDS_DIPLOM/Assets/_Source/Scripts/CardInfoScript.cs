@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-//using Mirror;
+using Mirror;
 //using static System.Net.Mime.MediaTypeNames;
 
-public class CardInfoScript : MonoBehaviour //NetworkBehaviour
+public class CardInfoScript : NetworkBehaviour //MonoBehaviour
 {
     public Card SelfCard;
     public Image Logo;

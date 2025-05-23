@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 using System.Dynamic;
 using Unity.VisualScripting;
 using static Unity.VisualScripting.Member;
 using static System.Net.Mime.MediaTypeNames;
+using Mirror.Examples.Common;
 
+[System.Serializable]
 public enum GameType
 {
     PVE,
@@ -15,11 +18,15 @@ public enum GameType
 }
 
 
-public class GameManager : MonoBehaviour //NetworkBehaviour
+public class GameManager : NetworkBehaviour  //MonoBehaviour
 {
     public Game CurrentGame;
 
     [SerializeField] public GameType GameType;
+
+    [SerializeField] public GameObject EnemyCamera;
+    [SerializeField] public GameObject PlayerCamera;
+
 
 //    [SyncVar]
     [SerializeField] public PlayerInfo Enemy;
@@ -28,9 +35,9 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
 
     [SerializeField] public Slider EnemyHPSlider;
     [SerializeField] public Slider PlayerHPSlider;
-//    [SyncVar]
+    [SyncVar]
     [HideInInspector] public int EnemyHP;
-//    [SyncVar]
+    [SyncVar]
     [HideInInspector] public int PlayerHP;
 
 
@@ -38,21 +45,28 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
     [SerializeField] public Transform PlayerHand;
     [SerializeField] public GameObject CardPref;
 
-//    [SyncVar]
-    int Turn, TurnTime = 30;
+    [SyncVar]
+    int Turn = 0;
+    [SyncVar]
+    int TurnTime = 30;
 
 
     [SerializeField] public TextMeshProUGUI TurnTimeTxtPlayer;
     [SerializeField] public TextMeshProUGUI TurnTimeTxtEnemy;
 
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnPlayer;
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnEnemy;
 
-//    [SyncVar]
+
     public List<CardInfoScript> PlayerHandCards = new List<CardInfoScript>(),
                                 EnemyHandCards = new List<CardInfoScript>();
+    [SyncVar]
+    public List<int> PlayerHandCardIDs = new List<int>();
+
+    [SyncVar]
+    public List<int> EnemyHandCardIDs = new List<int>();
 
 //    [SyncVar]
     public List<Card> PlayerDiscardedDeck = new List<Card>(),
@@ -60,22 +74,22 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
 
     [SerializeField] public int maxCardsInHand;
 
-//    [SyncVar]
+    [SyncVar]
     public CardInfoScript CardEnemyField1;
-//    [SyncVar]
+    [SyncVar]
     public CardInfoScript CardEnemyField2;
-//    [SyncVar]
+    [SyncVar]
     public CardInfoScript CardEnemyField3;
-//    [SyncVar]
+    [SyncVar]
     public CardInfoScript CardEnemyField4;
 
-//    [SyncVar]
+    [SyncVar]
     public CardInfoScript CardPlayerField1; ///////
-//    [SyncVar]
+    [SyncVar]
     public CardInfoScript CardPlayerField2;
-//    [SyncVar]
+    [SyncVar]
     public CardInfoScript CardPlayerField3;
-//    [SyncVar]
+    [SyncVar]
     public CardInfoScript CardPlayerField4;
 
     [SerializeField] public Transform EnemyField1;
@@ -88,38 +102,38 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
     [SerializeField] public Transform PlayerField3;
     [SerializeField] public Transform PlayerField4;
 
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject BlockPhone;
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject BlockPhoneEnemy;
 
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject LoseScreenPlayer;
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject WinScreenPlayer;
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject LoseScreenEnemy;
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject WinScreenEnemy;
 
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject BlueSpellScreen;
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject RedSpellScreen;
 
     private int IdPlayerCardCount = 0;
     private int IdEnemyCardCount = 0;
 
-//    [SyncVar]
+    [SyncVar]
     private bool gameContinues = true;
 
-//    [SyncVar]
+    [SyncVar]
     [HideInInspector] public bool firstCardPlayer = false;
-//    [SyncVar]
+    [SyncVar]
     [HideInInspector] public bool secondCardPlayer = false;
-//    [SyncVar]
+    [SyncVar]
     [HideInInspector] public bool firstCardEnemy = false;
-//    [SyncVar]
+    [SyncVar]
     [HideInInspector] public bool secondCardEnemy = false;
 
     
@@ -132,53 +146,31 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
         }
     }
 
-    void Start()
-    {
-        Debug.Log("START!!!");
-        if (PlayerHandCards != null)
-        {
-            Debug.Log("PlayerHandCards is Not Null");
-        }
-        else
-        {
-            Debug.Log("PlayerHandCards is Null");
-        }
-        if (EnemyHandCards != null)
-        {
-            Debug.Log("EnemyHandCards is Not Null");
-        }
-        else
-        {
-            Debug.Log("EnemyHandCards is  Null");
-        }
-
-        WinScreenPlayer.SetActive(false);
-        LoseScreenPlayer.SetActive(false);
-        WinScreenEnemy.SetActive(false);
-        LoseScreenEnemy.SetActive(false);
-
-        BlockPhone.SetActive(false);
-        BlockPhoneEnemy.SetActive(false);
-
-        BlueSpellScreen.SetActive(false);
-        RedSpellScreen.SetActive(false);
-
-        PlayerHP = Player.PlayerHP;
-        EnemyHP = Enemy.PlayerHP;
-        EnemyHPSlider.maxValue = PlayerHP;
-        PlayerHPSlider.maxValue = EnemyHP;
-        EnemyHPSlider.value = EnemyHP;
-        PlayerHPSlider.value = PlayerHP;
-
-        Turn = 0;
-        CurrentGame = new Game(Enemy.DeckObj.Deck, Player.DeckObj.Deck, WhoseCard.RedPlayer, WhoseCard.BluePlayer);
-
-        //StartGame();
-    }
-
-    
     public void StartGame()
     {
+        Debug.Log("!!!!!!!!!!!!!!!!! START GAME!!!!!!!!!!!!!!!!!");
+
+        /*
+        if (EnemyCamera.activeSelf)
+        {
+            RedSpellScreen.SetActive(false);
+        }
+        if (PlayerCamera.activeSelf)
+        {
+            BlueSpellScreen.SetActive(false);
+        }
+        
+        if (isServer)
+        {
+            Debug.Log("RCP");
+            SetScreensActiveRcp(false, false);
+        }
+        if (isLocalPlayer)
+        {
+            Debug.Log("COM");
+            SetScreensActiveCommand(false, false);
+        }
+        */
         /*
         if (Random.Range(0, 2) == 0)
         {
@@ -189,8 +181,19 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
             IsPlayerTurn = false;
         }
         */
+        PlayerHP = Player.PlayerHP;
+        EnemyHP = Enemy.PlayerHP;
+        EnemyHPSlider.maxValue = PlayerHP;
+        PlayerHPSlider.maxValue = EnemyHP;
+        EnemyHPSlider.value = EnemyHP;
+        PlayerHPSlider.value = PlayerHP;
+        
 
-        GiveHandCards(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer);
+        Turn = 0;
+        CurrentGame = new Game(Enemy.DeckObj.Deck, Player.DeckObj.Deck, WhoseCard.RedPlayer, WhoseCard.BluePlayer);
+
+
+        GiveHandCards(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer); /////////////////////////////////////////////////////
         GiveHandCards(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand, WhoseCard.BluePlayer);
         StartCoroutine(TurnFunc());
         for (int i = 0; i < EnemyHandCards.Count; i++)
@@ -246,7 +249,15 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
 
         if (IsPlayerTurn)
         {
-            BlockPhoneEnemy.SetActive(true);
+            if (EnemyCamera.activeSelf)
+            {
+                BlockPhoneEnemy.SetActive(true);
+            }
+            if (PlayerCamera.activeSelf)
+            {
+                BlockPhone.SetActive(false);
+            }
+
             firstCardPlayer = false;
             secondCardPlayer = false;
             while (TurnTime-- > 0)
@@ -258,7 +269,27 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
         }
         else
         {
-            BlockPhone.SetActive(true);
+            if (EnemyCamera.activeSelf)
+            {
+                BlockPhoneEnemy.SetActive(false);
+            }
+            if (PlayerCamera.activeSelf)
+            {
+                BlockPhone.SetActive(true);
+            }
+
+            if (GameType == GameType.PVP)
+            {
+                firstCardEnemy = false;
+                secondCardEnemy = false;
+                while (TurnTime-- > 0)
+                {
+                    TurnTimeTxtPlayer.text = TurnTime.ToString();
+                    TurnTimeTxtEnemy.text = TurnTime.ToString();
+                    yield return new WaitForSeconds(1);
+                }
+            }
+
             if (GameType == GameType.PVE)
             {
                 while (TurnTime-- > 27)
@@ -271,17 +302,6 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
                 if (EnemyHandCards.Count > 0)
                 {
                     EnemyTurn(EnemyHandCards, EnemyField1, EnemyField2, EnemyField3, EnemyField4);
-                }
-            }
-            if (GameType == GameType.PVP)
-            {
-                firstCardEnemy = false;
-                secondCardEnemy = false;
-                while (TurnTime-- > 0)
-                {
-                    TurnTimeTxtPlayer.text = TurnTime.ToString();
-                    TurnTimeTxtEnemy.text = TurnTime.ToString();
-                    yield return new WaitForSeconds(1);
                 }
             }
         }
@@ -446,19 +466,30 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
         if (IsPlayerTurn)
         {
             GiveCardsToHand(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand, WhoseCard.BluePlayer);
-            BlockPhone.SetActive(false);
-            BlockPhoneEnemy.SetActive(true);
-            EndTurnBtnPlayer.SetActive(true);
-            EndTurnBtnEnemy.SetActive(false);
-            //GamePlaceCanvas.worldCamera =
+            if (EnemyCamera.activeSelf)
+            {
+                BlockPhoneEnemy.SetActive(false);
+                EndTurnBtnEnemy.SetActive(false);
+            }
+            if (PlayerCamera.activeSelf)
+            {
+                BlockPhone.SetActive(true);
+                EndTurnBtnPlayer.SetActive(true);
+            }
         }
         else
         {
             GiveCardsToHand(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer);
-            BlockPhone.SetActive(true);
-            BlockPhoneEnemy.SetActive(false);
-            EndTurnBtnPlayer.SetActive(false);
-            EndTurnBtnEnemy.SetActive(true);
+            if (EnemyCamera.activeSelf)
+            {
+                BlockPhoneEnemy.SetActive(true);
+                EndTurnBtnEnemy.SetActive(true);
+            }
+            if (PlayerCamera.activeSelf)
+            {
+                BlockPhone.SetActive(false);
+                EndTurnBtnPlayer.SetActive(false);
+            }
         }
 
         if (gameContinues)
@@ -718,4 +749,28 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
             }
         }
     }
+
+    /*
+    [ClientRpc]
+    public void SetScreensActiveRcp(bool blueActive, bool redActive)
+    {
+        BlueSpellScreen.SetActive(blueActive);
+        RedSpellScreen.SetActive(redActive);
+        if (EnemyCamera.activeSelf)
+        {
+            EnemyHand.gameObject.SetActive(true);
+        }
+        if (PlayerCamera.activeSelf)
+        {
+            PlayerHand.gameObject.SetActive(true);
+        }
+        Debug.Log("ДИЗАКТИВАЦИЯ RCP");
+    }
+
+    [Command]
+    public void SetScreensActiveCommand(bool blueActive, bool redActive)
+    {
+        SetScreensActiveRcp(blueActive, redActive);
+    }
+    */
 }

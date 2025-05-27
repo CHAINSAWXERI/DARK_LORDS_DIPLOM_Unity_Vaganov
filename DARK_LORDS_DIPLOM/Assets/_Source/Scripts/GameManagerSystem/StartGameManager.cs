@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class StartGameManager : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] public GameManager gameManager;
+    [SerializeField] public InicilizationGameManager inicilizationGameManager;
     private int PlayersCount = 0;
 
     public void ConnectedPlayer()
@@ -15,7 +16,8 @@ public class StartGameManager : MonoBehaviour
         if (PlayersCount == 2)
         {
             Debug.Log("READY START GAME");
-            gameManager.StartGame();
+            inicilizationGameManager.InicilizationGame();
+            //gameManager.StartGame();
         }
     }
     

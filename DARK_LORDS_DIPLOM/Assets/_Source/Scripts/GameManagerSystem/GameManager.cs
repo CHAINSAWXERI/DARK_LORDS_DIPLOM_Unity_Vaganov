@@ -40,8 +40,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SyncVar]
     [HideInInspector] public int PlayerHP;
 
-
+    [SyncVar]
     [SerializeField] public Transform EnemyHand;
+    [SyncVar]
     [SerializeField] public Transform PlayerHand;
     [SerializeField] public GameObject CardPref;
 
@@ -136,7 +137,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SyncVar]
     [HideInInspector] public bool secondCardEnemy = false;
 
-    
+    [HideInInspector] public PlayerComands playerComands;
+
+
 
     public bool IsPlayerTurn
     {
@@ -150,37 +153,18 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     {
         Debug.Log("!!!!!!!!!!!!!!!!! START GAME!!!!!!!!!!!!!!!!!");
 
-        /*
-        if (EnemyCamera.activeSelf)
-        {
-            RedSpellScreen.SetActive(false);
-        }
-        if (PlayerCamera.activeSelf)
-        {
-            BlueSpellScreen.SetActive(false);
-        }
+
+        
         
         if (isServer)
         {
-            Debug.Log("RCP");
-            SetScreensActiveRcp(false, false);
+            Debug.Log("RCP__0");
         }
         if (isLocalPlayer)
         {
-            Debug.Log("COM");
-            SetScreensActiveCommand(false, false);
+            Debug.Log("COM__0");
         }
-        */
-        /*
-        if (Random.Range(0, 2) == 0)
-        {
-            IsPlayerTurn = true;
-        }
-        else
-        {
-            IsPlayerTurn = false;
-        }
-        */
+
         PlayerHP = Player.PlayerHP;
         EnemyHP = Enemy.PlayerHP;
         EnemyHPSlider.maxValue = PlayerHP;
@@ -198,11 +182,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         StartCoroutine(TurnFunc());
         for (int i = 0; i < EnemyHandCards.Count; i++)
         {
-            Debug.Log(EnemyHandCards[i].Name.text + " - ON ENEMY");
+            //Debug.Log(EnemyHandCards[i].Name.text + " - ON ENEMY");
         }
         for (int i = 0; i < PlayerHandCards.Count; i++)
         {
-            Debug.Log(PlayerHandCards[i].Name.text + " - ON PLAYER");
+            //Debug.Log(PlayerHandCards[i].Name.text + " - ON PLAYER");
         }
     }
 
@@ -234,6 +218,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
         GameObject cardGO = Instantiate(CardPref, handTransform, false);
 
+        cardGO.GetComponent<CardMoveScript>().SetCamera();
         cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
         IdPlayerCardCount++;
         hand.Add(cardGO.GetComponent<CardInfoScript>());
@@ -750,27 +735,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         }
     }
 
-    /*
-    [ClientRpc]
-    public void SetScreensActiveRcp(bool blueActive, bool redActive)
-    {
-        BlueSpellScreen.SetActive(blueActive);
-        RedSpellScreen.SetActive(redActive);
-        if (EnemyCamera.activeSelf)
-        {
-            EnemyHand.gameObject.SetActive(true);
-        }
-        if (PlayerCamera.activeSelf)
-        {
-            PlayerHand.gameObject.SetActive(true);
-        }
-        Debug.Log("ДИЗАКТИВАЦИЯ RCP");
-    }
+    
 
-    [Command]
-    public void SetScreensActiveCommand(bool blueActive, bool redActive)
-    {
-        SetScreensActiveRcp(blueActive, redActive);
-    }
+    /*
     */
 }

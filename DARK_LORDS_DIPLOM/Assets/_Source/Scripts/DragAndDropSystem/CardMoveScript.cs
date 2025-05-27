@@ -14,19 +14,35 @@ public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler,
     public Transform DeafoultParent;
     public bool isDraggable;
 
-    void Start()
+    public void SetCamera()
     {
         if (cardInfoScript.GameManager.GameType == GameType.PVP)
         {
             if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
             {
-                MainCamera = GameObject.Find("CameraPlayer").GetComponent<Camera>(); //Player
-                Debug.Log("PLAYER CARD");
+                //MainCamera = GameObject.Find("CameraPlayer").GetComponent<Camera>(); //Player //23 строка
+                GameObject cameraObj = GameObject.Find("CameraPlayer");
+                if (cameraObj != null)
+                {
+                    MainCamera = cameraObj.GetComponent<Camera>();
+                }
+                else
+                {
+                    Debug.LogError("CameraEnemy not found in scene");
+                }
             }
             if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
             {
-                MainCamera = GameObject.Find("CameraEnemy").GetComponent<Camera>(); //Enemy
-                Debug.Log("ENEMY CARD");
+                //MainCamera = GameObject.Find("CameraEnemy").GetComponent<Camera>(); //Enemy // 27 строка
+                GameObject cameraObj = GameObject.Find("CameraEnemy");
+                if (cameraObj != null)
+                {
+                    MainCamera = cameraObj.GetComponent<Camera>();
+                }
+                else
+                {
+                    Debug.LogError("CameraEnemy not found in scene");
+                }
             }
         }
         else

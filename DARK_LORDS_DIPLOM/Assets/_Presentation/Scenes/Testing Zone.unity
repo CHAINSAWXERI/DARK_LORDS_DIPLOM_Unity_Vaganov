@@ -193,7 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 512410138}
   FieldRight: {fileID: 1095130106}
@@ -599,6 +599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 851265994}
+  inicilizationGameManager: {fileID: 1247859559}
 --- !u!4 &102804971
 Transform:
   m_ObjectHideFlags: 0
@@ -1006,6 +1007,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 102804969}
+        m_TargetAssemblyTypeName: StartGameManager, Assembly-CSharp
+        m_MethodName: ConnectedPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 583580487}
         m_TargetAssemblyTypeName: SwithCamera, Assembly-CSharp
         m_MethodName: SwitchToEnemy
@@ -1284,6 +1297,7 @@ GameObject:
   - component: {fileID: 364023997}
   - component: {fileID: 364023999}
   - component: {fileID: 364023998}
+  - component: {fileID: 364024000}
   m_Layer: 0
   m_Name: EndMatchScreenLosePlayer
   m_TagString: Untagged
@@ -1349,6 +1363,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364023996}
   m_CullTransparentMesh: 1
+--- !u!114 &364024000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364023996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3177872648
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &370478074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,7 +1817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 2075978595}
   FieldRight: {fileID: 1454549633}
@@ -1948,7 +1979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 43423336}
   FieldRight: {fileID: 0}
@@ -2117,7 +2148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -2192,6 +2223,7 @@ GameObject:
   - component: {fileID: 548504542}
   - component: {fileID: 548504541}
   - component: {fileID: 548504543}
+  - component: {fileID: 548504544}
   m_Layer: 0
   m_Name: EndTurnButtonEnemy
   m_TagString: Untagged
@@ -2313,6 +2345,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &548504544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548504539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3977725883
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &583580485
 GameObject:
   m_ObjectHideFlags: 0
@@ -2358,9 +2407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c67cbf5acf2ad24e8b218c384e784be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
+  syncDirection: 1
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 2
+  startGameManager: {fileID: 102804969}
   gameManager: {fileID: 851265994}
   MainCamera: {fileID: 353447563}
   EnemyCamera: {fileID: 1964029806}
@@ -2369,6 +2419,7 @@ MonoBehaviour:
   EnemyCanvas: {fileID: 1953879759}
   PlayerBtn: {fileID: 1321700621}
   EnemyBtn: {fileID: 340006315}
+  playerComands: {fileID: 0}
 --- !u!114 &583580488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2566,8 +2617,6 @@ GameObject:
   - component: {fileID: 756373659}
   - component: {fileID: 756373663}
   - component: {fileID: 756373662}
-  - component: {fileID: 756373661}
-  - component: {fileID: 756373660}
   - component: {fileID: 756373664}
   m_Layer: 0
   m_Name: BlockPhone
@@ -2595,54 +2644,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0053558, y: -440}
   m_SizeDelta: {x: 1920.4, y: 205.88}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &756373660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756373658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  GameManager: {fileID: 0}
-  FieldOpposite: {fileID: 0}
-  FieldRight: {fileID: 0}
-  FieldLeft: {fileID: 0}
-  currentCard: {fileID: 0}
-  fieldType: 0
-  fieldNum: 0
---- !u!114 &756373661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 756373658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 5
-    m_Bottom: 5
-  m_ChildAlignment: 4
-  m_Spacing: 5
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!114 &756373662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2656,7 +2657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.21960784}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.50980395}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2864,7 +2865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameType: 1
   EnemyCamera: {fileID: 1964029804}
   PlayerCamera: {fileID: 1911780761}
@@ -2916,6 +2917,7 @@ MonoBehaviour:
   secondCardPlayer: 0
   firstCardEnemy: 0
   secondCardEnemy: 0
+  playerComands: {fileID: 0}
 --- !u!4 &851265995
 Transform:
   m_ObjectHideFlags: 0
@@ -3028,7 +3030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -3252,7 +3254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 0}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -3486,6 +3488,7 @@ GameObject:
   - component: {fileID: 1079560838}
   - component: {fileID: 1079560840}
   - component: {fileID: 1079560839}
+  - component: {fileID: 1079560841}
   m_Layer: 0
   m_Name: EndMatchScreenWinPlayer
   m_TagString: Untagged
@@ -3551,6 +3554,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079560837}
   m_CullTransparentMesh: 1
+--- !u!114 &1079560841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079560837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2191289954
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1090890972
 GameObject:
   m_ObjectHideFlags: 0
@@ -3720,7 +3740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 1695620549}
   FieldRight: {fileID: 2058024587}
@@ -3916,6 +3936,7 @@ GameObject:
   - component: {fileID: 1182494473}
   - component: {fileID: 1182494475}
   - component: {fileID: 1182494474}
+  - component: {fileID: 1182494476}
   m_Layer: 0
   m_Name: EndMatchScreenLoseEnemy
   m_TagString: Untagged
@@ -3981,6 +4002,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1182494472}
   m_CullTransparentMesh: 1
+--- !u!114 &1182494476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182494472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1607967844
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1246455942
 GameObject:
   m_ObjectHideFlags: 0
@@ -4115,6 +4153,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1246455942}
   m_CullTransparentMesh: 1
+--- !u!1 &1247859558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1247859560}
+  - component: {fileID: 1247859559}
+  m_Layer: 0
+  m_Name: InicilizationGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1247859559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247859558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a4a5c13c333bb642a994bfdf0dd820a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 851265994}
+  BlockPhone: {fileID: 756373658}
+  BlockPhoneEnemy: {fileID: 1716231129}
+  LoseScreenEnemy: {fileID: 1182494472}
+  LoseScreenPlayer: {fileID: 364023996}
+  WinScreenEnemy: {fileID: 1990704787}
+  WinScreenPlayer: {fileID: 1079560837}
+  EndTurnBtnEnemy: {fileID: 825359627}
+  EndTurnBtnPlayer: {fileID: 1681288215}
+  BlueSpellScreen: {fileID: 921746307}
+  RedSpellScreen: {fileID: 518884012}
+--- !u!4 &1247859560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247859558}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.158685, y: -12.646521, z: 0.16399129}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1285127919
 GameObject:
   m_ObjectHideFlags: 0
@@ -4274,6 +4367,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 102804969}
+        m_TargetAssemblyTypeName: StartGameManager, Assembly-CSharp
+        m_MethodName: ConnectedPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 583580487}
         m_TargetAssemblyTypeName: SwithCamera, Assembly-CSharp
         m_MethodName: SwitchToPlayer
@@ -4498,7 +4603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 2058024587}
   FieldRight: {fileID: 1695620549}
@@ -5012,7 +5117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 1095130106}
   FieldRight: {fileID: 512410138}
@@ -5131,8 +5236,6 @@ GameObject:
   - component: {fileID: 1716231130}
   - component: {fileID: 1716231134}
   - component: {fileID: 1716231133}
-  - component: {fileID: 1716231132}
-  - component: {fileID: 1716231131}
   - component: {fileID: 1716231135}
   m_Layer: 0
   m_Name: EnemyBlockPhone
@@ -5160,54 +5263,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0053558, y: -440.00006}
   m_SizeDelta: {x: 1920.4, y: 205.88}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1716231131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1716231129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e14082a78ea44c14a826a85873782707, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  GameManager: {fileID: 0}
-  FieldOpposite: {fileID: 0}
-  FieldRight: {fileID: 0}
-  FieldLeft: {fileID: 0}
-  currentCard: {fileID: 0}
-  fieldType: 0
-  fieldNum: 0
---- !u!114 &1716231132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1716231129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 5
-    m_Bottom: 5
-  m_ChildAlignment: 4
-  m_Spacing: 5
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!114 &1716231133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5457,6 +5512,7 @@ GameObject:
   - component: {fileID: 1911081492}
   - component: {fileID: 1911081491}
   - component: {fileID: 1911081490}
+  - component: {fileID: 1911081493}
   m_Layer: 0
   m_Name: EndTurnButtonPlayer
   m_TagString: Untagged
@@ -5578,6 +5634,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911081488}
   m_CullTransparentMesh: 1
+--- !u!114 &1911081493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911081488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 823198997
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &1911780761
 GameObject:
   m_ObjectHideFlags: 0
@@ -5882,6 +5955,7 @@ GameObject:
   - component: {fileID: 1990704788}
   - component: {fileID: 1990704790}
   - component: {fileID: 1990704789}
+  - component: {fileID: 1990704791}
   m_Layer: 0
   m_Name: EndMatchScreenWinEnemy
   m_TagString: Untagged
@@ -5947,6 +6021,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990704787}
   m_CullTransparentMesh: 1
+--- !u!114 &1990704791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990704787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 317358519
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &2000166504
 GameObject:
   m_ObjectHideFlags: 0
@@ -6001,7 +6092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 0}
   FieldOpposite: {fileID: 0}
   FieldRight: {fileID: 0}
@@ -6125,7 +6216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 1454549633}
   FieldRight: {fileID: 2075978595}
@@ -6300,7 +6391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncDirection: 0
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.15
   GameManager: {fileID: 851265994}
   FieldOpposite: {fileID: 509620567}
   FieldRight: {fileID: 0}
@@ -6426,3 +6517,4 @@ SceneRoots:
   - {fileID: 1119454725}
   - {fileID: 1419623823}
   - {fileID: 102804971}
+  - {fileID: 1247859560}

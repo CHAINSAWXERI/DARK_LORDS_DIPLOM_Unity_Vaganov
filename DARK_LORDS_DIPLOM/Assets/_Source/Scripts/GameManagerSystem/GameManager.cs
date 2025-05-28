@@ -131,56 +131,16 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
         }
     }
 
+    public void PreStartGame()
+    {
+
+    }
+
     public void StartGame()
     {
         Debug.Log("START!!!");
-        if (PlayerHandCards != null)
-        {
-            Debug.Log("PlayerHandCards is Not Null");
-        }
-        else
-        {
-            Debug.Log("PlayerHandCards is Null");
-        }
-        if (EnemyHandCards != null)
-        {
-            Debug.Log("EnemyHandCards is Not Null");
-        }
-        else
-        {
-            Debug.Log("EnemyHandCards is  Null");
-        }
-
-        WinScreenPlayer.SetActive(false);
-        LoseScreenPlayer.SetActive(false);
-        WinScreenEnemy.SetActive(false);
-        LoseScreenEnemy.SetActive(false);
-
-        BlockPhone.SetActive(false);
-        BlockPhoneEnemy.SetActive(false);
-
-        BlueSpellScreen.SetActive(false);
-        RedSpellScreen.SetActive(false);
-
-        PlayerHP = Player.PlayerHP;
-        EnemyHP = Enemy.PlayerHP;
-        EnemyHPSlider.maxValue = PlayerHP;
-        PlayerHPSlider.maxValue = EnemyHP;
-        EnemyHPSlider.value = EnemyHP;
-        PlayerHPSlider.value = PlayerHP;
-
         Turn = 0;
         CurrentGame = new Game(Enemy.DeckObj.Deck, Player.DeckObj.Deck, WhoseCard.RedPlayer, WhoseCard.BluePlayer);
-        /*
-        if (Random.Range(0, 2) == 0)
-        {
-            IsPlayerTurn = true;
-        }
-        else
-        {
-            IsPlayerTurn = false;
-        }
-        */
 
         GiveHandCards(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer);
         GiveHandCards(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand, WhoseCard.BluePlayer);

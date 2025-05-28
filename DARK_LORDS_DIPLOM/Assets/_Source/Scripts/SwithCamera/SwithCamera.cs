@@ -1,27 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SwithCamera : MonoBehaviour
+public class SwithCamera : NetworkBehaviour
 {
     [SerializeField] public Camera MainCamera;
     [SerializeField] public Camera EnemyCamera;
     [SerializeField] public Camera PlayerCamera;
+
     [SerializeField] public GameObject PlayerCanvas;
     [SerializeField] public GameObject EnemyCanvas;
+    [SerializeField] public GameObject PlayerBtn;
+    [SerializeField] public GameObject EnemyBtn;
+
     [SerializeField] public DeckScriptable KnightDeck;
     [SerializeField] public DeckScriptable NecroDeck;
+
     [SerializeField] public PlayerInfo PlayerInfo;
     [SerializeField] public PlayerInfo EnemyInfo;
+
     [SerializeField] public GameManager gameManager;
 
-    void Awake()
-    {
-    }
+    [SerializeField] public PlayerCommands playerCommands;
 
+    // --- Переключение камер ---
     public void SwitchToEnemy()
     {
+        // Вызов с клиента или сервера
+        if (NetworkServer.active)
+        {
+            Debug.Log("SERVER");
+        }
+        else if (NetworkClient.isConnected)
+        {
+            Debug.Log("CLIENT");
+        }
+
         MainCamera.gameObject.SetActive(false);
         EnemyCamera.gameObject.SetActive(true);
         PlayerCamera.gameObject.SetActive(false);
@@ -30,6 +44,16 @@ public class SwithCamera : MonoBehaviour
 
     public void SwitchToPlayer()
     {
+        // Вызов с клиента или сервера
+        if (NetworkServer.active)
+        {
+            Debug.Log("SERVER");
+        }
+        else if (NetworkClient.isConnected)
+        {
+            Debug.Log("CLIENT");
+        }
+
         MainCamera.gameObject.SetActive(false);
         EnemyCamera.gameObject.SetActive(false);
         PlayerCamera.gameObject.SetActive(true);
@@ -50,3 +74,5 @@ public class SwithCamera : MonoBehaviour
         gameManager.StartGame();
     }
 }
+/*
+*/

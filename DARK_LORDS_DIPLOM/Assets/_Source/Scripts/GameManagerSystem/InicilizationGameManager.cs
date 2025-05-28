@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class InicilizationGameManager : MonoBehaviour
+public class InicilizationGameManager : NetworkBehaviour
 {
     [SerializeField] public GameManager gameManager;
+
+    [SerializeField] public Camera EnemyCamera;
+    [SerializeField] public Camera PlayerCamera;
 
     [SerializeField] public GameObject BlockPhone;
     [SerializeField] public GameObject BlockPhoneEnemy;
@@ -17,9 +21,124 @@ public class InicilizationGameManager : MonoBehaviour
     [SerializeField] public GameObject BlueSpellScreen;
     [SerializeField] public GameObject RedSpellScreen;
 
+    [HideInInspector] public PlayerComands playerComands;
+
     public void InicilizationGame()
     {
         Debug.Log("Inicilization Is Ready");
+
+        if (NetworkServer.active) //&& NetworkClient.active
+        {
+            Debug.Log("RCP");
+
+            if (EnemyCamera.gameObject.activeSelf)
+            {
+                SetActiveRCP(gameManager.RedSpellScreen, false);
+                SetActiveRCP(gameManager.BlueSpellScreen, false);
+
+                SetActiveRCP(gameManager.RedSpellScreen, false);
+                SetActiveRCP(gameManager.BlueSpellScreen, false);
+
+                SetActiveRCP(gameManager.LoseScreenEnemy, false);
+                SetActiveRCP(gameManager.WinScreenEnemy, false);
+
+                SetActiveRCP(gameManager.EnemyHand.gameObject, true);
+
+                if (gameManager.IsPlayerTurn)
+                {
+                    Debug.Log("IsPlayerTurn");
+                    SetActiveRCP(gameManager.BlockPhoneEnemy, true);
+                }
+                else
+                {
+                    Debug.Log("NotPlayerTurn");
+                    SetActiveRCP(gameManager.BlockPhoneEnemy, false);
+                }
+            }
+
+            if (PlayerCamera.gameObject.activeSelf)
+            {
+                SetActiveRCP(gameManager.RedSpellScreen, false);
+                SetActiveRCP(gameManager.BlueSpellScreen, false);
+
+                SetActiveRCP(gameManager.LoseScreenPlayer, false);
+                SetActiveRCP(gameManager.WinScreenPlayer, false);
+
+                SetActiveRCP(gameManager.PlayerHand.gameObject, true);
+
+                if (gameManager.IsPlayerTurn)
+                {
+                    Debug.Log("IsPlayerTurn");
+                    SetActiveRCP(gameManager.BlockPhone, false);
+                }
+                else
+                {
+                    Debug.Log("NotPlayerTurn");
+                    SetActiveRCP(gameManager.BlockPhone, true);
+                }
+            }
+        }
+        else if (NetworkClient.isConnected)
+        {
+            Debug.Log("COM");
+
+            if (EnemyCamera.gameObject.activeSelf)
+            {
+                playerComands.SetActive(gameManager.RedSpellScreen, false);
+                playerComands.SetActive(gameManager.BlueSpellScreen, false);
+
+                playerComands.SetActive(gameManager.RedSpellScreen, false);
+                playerComands.SetActive(gameManager.BlueSpellScreen, false);
+
+                playerComands.SetActive(gameManager.LoseScreenEnemy, false);
+                playerComands.SetActive(gameManager.WinScreenEnemy, false);
+
+                playerComands.SetActive(gameManager.EnemyHand.gameObject, true);
+
+                if (gameManager.IsPlayerTurn)
+                {
+                    Debug.Log("IsPlayerTurn");
+                    playerComands.SetActive(gameManager.BlockPhoneEnemy, true);
+                }
+                else
+                {
+                    Debug.Log("NotPlayerTurn");
+                    playerComands.SetActive(gameManager.BlockPhoneEnemy, false);
+                }
+            }
+
+            if (PlayerCamera.gameObject.activeSelf)
+            {
+                playerComands.SetActive(gameManager.RedSpellScreen, false);
+                playerComands.SetActive(gameManager.BlueSpellScreen, false);
+
+                playerComands.SetActive(gameManager.LoseScreenPlayer, false);
+                playerComands.SetActive(gameManager.WinScreenPlayer, false);
+
+                playerComands.SetActive(gameManager.PlayerHand.gameObject, true);
+
+                if (gameManager.IsPlayerTurn)
+                {
+                    Debug.Log("IsPlayerTurn");
+                    playerComands.SetActive(gameManager.BlockPhone, false);
+                }
+                else
+                {
+                    Debug.Log("NotPlayerTurn");
+                    playerComands.SetActive(gameManager.BlockPhone, true);
+                }
+            }
+        }
+    }
+
+    [ClientRpc]
+    public void SetActiveRCP(GameObject obj, bool active)
+    {
+        obj.SetActive(active);
+    }
+}
+
+/*
         gameManager.BlockPhone = BlockPhone;
         gameManager.BlockPhoneEnemy = BlockPhoneEnemy;
         gameManager.LoseScreenEnemy = LoseScreenEnemy;
@@ -153,44 +272,4 @@ public class InicilizationGameManager : MonoBehaviour
         {
             Debug.Log("RedSpellScreen   != gameManager.RedSpellScreen");
         }
-
-
-
-
-
-
-
-
-
-
-        gameManager.RedSpellScreen.SetActive(false);
-        gameManager.BlueSpellScreen.SetActive(false);
-
-        gameManager.PlayerHand.gameObject.SetActive(true); // строка 87
-        gameManager.EnemyHand.gameObject.SetActive(true);
-
-
-        if (gameManager.IsPlayerTurn)
-        {
-            Debug.Log("IsPlayerTurn");
-            gameManager.BlockPhone.SetActive(false);
-            gameManager.BlockPhoneEnemy.SetActive(true);
-        }
-        else
-        {
-            Debug.Log("NotPlayerTurn");
-            gameManager.BlockPhone.SetActive(true);
-            gameManager.BlockPhoneEnemy.SetActive(false);
-
-        }
-
-        gameManager.LoseScreenPlayer.SetActive(false);
-        gameManager.WinScreenPlayer.SetActive(false);
-
-        gameManager.RedSpellScreen.SetActive(false);
-        gameManager.BlueSpellScreen.SetActive(false);
-
-        gameManager.LoseScreenEnemy.SetActive(false);
-        gameManager.WinScreenEnemy.SetActive(false);
-    }
-}
+        */

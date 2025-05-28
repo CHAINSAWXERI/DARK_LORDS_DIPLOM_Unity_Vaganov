@@ -16,7 +16,19 @@ public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler,
 
     public void SetCamera()
     {
-        if (cardInfoScript.GameManager.GameType == GameType.PVP)
+        if (cardInfoScript == null)
+        {
+            Debug.LogError("CardInfoScript is null!");
+        }
+
+        if (cardInfoScript.GameManager == null)
+        {
+            Debug.LogError("GameManager is null in CardInfoScript!");
+        }
+
+        Debug.Log("SetCamera");
+
+        if (cardInfoScript.GameManager.GameType == GameType.PVP) // строка 19
         {
             if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
             {
@@ -24,11 +36,19 @@ public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler,
                 GameObject cameraObj = GameObject.Find("CameraPlayer");
                 if (cameraObj != null)
                 {
-                    MainCamera = cameraObj.GetComponent<Camera>();
+                    Camera cameraComponent = cameraObj.GetComponent<Camera>();
+                    if (cameraComponent != null)
+                    {
+                        MainCamera = cameraComponent;
+                    }
+                    else
+                    {
+                        Debug.LogError("Camera component not found on cameraObj");
+                    }
                 }
                 else
                 {
-                    Debug.LogError("CameraEnemy not found in scene");
+                    Debug.LogError("cameraObj is null");
                 }
             }
             if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
@@ -37,11 +57,19 @@ public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler,
                 GameObject cameraObj = GameObject.Find("CameraEnemy");
                 if (cameraObj != null)
                 {
-                    MainCamera = cameraObj.GetComponent<Camera>();
+                    Camera cameraComponent = cameraObj.GetComponent<Camera>();
+                    if (cameraComponent != null)
+                    {
+                        MainCamera = cameraComponent;
+                    }
+                    else
+                    {
+                        Debug.LogError("Camera component not found on cameraObj");
+                    }
                 }
                 else
                 {
-                    Debug.LogError("CameraEnemy not found in scene");
+                    Debug.LogError("cameraObj is null");
                 }
             }
         }
@@ -49,12 +77,17 @@ public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler,
         {
             MainCamera = Camera.main;
         }
+
+        if (MainCamera == null)
+        {
+            Debug.LogError("CAMERA IS NULL");
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
 
-        offset = transform.position - MainCamera.ScreenToWorldPoint(eventData.position);
+        offset = transform.position - MainCamera.ScreenToWorldPoint(eventData.position); ///////////////
         DeafoultParent = transform.parent;
 
         if ((DeafoultParent.GetComponent<DropPlaceScript>().fieldType == FieldType.SELF_HAND) || (DeafoultParent.GetComponent<DropPlaceScript>().fieldType == FieldType.ENEMY_HAND))

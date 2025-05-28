@@ -40,9 +40,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SyncVar]
     [HideInInspector] public int PlayerHP;
 
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public Transform EnemyHand;
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public Transform PlayerHand;
     [SerializeField] public GameObject CardPref;
 
@@ -55,9 +55,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public TextMeshProUGUI TurnTimeTxtPlayer;
     [SerializeField] public TextMeshProUGUI TurnTimeTxtEnemy;
 
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public GameObject EndTurnBtnPlayer;
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public GameObject EndTurnBtnEnemy;
 
 
@@ -103,18 +103,18 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public Transform PlayerField3;
     [SerializeField] public Transform PlayerField4;
 
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public GameObject BlockPhone;
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public GameObject BlockPhoneEnemy;
 
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public GameObject LoseScreenPlayer;
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public GameObject WinScreenPlayer;
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public GameObject LoseScreenEnemy;
-    [SyncVar]
+    //[SyncVar]
     [SerializeField] public GameObject WinScreenEnemy;
 
     [SyncVar]
@@ -218,6 +218,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
         GameObject cardGO = Instantiate(CardPref, handTransform, false);
 
+        cardGO.GetComponent<CardInfoScript>().GameManager = this;
         cardGO.GetComponent<CardMoveScript>().SetCamera();
         cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
         IdPlayerCardCount++;

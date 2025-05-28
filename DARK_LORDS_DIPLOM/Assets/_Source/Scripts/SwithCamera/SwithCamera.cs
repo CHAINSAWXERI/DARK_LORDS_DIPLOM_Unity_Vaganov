@@ -37,8 +37,6 @@ public class SwithCamera : NetworkBehaviour
         EnemyCamera.gameObject.SetActive(true);
         PlayerCamera.gameObject.SetActive(false);
         PlayerCanvas.GetComponent<GraphicRaycaster>().enabled = false;
-
-        startGameManager.ConnectedPlayer();
     }
 
     public void SwitchToPlayer()
@@ -58,8 +56,6 @@ public class SwithCamera : NetworkBehaviour
         EnemyCamera.gameObject.SetActive(false);
         PlayerCamera.gameObject.SetActive(true);
         EnemyCanvas.GetComponent<GraphicRaycaster>().enabled = false;
-
-        startGameManager.ConnectedPlayer();
     }
 
 

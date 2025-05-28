@@ -2061,7 +2061,7 @@ MonoBehaviour:
   sceneId: 1177175493
   _assetId: 0
   serverOnly: 0
-  visible: 0
+  visibility: 0
   hasSpawned: 0
 --- !u!1 &548504539
 GameObject:
@@ -2245,6 +2245,11 @@ MonoBehaviour:
   PlayerCamera: {fileID: 1911780762}
   PlayerCanvas: {fileID: 956364605}
   EnemyCanvas: {fileID: 1953879759}
+  KnightDeck: {fileID: 0}
+  NecroDeck: {fileID: 0}
+  PlayerInfo: {fileID: 0}
+  EnemyInfo: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &658830422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2552,7 +2557,7 @@ MonoBehaviour:
   sceneId: 4047243718
   _assetId: 0
   serverOnly: 0
-  visible: 0
+  visibility: 0
   hasSpawned: 0
 --- !u!1 &825359627
 GameObject:
@@ -2917,7 +2922,7 @@ MonoBehaviour:
   sceneId: 566937761
   _assetId: 0
   serverOnly: 0
-  visible: 0
+  visibility: 0
   hasSpawned: 0
 --- !u!1 &956364605
 GameObject:
@@ -4874,7 +4879,7 @@ MonoBehaviour:
   sceneId: 3613626
   _assetId: 0
   serverOnly: 0
-  visible: 0
+  visibility: 0
   hasSpawned: 0
 --- !u!1 &1813278505
 GameObject:

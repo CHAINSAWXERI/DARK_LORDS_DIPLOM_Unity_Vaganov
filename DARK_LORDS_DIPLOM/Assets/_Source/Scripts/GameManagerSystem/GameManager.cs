@@ -232,7 +232,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [ClientRpc]
     public void CoreIdCardToTakeRandom()
     {
-        CoreIdCardToTake = Random.Range(0, 20);
+        CoreIdCardToTake = Random.Range(0, 19);
     }
 
     //[ClientRpc]
@@ -242,6 +242,13 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         int i = 0;
         while (i++ < 4)
         {
+            Debug.Log("11111");
+            if (NetworkServer.active)
+            {
+                CoreIdCardToTakeRandom();
+                Debug.Log("22222");
+            }
+            Debug.Log("33333");
             GiveCardsToHand(deck, hand, handTransform, whoseCard);
         }
     }
@@ -259,18 +266,20 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             return;
         }
 
-        //Card card = deck[deck.Count - 1];
-        // Задаем переменной a рандомное значение от 0 до 100
-        CoreIdCardToTake = Random.Range(0, 20);
+        
+        int r = 0;
         bool i = false;
         Card card = deck[deck.Count - 1]; // Заглушка
+
         while (!i)
         {
+            Debug.Log("IN WHILE I");
             for (int j = 0; j < deck.Count; j++)
             {
                 if (deck[j].CoreID == CoreIdCardToTake)
                 {
                     card = deck[j];
+                    r = j;
                     i = true;
                     Debug.Log($"Карта с CoreID {CoreIdCardToTake} найдена. Это карта {deck[j].CoreID} с именем {deck[j].Name}.");
                     break;
@@ -279,12 +288,20 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             if (!i)
             {
                 Debug.Log($"Карта с CoreID {CoreIdCardToTake} не найдена. Генерация нового значения.");
-                // Генерируем новое значение
+                CoreIdCardToTake = Random.Range(0, 19);
                 //if (NetworkServer.active)
-                CoreIdCardToTake = Random.Range(0, 20);
+                //{
+                //    CoreIdCardToTakeRandom();
+                //}
+
             }
         }
+            
+        /*    
+        */
         Debug.Log($"Случайное значение CoreIdCardToTake: {CoreIdCardToTake}");
+        /*
+        */
 
         card.Health = card.MaxHealth;
         card.Attack = card.MaxAttack;
@@ -294,7 +311,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
         IdPlayerCardCount++;
         hand.Add(cardGO.GetComponent<CardInfoScript>());
-        deck.RemoveAt(deck.Count - 1);
+        deck.RemoveAt(r);
+        Debug.Log($"Это карта с именем {deck[r].Name}. Была Удалена из стопки");
     }
 
     //[ClientRpc]

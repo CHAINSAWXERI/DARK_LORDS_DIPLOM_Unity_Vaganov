@@ -15,15 +15,16 @@ public class Game
         List<Card> list = new List<Card>();
         for (int i = 0; i < Deck.Count; i++)
         {
-            Card card = new Card(Deck[i].Name, Deck[i].Logo, Deck[i].Attack, Deck[i].Health, Deck[i].Power, Deck[i].PassiveAbilities, Deck[i].CardType, whoseCard);
+            Card card = new Card(Deck[i].Name, Deck[i].Logo, Deck[i].Attack, Deck[i].Health, Deck[i].Power, Deck[i].PassiveAbilities, Deck[i].CardType, whoseCard, Deck[i].CoreId);
             list.Add(card);
         }
 
-        Shuffle(list);
+        //Shuffle(list);
         return list;
     }
 
     // Метод для перемешивания списка карт
+    /*
     void Shuffle<T>(List<T> list)
     {
         int n = list.Count;
@@ -36,4 +37,5 @@ public class Game
             list[j] = temp;
         }
     }
+    */
 }

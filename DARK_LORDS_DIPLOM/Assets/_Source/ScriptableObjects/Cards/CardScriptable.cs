@@ -13,6 +13,7 @@ public class CardScriptable : ScriptableObject
     [SerializeField] public int Power;
     [SerializeField] public PassiveAbility PassiveAbilities; // Поле для пассивного умения
     [SerializeField] public WhoseCard WhoseCard;
+    [SerializeField] public int CoreId;
 }
 
 public enum CardType

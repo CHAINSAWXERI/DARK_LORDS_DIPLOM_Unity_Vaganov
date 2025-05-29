@@ -21,7 +21,10 @@ public class SwithCamera : NetworkBehaviour
 
     [SerializeField] public GameManager gameManager;
 
-    [SerializeField] public PlayerCommands playerCommands;
+    public PlayerCommands playerCommands;
+
+    [SyncVar]
+    public int PlayersCount = 0;
 
     // --- Переключение камер ---
     public void SwitchToEnemy()
@@ -29,10 +32,14 @@ public class SwithCamera : NetworkBehaviour
         // Вызов с клиента или сервера
         if (NetworkServer.active)
         {
+            playerCommands.DisambledObjServer(EnemyBtn, false);
+            PlayersCount++;
             Debug.Log("SERVER");
         }
         else if (NetworkClient.isConnected)
         {
+            playerCommands.DisambledObjClient(EnemyBtn, false);
+            PlayersCount++;
             Debug.Log("CLIENT");
         }
 
@@ -40,6 +47,11 @@ public class SwithCamera : NetworkBehaviour
         EnemyCamera.gameObject.SetActive(true);
         PlayerCamera.gameObject.SetActive(false);
         PlayerCanvas.GetComponent<GraphicRaycaster>().enabled = false;
+
+        if (PlayersCount == 2)
+        {
+            Debug.Log("READY TO PLAY");
+        }
     }
 
     public void SwitchToPlayer()
@@ -47,10 +59,14 @@ public class SwithCamera : NetworkBehaviour
         // Вызов с клиента или сервера
         if (NetworkServer.active)
         {
+            playerCommands.DisambledObjServer(PlayerBtn, false);
+            PlayersCount++;
             Debug.Log("SERVER");
         }
         else if (NetworkClient.isConnected)
         {
+            playerCommands.DisambledObjClient(PlayerBtn, false);
+            PlayersCount++;
             Debug.Log("CLIENT");
         }
 
@@ -58,6 +74,11 @@ public class SwithCamera : NetworkBehaviour
         EnemyCamera.gameObject.SetActive(false);
         PlayerCamera.gameObject.SetActive(true);
         EnemyCanvas.GetComponent<GraphicRaycaster>().enabled = false;
+
+        if (PlayersCount == 2)
+        {
+            Debug.Log("READY TO PLAY");
+        }
     }
 
     public void SwitchToKnightLocal()

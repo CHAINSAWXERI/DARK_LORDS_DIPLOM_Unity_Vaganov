@@ -20,3 +20,4 @@ MonoBehaviour:
   Power: 4
   PassiveAbilities: {fileID: 11400000, guid: 2da224d0448d190449b72a6a07146097, type: 2}
   WhoseCard: 0
+  CoreId: 15

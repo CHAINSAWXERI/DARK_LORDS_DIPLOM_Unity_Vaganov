@@ -21,12 +21,12 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
             {
                 MainCamera = GameObject.Find("CameraPlayer").GetComponent<Camera>(); //Player
-                Debug.Log("PLAYER CARD");
+                //Debug.Log("PLAYER CARD");
             }
             if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
             {
                 MainCamera = GameObject.Find("CameraEnemy").GetComponent<Camera>(); //Enemy
-                Debug.Log("ENEMY CARD");
+                //Debug.Log("ENEMY CARD");
             }
         }
         else

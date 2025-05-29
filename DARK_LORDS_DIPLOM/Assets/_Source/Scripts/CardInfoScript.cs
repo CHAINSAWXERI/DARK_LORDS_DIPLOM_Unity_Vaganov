@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-//using Mirror;
+using Mirror;
 //using static System.Net.Mime.MediaTypeNames;
 
-public class CardInfoScript : MonoBehaviour //NetworkBehaviour
+public class CardInfoScript : NetworkBehaviour //MonoBehaviour
 {
     public Card SelfCard;
     public Image Logo;
@@ -14,6 +14,7 @@ public class CardInfoScript : MonoBehaviour //NetworkBehaviour
     public TextMeshProUGUI Attack;
     public TextMeshProUGUI Health;
     public TextMeshProUGUI PassiveAbilitiesText;
+    public int CoreID;
     public int ID;
     public WhoseCard WhoseCard;
     public GameManager GameManager;
@@ -48,6 +49,7 @@ public class CardInfoScript : MonoBehaviour //NetworkBehaviour
         PassiveAbilitiesText.text = card.PassiveAbilities.GetAbilityText();
         ID = id;
         WhoseCard = whoseCard;
+        CoreID = card.CoreID;
     }
 
     private void Start()
@@ -57,7 +59,7 @@ public class CardInfoScript : MonoBehaviour //NetworkBehaviour
 
     private void ClearDeadCards(GameManager gameManager)
     {
-        Debug.Log("ПОДЧИСТКА");
+        //Debug.Log("ПОДЧИСТКА");
         if (this == gameManager.CardPlayerField1)
         {
             Debug.Log("ПОДЧИСТКА ИГРОК ТРИГЕР 11111111111111111111111111111");

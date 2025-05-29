@@ -12,8 +12,9 @@ public struct Card
     public string PassiveAbilitiesText;
     public CardType CardType;
     public WhoseCard WhoseCard;
+    public int CoreID;
 
-    public Card(string name, Sprite logo, int attack, int health, int power, PassiveAbility passiveAbilities, CardType cardType, WhoseCard whoseCard)
+    public Card(string name, Sprite logo, int attack, int health, int power, PassiveAbility passiveAbilities, CardType cardType, WhoseCard whoseCard, int coreID)
     {
         Name = name;
         Logo = logo;
@@ -26,6 +27,7 @@ public struct Card
         PassiveAbilitiesText = passiveAbilities.GetAbilityText(); // Получаем текст способности
         CardType = cardType;
         WhoseCard = whoseCard;
+        CoreID = coreID;
     }
 }
 
@@ -49,7 +51,7 @@ public class CardManager : MonoBehaviour
 
         foreach (var card in CardsAll)
         {
-            CardManagerStatic.AllCards.Add(new Card(card.Name, card.Logo, card.Attack, card.Health, card.Power, card.PassiveAbilities, card.CardType, card.WhoseCard));
+            CardManagerStatic.AllCards.Add(new Card(card.Name, card.Logo, card.Attack, card.Health, card.Power, card.PassiveAbilities, card.CardType, card.WhoseCard, card.CoreId));
         }
     }
 }

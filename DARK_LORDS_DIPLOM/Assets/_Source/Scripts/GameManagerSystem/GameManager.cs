@@ -8,6 +8,8 @@ using System.Dynamic;
 using Unity.VisualScripting;
 using static Unity.VisualScripting.Member;
 using static System.Net.Mime.MediaTypeNames;
+using Mirror;
+using UnityEngine.PlayerLoop;
 
 public enum GameType
 {
@@ -16,11 +18,14 @@ public enum GameType
 }
 
 
-public class GameManager : MonoBehaviour //NetworkBehaviour
+public class GameManager : NetworkBehaviour  //MonoBehaviour
 {
     public Game CurrentGame;
 
     [SerializeField] public GameType GameType;
+
+    [SerializeField] public Camera EnemyCamera;
+    [SerializeField] public Camera PlayerCamer;
 
 //    [SyncVar]
     [SerializeField] public PlayerInfo Enemy;
@@ -39,8 +44,10 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
     [SerializeField] public Transform PlayerHand;
     [SerializeField] public GameObject CardPref;
 
-//    [SyncVar]
-    int Turn, TurnTime = 30;
+    [SyncVar]
+    int Turn;
+    [SyncVar]
+    int TurnTime = 30;
 
 
     [SerializeField] public TextMeshProUGUI TurnTimeTxtPlayer;
@@ -103,9 +110,9 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
 //    [SyncVar]
     [SerializeField] public GameObject WinScreenEnemy;
 
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject BlueSpellScreen;
-//    [SyncVar]
+    [SyncVar]
     [SerializeField] public GameObject RedSpellScreen;
 
     private int IdPlayerCardCount = 0;
@@ -123,33 +130,115 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
 //    [SyncVar]
     [HideInInspector] public bool secondCardEnemy = false;
 
-    public bool IsPlayerTurn
+    [HideInInspector] public PlayerCommands playerCommands;
+
+    [SyncVar]
+    public bool IsPlayerTurn;
+
+    [SyncVar]
+    public int CoreIdCardToTake;
+
+    //public bool TestingTurn;
+    /*
     {
         get
         {
             return Turn % 2 == 0;
         }
     }
+    */
 
-    public void PreStartGame()
-    {
-
-    }
-
+    [ClientRpc]
     public void StartGame()
     {
-        Debug.Log("START!!!");
+        Debug.Log("!!! START GAME !!!");
+
+        if (playerCommands == null)
+        {
+            Debug.LogError("playerCommands == null");
+        }
+
+        Debug.Log("END SETACTIVE");
+
         Turn = 0;
         CurrentGame = new Game(Enemy.DeckObj.Deck, Player.DeckObj.Deck, WhoseCard.RedPlayer, WhoseCard.BluePlayer);
+        IsPlayerTurn = Random.value > 0.5f;
+        //IsPlayerTurn = TestingTurn;
+
+        Inicilization();
 
         GiveHandCards(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer);
         GiveHandCards(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand, WhoseCard.BluePlayer);
-        StartCoroutine(TurnFunc());
+        //Debug.Log("SERVER");
+        
+        StartCoroutine(TurnFunc()); ////// Ошибка здесь
     }
 
+    public void Inicilization()
+    {
+        playerCommands.DisambledObjServer(BlueSpellScreen, false);
+        playerCommands.DisambledObjServer(RedSpellScreen, false);
+
+        if (!EnemyHand.gameObject.activeInHierarchy)
+        {
+            TurnTimeTxtEnemy.gameObject.SetActive(true);
+            EnemyHand.gameObject.SetActive(true);
+        }
+        if (!PlayerHand.gameObject.activeInHierarchy)
+        {
+            TurnTimeTxtPlayer.gameObject.SetActive(true);
+            PlayerHand.gameObject.SetActive(true);
+        }
+        
+        if ((IsPlayerTurn) && (EnemyCamera.gameObject.activeInHierarchy)) //Враг \ Ход Игрока
+        {
+            BlockPhoneEnemy.SetActive(true);
+            EndTurnBtnEnemy.SetActive(false);
+        }
+        if ((!IsPlayerTurn) && (EnemyCamera.gameObject.activeInHierarchy)) //Враг \ Ход Врага 
+        {
+            BlockPhoneEnemy.SetActive(false);
+            EndTurnBtnEnemy.SetActive(true);
+        }
+
+        if ((IsPlayerTurn) && (PlayerCamer.gameObject.activeInHierarchy)) //Игрок \ Ход Игрока
+        {
+            BlockPhone.SetActive(false);
+            EndTurnBtnPlayer.SetActive(true);
+        }
+        if ((!IsPlayerTurn) && (PlayerCamer.gameObject.activeInHierarchy)) //Игрок \ Ход Врага 
+        {
+            BlockPhone.SetActive(true);
+            EndTurnBtnPlayer.SetActive(false);
+        }
+
+        if (BlockPhoneEnemy.gameObject.activeInHierarchy)
+        {
+            Debug.Log("BlockPhoneEnemy Is Active");
+        }
+        else
+        {
+            Debug.Log("BlockPhoneEnemy Is Disactive");
+        }
+
+        /*
+        LoseScreenEnemy
+        LoseScreenPlayer
+        WinScreenEnemy
+        WinScreenPlayer       
+        */
+    }
+
+    [ClientRpc]
+    public void CoreIdCardToTakeRandom()
+    {
+        CoreIdCardToTake = Random.Range(0, 20);
+    }
+
+    //[ClientRpc]
     public void GiveHandCards(List<Card> deck, List<CardInfoScript> hand, Transform handTransform, WhoseCard whoseCard)
     {
-        Debug.Log("11111");
+        //Debug.Log("11111");
         int i = 0;
         while (i++ < 4)
         {
@@ -157,6 +246,7 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
         }
     }
 
+    //[ClientRpc]
     public void GiveCardsToHand(List<Card> deck, List<CardInfoScript> hand, Transform handTransform, WhoseCard whoseCard)
     {
         if (deck.Count == 0)
@@ -169,7 +259,33 @@ public class GameManager : MonoBehaviour //NetworkBehaviour
             return;
         }
 
-        Card card = deck[deck.Count - 1];
+        //Card card = deck[deck.Count - 1];
+        // Задаем переменной a рандомное значение от 0 до 100
+        CoreIdCardToTake = Random.Range(0, 20);
+        bool i = false;
+        Card card = deck[deck.Count - 1]; // Заглушка
+        while (!i)
+        {
+            for (int j = 0; j < deck.Count; j++)
+            {
+                if (deck[j].CoreID == CoreIdCardToTake)
+                {
+                    card = deck[j];
+                    i = true;
+                    Debug.Log($"Карта с CoreID {CoreIdCardToTake} найдена. Это карта {deck[j].CoreID} с именем {deck[j].Name}.");
+                    break;
+                }
+            }
+            if (!i)
+            {
+                Debug.Log($"Карта с CoreID {CoreIdCardToTake} не найдена. Генерация нового значения.");
+                // Генерируем новое значение
+                //if (NetworkServer.active)
+                CoreIdCardToTake = Random.Range(0, 20);
+            }
+        }
+        Debug.Log($"Случайное значение CoreIdCardToTake: {CoreIdCardToTake}");
+
         card.Health = card.MaxHealth;
         card.Attack = card.MaxAttack;
 

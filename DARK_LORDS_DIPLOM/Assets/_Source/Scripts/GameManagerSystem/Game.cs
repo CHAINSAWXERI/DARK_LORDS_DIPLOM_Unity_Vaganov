@@ -4,10 +4,14 @@ using UnityEngine;
 public class Game
 {
     public List<Card> EnemyDeck, PlayerDeck;
-    public Game(List<CardScriptable> enemyDeck, List<CardScriptable> playerDeck, WhoseCard whoseCardEnemy, WhoseCard whoseCardPlayer) // (DeckObj playerDeck, DeckObj enemyDeck)
+    public DeckCharacter EnemyCharacter, PlayerCharacter;
+
+    public Game(List<CardScriptable> enemyDeck, List<CardScriptable> playerDeck, WhoseCard whoseCardEnemy, WhoseCard whoseCardPlayer, DeckCharacter enemyCharacter, DeckCharacter playerCharacter) // (DeckObj playerDeck, DeckObj enemyDeck)
     {
         EnemyDeck = GiveDeckCard(enemyDeck, whoseCardEnemy); // (enemyDeck.ListDeck)
         PlayerDeck = GiveDeckCard(playerDeck, whoseCardPlayer); // (playerDeck.ListDeck)
+        EnemyCharacter = enemyCharacter;
+        PlayerCharacter = playerCharacter;
     }
 
     List<Card> GiveDeckCard(List<CardScriptable> Deck, WhoseCard whoseCard) 
@@ -19,13 +23,12 @@ public class Game
             list.Add(card);
         }
 
-        //Shuffle(list);
+        Shuffle(Deck);
         return list;
     }
 
     // Метод для перемешивания списка карт
-    /*
-    void Shuffle<T>(List<T> list)
+    public void Shuffle<T>(List<T> list)
     {
         int n = list.Count;
         for (int i = 0; i < n; i++)
@@ -37,5 +40,6 @@ public class Game
             list[j] = temp;
         }
     }
+    /*
     */
 }

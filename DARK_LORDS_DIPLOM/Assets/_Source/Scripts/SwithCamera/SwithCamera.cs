@@ -21,6 +21,9 @@ public class SwithCamera : NetworkBehaviour
 
     [SerializeField] public GameManager gameManager;
 
+    [SerializeField] public ShowOnlyForHost ButtonGameStartPlayer;
+    [SerializeField] public ShowOnlyForHost ButtonGameStartEnemy;
+
     public PlayerCommands playerCommands;
 
     [SyncVar]

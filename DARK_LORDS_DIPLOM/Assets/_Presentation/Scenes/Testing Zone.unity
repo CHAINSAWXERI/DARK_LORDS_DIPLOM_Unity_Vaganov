@@ -830,7 +830,7 @@ RectTransform:
   m_GameObject: {fileID: 274766389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.9258, y: 3.9258, z: 3.9258}
+  m_LocalScale: {x: 3.9257, y: 3.9257, z: 3.9257}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 886534045}
@@ -2741,6 +2741,8 @@ MonoBehaviour:
   PlayerInfo: {fileID: 1119411181}
   EnemyInfo: {fileID: 1859306127}
   gameManager: {fileID: 851265994}
+  ButtonGameStartPlayer: {fileID: 464872871}
+  ButtonGameStartEnemy: {fileID: 274766391}
   playerCommands: {fileID: 0}
   PlayersCount: 0
 --- !u!114 &583580488

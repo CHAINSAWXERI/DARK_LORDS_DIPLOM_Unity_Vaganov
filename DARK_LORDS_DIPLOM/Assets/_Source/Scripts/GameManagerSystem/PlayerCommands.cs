@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerCommands : NetworkBehaviour
 {
+    [HideInInspector] public GameManager gameManager;
+
     public void DisambledObjServer(GameObject Obj, bool state)
     {
         NetworkIdentity nId = Obj.GetComponent<NetworkIdentity>();
@@ -94,37 +96,75 @@ public class PlayerCommands : NetworkBehaviour
     {
         RpcAddInt();
     }
-}
 
-/*
-public void AddIntServer(int a, int b)
+    //////////////////////////////
+
+    public void RandomServer(int res, int minInclusive, int maxExclusive)
     {
-        AddIntOnAllClients(a, b);
+        Debug.Log("RandomServer");
+        RandomOnAllClients(res, minInclusive, maxExclusive);
     }
 
-    public void AddIntClient(int a, int b)
+    public void RandomClient(int res, int minInclusive, int maxExclusive)
     {
-        CmdAddInt(a, b);
+        Debug.Log("RandomClient");
+        CmdRandom(res, minInclusive, maxExclusive);
     }
 
     // Клиент -> Сервер
     [Command]
-    public void CmdAddInt(int a, int b)
+    public void CmdRandom(int res, int minInclusive, int maxExclusive)
     {
-
-        AddIntOnAllClients(a, b);
+        Debug.Log("CmdRandom");
+        RandomOnAllClients(res, minInclusive, maxExclusive);
     }
 
     // Сервер -> Клиенты
     [ClientRpc]
-    public void RpcAddInt(int a, int b)
+    public void RpcRandom(int res, int minInclusive, int maxExclusive)
     {
-        
+        Debug.Log("RpcRandom");
+        res = Random.Range(minInclusive, maxExclusive);
+        gameManager.CoreIdCardToTake = res;
     }
 
     [Server]
-    public void AddIntOnAllClients(int a, int b)
+    public void RandomOnAllClients(int res, int minInclusive, int maxExclusive)
     {
-        RpcAddInt(a, b);
+        Debug.Log("RandomOnAllClients");
+        RpcRandom(res, minInclusive, maxExclusive);
+    }
+}
+
+/*
+    public void __Server()
+    {
+        __OnAllClients();
+    }
+
+    public void __Client()
+    {
+        Cmd__();
+    }
+
+    // Клиент -> Сервер
+    [Command]
+    public void Cmd__()
+    {
+
+        __OnAllClients();
+    }
+
+    // Сервер -> Клиенты
+    [ClientRpc]
+    public void Rpc__()
+    {
+
+    }
+
+    [Server]
+    public void __OnAllClients()
+    {
+        Rpc__();
     }
 */

@@ -18,6 +18,7 @@ public class SetPlayerCommands : MonoBehaviour
         swithCamera.playerCommands = commands;
         mirrorManager.playerCommands = commands;
         gameManager.playerCommands = commands;
+        commands.gameManager = gameManager;
 
         Debug.Log("Commands Is Everywhere");
     }

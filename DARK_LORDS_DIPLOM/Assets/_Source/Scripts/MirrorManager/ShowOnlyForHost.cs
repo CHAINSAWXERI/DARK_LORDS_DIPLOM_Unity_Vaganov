@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+
 public class ShowOnlyForHost : NetworkBehaviour
 {
     public override void OnStartClient()

@@ -10,6 +10,7 @@ using static System.Net.Mime.MediaTypeNames;
 using Mirror;
 using UnityEngine.PlayerLoop;
 using System.Threading;
+using System.Linq;
 
 public enum GameType
 {
@@ -57,6 +58,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public GameObject EndTurnBtnPlayer;
 //    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnEnemy;
+
+    [SyncVar]
+    public List<int> PlayerDeckId = new List<int>();
+    [SyncVar]
+    public List<int> EnemyDeckId = new List<int>();
 
 //    [SyncVar]
     public List<CardInfoScript> PlayerHandCards = new List<CardInfoScript>(),
@@ -138,37 +144,53 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SyncVar]
     public int CoreIdCardToTake = 0;
 
-    //public bool TestingTurn;
-    /*
-    {
-        get
-        {
-            return Turn % 2 == 0;
-        }
-    }
-    */
+    [SyncVar]
+    private bool isRpcInitDone = false;
+    [SyncVar]
+    private bool isInitilizationDone = false;
+    [SyncVar]
+    private bool isRandomTurnDone = false;
+
 
     [Server]
     public void StartGame()
     {
         Debug.Log("!!! START GAME !!!");
-
-
-        // new
-
         Turn = 0;
-        InitGameRpc();  // clientrpc
-        Initilization(); // clientrpc
 
-        Debug.Log("HOST");
-        RandomTurn(); //ClientRpc
-        GiveHandCards(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand, WhoseCard.BluePlayer, CurrentGame.PlayerCharacter); //
-        GiveHandCards(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer, CurrentGame.EnemyCharacter); // clientrpc
+        // Сбрасываем флаги
+        isRpcInitDone = false;
+        isInitilizationDone = false;
+        isRandomTurnDone = false;
 
+        // Запускаем последовательное выполнение
+        StartCoroutine(StartGameSequence());
+    }
 
-        //Debug.Log("SERVER");
+    [Server]
+    private IEnumerator StartGameSequence()
+    {
+        // Запускаем все необходимые операции
+        RpcInitGame();
+        Initilization();
+        RandomTurn();
 
-        //StartCoroutine(TurnFunc()); ////// Ошибка здесь
+        // Ожидаем завершения всех операций
+        yield return new WaitUntil(() => isRpcInitDone && isInitilizationDone && isRandomTurnDone);
+
+        // Теперь безопасно вызываем
+        if (CurrentGame != null)
+        {
+            GiveFiveCardsToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
+            GiveFiveCardsToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
+        }
+        else
+        {
+            Debug.LogError("CurrentGame не инициализирован при вызове GiveHandCards");
+        }
+
+        // Начинаем игровой цикл
+        //StartCoroutine(TurnFunc());
     }
 
     [ClientRpc]
@@ -176,19 +198,36 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     {
         IsPlayerTurn = Random.value > 0.5f;
         Debug.Log("IsPlayerTurn = " + IsPlayerTurn);
+        isRandomTurnDone = true; // Устанавливаем флаг завершения
+        Debug.Log("RandomTurn completed");
     }
 
-    [ClientRpc]
-    public void InitGameRpc()
+
+    [ClientRpc] //Ошибки возникают здесь!!!!!!!!!!!!!!
+    public void RpcInitGame()
     {
         Debug.Log("RpcInitGame");
-        CurrentGame = new Game(Enemy.DeckObj.Deck, Player.DeckObj.Deck, WhoseCard.RedPlayer, WhoseCard.BluePlayer, Enemy.DeckObj.deckCharacter, Player.DeckObj.deckCharacter);
-    }
+        // Создаем CurrentGame на клиентах
+        CurrentGame = new Game(
+            Enemy.DeckObj.Deck,
+            Player.DeckObj.Deck,
+            EnemyDeckId,
+            PlayerDeckId,
+            WhoseCard.RedPlayer,
+            WhoseCard.BluePlayer,
+            Enemy.DeckObj.deckCharacter,
+            Player.DeckObj.deckCharacter
+        );
 
+        isRpcInitDone = true; // Устанавливаем флаг завершения
+        Debug.Log("RpcInitGame completed");
+    }
 
     [ClientRpc]
     public void Initilization()
     {
+        Debug.Log("Initilization");
+
         playerCommands.DisambledObjServer(BlueSpellScreen, false);
         playerCommands.DisambledObjServer(RedSpellScreen, false);
 
@@ -241,16 +280,20 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         WinScreenEnemy
         WinScreenPlayer       
         */
+
+        isInitilizationDone = true; // Устанавливаем флаг завершения
+        Debug.Log("Initilization completed");
     }
 
     /// //////////////////////////
-
+    
     [Server]
     public void GenerateAndDistributeCoreIdCard(int minInclusive, int maxExclusive)
     {
-        CoreIdCardToTake = Random.Range(minInclusive, maxExclusive);
-        Debug.Log($"[ClientRpc] Generated CoreIdCardToTake: {CoreIdCardToTake} on client {NetworkClient.connection.identity.netId}");
-        RpcUpdateCoreIdCard(CoreIdCardToTake);
+        Debug.Log("++++++++++++++++GenerateAndDistributeCoreIdCard");
+        int rnd = Random.Range(minInclusive, maxExclusive);
+        //Debug.Log($"[Server] Generated CoreIdCardToTake: {CoreIdCardToTake} on client??????? {NetworkClient.connection.identity.netId}");
+        RpcUpdateCoreIdCard(rnd);
     }
 
     [ClientRpc]
@@ -262,66 +305,127 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    [ClientRpc]
-    public void GiveHandCards(List<Card> deck, List<CardInfoScript> hand, Transform handTransform, WhoseCard whoseCard, DeckCharacter deckCharacter) //
+    //(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand, WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
+    //(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
+
+    [Server]
+    public void GiveFiveCardsToHand(WhoseCard whoseCard, DeckCharacter deckCharacter) //
     {
         //Debug.Log("11111");
         int i = 0;
         while (i++ < 4)
         {
-            GiveCardsToHand(deck, hand, handTransform, whoseCard, deckCharacter);
+            if (deckCharacter == DeckCharacter.Knight)
+            {
+                GenerateAndDistributeCoreIdCard(1, 11);
+            }
+            if (deckCharacter == DeckCharacter.Necromancer)
+            {
+                GenerateAndDistributeCoreIdCard(11, 22);
+            }
+            GiveCardToHand(whoseCard, deckCharacter);
         }
     }
 
     [ClientRpc]
-    public void GiveCardsToHand(List<Card> deck, List<CardInfoScript> hand, Transform handTransform, WhoseCard whoseCard, DeckCharacter deckCharacter)
+    public void GiveCardToHand(WhoseCard whoseCard, DeckCharacter deckCharacter)
     {
-        Debug.Log("------------------GiveCardsToHand--------------------");
+        Debug.Log("------------------GiveCardToHand--------------------");
 
-        //CurrentGame.Shuffle(CurrentGame.PlayerDeck);
-
-        if (CurrentGame.PlayerDeck.Count == 0)
+        //CoreIdCardToTake
+        if (deckCharacter == DeckCharacter.Knight)
         {
-            return;
-        }
-
-        if (PlayerHandCards.Count == maxCardsInHand)
-        {
-            return;
-        }
-
-        int r = 0;
-        bool i = false;
-        Card card = deck[deck.Count - 1]; // Заглушка
-
-        int attempts = 0;
-        while (!i && attempts < 100)
-        {
-            for (int j = 0; j < deck.Count; j++)
+            Debug.Log("Cards to Knight");
+            if (CurrentGame.PlayerDeck.Count == 0 || PlayerHandCards.Count == maxCardsInHand)
             {
-                if (deck[j].CoreID == CoreIdCardToTake)
+                return;
+            }
+
+            int r = 999;
+
+            Card card = CurrentGame.PlayerDeck[0]; // Заглушка
+
+            Debug.Log("Knight while");
+            for (int j = 0; j < CurrentGame.PlayerDeck.Count; j++)
+            {
+                Debug.Log("Knight for");
+                if (CurrentGame.PlayerDeck[j].CoreID == CoreIdCardToTake)
                 {
-                    card = deck[j];
+                    Debug.Log("Knight if");
+                    card = CurrentGame.PlayerDeck[j];
                     r = j;
-                    i = true;
-                    Debug.Log($"Карта с CoreID {CoreIdCardToTake} найдена. Это карта {deck[j].CoreID} с именем {deck[j].Name}.");
+                    Debug.Log($"Карта с CoreID {CoreIdCardToTake} найдена. Это карта {CurrentGame.PlayerDeck[r].CoreID} с именем {CurrentGame.PlayerDeck[r].Name}.");
                     break;
                 }
             }
-            attempts++;
+            Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
+
+            card.Health = card.MaxHealth;
+            card.Attack = card.MaxAttack;
+
+            GameObject cardGO = Instantiate(CardPref, PlayerHand, false);
+
+            cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
+            IdPlayerCardCount++;
+            PlayerHandCards.Add(cardGO.GetComponent<CardInfoScript>());
+
+            int indexToRemoveDeckId = PlayerDeckId.IndexOf(CoreIdCardToTake);
+
+            Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
+            Debug.Log("indexToRemoveDeck = " + r);
+            Debug.Log("indexToRemoveDeckId = " + indexToRemoveDeckId);
+
+            PlayerDeckId.RemoveAt(indexToRemoveDeckId);
+            CurrentGame.PlayerDeck.RemoveAt(r);
+        }
+        if (deckCharacter == DeckCharacter.Necromancer)
+        {
+            Debug.Log("Cards to Necromancer");
+            if (CurrentGame.EnemyDeck.Count == 0 || EnemyHandCards.Count == maxCardsInHand)
+            {
+                return;
+            }
+
+            int r = 999;
+
+            Card card = CurrentGame.PlayerDeck[0]; // Заглушка
+
+
+            Debug.Log("Necromancer while");
+            for (int j = 0; j < CurrentGame.EnemyDeck.Count; j++)
+            {
+                Debug.Log("Necromancer for");
+                if (CurrentGame.EnemyDeck[j].CoreID == CoreIdCardToTake)
+                {
+                    Debug.Log("Necromancer if");
+                    card = CurrentGame.EnemyDeck[j];
+                    r = j;
+                    Debug.Log($"Карта с CoreID {CoreIdCardToTake} найдена. Это карта {CurrentGame.EnemyDeck[r].CoreID} с именем {CurrentGame.EnemyDeck[r].Name}.");
+                    break;
+                }
+            }
+
+            Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
+
+            card.Health = card.MaxHealth;
+            card.Attack = card.MaxAttack;
+
+            GameObject cardGO = Instantiate(CardPref, EnemyHand, false);
+
+            cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
+            IdPlayerCardCount++;
+            EnemyHandCards.Add(cardGO.GetComponent<CardInfoScript>());
+
+            int indexToRemoveDeckId = EnemyDeckId.IndexOf(CoreIdCardToTake);
+
+            Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
+            Debug.Log("indexToRemoveDeck = " + r);
+            Debug.Log("indexToRemoveDeckId = " + indexToRemoveDeckId);
+
+            EnemyDeckId.RemoveAt(indexToRemoveDeckId);
+            CurrentGame.EnemyDeck.RemoveAt(r);
         }
 
-        card.Health = card.MaxHealth;
-        card.Attack = card.MaxAttack;
-
-        GameObject cardGO = Instantiate(CardPref, handTransform, false);
-
-        cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
-        IdPlayerCardCount++;
-        hand.Add(cardGO.GetComponent<CardInfoScript>());
-        deck.RemoveAt(r);
-
-        Debug.Log($"Это карта с именем {deck[r].Name} и индексом {deck[r].CoreID}. Была Удалена из стопки");
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -597,7 +701,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
         if (IsPlayerTurn)
         {
-            GiveHandCards(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand, WhoseCard.BluePlayer, CurrentGame.PlayerCharacter); // clientrpcCardsToHand(); // PreGiveCardsToHandPlayer();
+            GiveFiveCardsToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter); // clientrpcCardsToHand(); // PreGiveCardsToHandPlayer();
             BlockPhone.SetActive(false);
             BlockPhoneEnemy.SetActive(true);
             EndTurnBtnPlayer.SetActive(true);
@@ -606,7 +710,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         }
         else
         {
-            GiveHandCards(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer, CurrentGame.EnemyCharacter); // PreGiveCardsToHandEnemy();
+            GiveFiveCardsToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter); // PreGiveCardsToHandEnemy();
             BlockPhone.SetActive(true);
             BlockPhoneEnemy.SetActive(false);
             EndTurnBtnPlayer.SetActive(false);

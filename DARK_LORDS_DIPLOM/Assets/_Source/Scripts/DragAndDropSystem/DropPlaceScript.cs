@@ -1,4 +1,4 @@
-﻿//using Mirror;
+﻿using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,18 +22,22 @@ public enum FieldNum
     Num4
 }
 
-public class DropPlaceScript : MonoBehaviour, IDropHandler //NetworkBehaviour
+public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
 {
     [SerializeField] public GameManager GameManager;
     [SerializeField] public DropPlaceScript FieldOpposite;
     [SerializeField] public DropPlaceScript FieldRight;
     [SerializeField] public DropPlaceScript FieldLeft;
+//    [SyncVar]
     [SerializeField] public CardMoveScript currentCard;
+//    [SyncVar]
+    [SerializeField] public GameObject currentCardObj;
     [SerializeField] public FieldType fieldType;
     [SerializeField] public FieldNum fieldNum;
 
     public void OnDrop(PointerEventData eventData)
     {
+        currentCardObj = eventData.pointerDrag.gameObject;
         CardMoveScript card = eventData.pointerDrag.gameObject.GetComponent<CardMoveScript>();
         CardInfoScript cardInfo = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
 

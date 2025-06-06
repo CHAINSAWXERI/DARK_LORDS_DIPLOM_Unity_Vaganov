@@ -13,12 +13,12 @@ public class AddCardsAbilitie : PassiveAbility
         if ((dropPlaceOn.fieldType == FieldType.SELF_FIELD) || (dropPlaceOn.fieldType == FieldType.SELF_SPELL_FIELD))
         {
             Debug.Log("С ТВОЕЙ СТОРОНЫ");
-            gameManager.GiveHandCards(gameManager.CurrentGame.PlayerDeck, gameManager.PlayerHandCards, gameManager.PlayerHand, WhoseCard.BluePlayer, gameManager.CurrentGame.PlayerCharacter);
+            gameManager.GiveCardToHand(WhoseCard.BluePlayer, gameManager.CurrentGame.PlayerCharacter);
         }
         if ((dropPlaceOn.fieldType == FieldType.ENEMY_FIELD) || (dropPlaceOn.fieldType == FieldType.ENEMY_SPELL_FIELD))
         {
             Debug.Log("СО СТОРОНЫ ВРАГА");
-            gameManager.GiveHandCards(gameManager.CurrentGame.EnemyDeck, gameManager.EnemyHandCards, gameManager.EnemyHand, WhoseCard.RedPlayer, gameManager.CurrentGame.EnemyCharacter);
+            gameManager.GiveCardToHand(WhoseCard.RedPlayer, gameManager.CurrentGame.EnemyCharacter);
         }
     }
 

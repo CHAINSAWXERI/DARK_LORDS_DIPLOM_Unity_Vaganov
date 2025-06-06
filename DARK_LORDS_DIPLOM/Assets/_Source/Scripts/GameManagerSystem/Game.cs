@@ -6,24 +6,28 @@ public class Game
     public List<Card> EnemyDeck, PlayerDeck;
     public DeckCharacter EnemyCharacter, PlayerCharacter;
 
-    public Game(List<CardScriptable> enemyDeck, List<CardScriptable> playerDeck, WhoseCard whoseCardEnemy, WhoseCard whoseCardPlayer, DeckCharacter enemyCharacter, DeckCharacter playerCharacter) // (DeckObj playerDeck, DeckObj enemyDeck)
+    public Game(List<CardScriptable> enemyDeck, List<CardScriptable> playerDeck, List<int> enemyDeckId, List<int> playerDeckId, WhoseCard whoseCardEnemy, WhoseCard whoseCardPlayer, DeckCharacter enemyCharacter, DeckCharacter playerCharacter) // (DeckObj playerDeck, DeckObj enemyDeck)
     {
-        EnemyDeck = GiveDeckCard(enemyDeck, whoseCardEnemy); // (enemyDeck.ListDeck)
-        PlayerDeck = GiveDeckCard(playerDeck, whoseCardPlayer); // (playerDeck.ListDeck)
+        EnemyDeck = GiveDeckCard(enemyDeck, enemyDeckId, whoseCardEnemy); // (enemyDeck.ListDeck)
+        PlayerDeck = GiveDeckCard(playerDeck, playerDeckId, whoseCardPlayer); // (playerDeck.ListDeck)
         EnemyCharacter = enemyCharacter;
         PlayerCharacter = playerCharacter;
+        //Shuffle(EnemyDeck);
+        //Shuffle(PlayerDeck);
+        //Shuffle(enemyDeckId);
+        //Shuffle(playerDeckId);
     }
 
-    List<Card> GiveDeckCard(List<CardScriptable> Deck, WhoseCard whoseCard) 
+    List<Card> GiveDeckCard(List<CardScriptable> Deck, List<int> DeckId, WhoseCard whoseCard) 
     {
         List<Card> list = new List<Card>();
         for (int i = 0; i < Deck.Count; i++)
         {
             Card card = new Card(Deck[i].Name, Deck[i].Logo, Deck[i].Attack, Deck[i].Health, Deck[i].Power, Deck[i].PassiveAbilities, Deck[i].CardType, whoseCard, Deck[i].CoreId);
             list.Add(card);
+            DeckId.Add(Deck[i].CoreId);
         }
 
-        Shuffle(Deck);
         return list;
     }
 

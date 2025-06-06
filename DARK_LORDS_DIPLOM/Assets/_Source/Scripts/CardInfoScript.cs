@@ -50,6 +50,11 @@ public class CardInfoScript : NetworkBehaviour //MonoBehaviour
         ID = id;
         WhoseCard = whoseCard;
         CoreID = card.CoreID;
+
+        if (GameManager == null)
+        {
+            Debug.Log("GameManager is Null");
+        }
     }
 
     private void Start()

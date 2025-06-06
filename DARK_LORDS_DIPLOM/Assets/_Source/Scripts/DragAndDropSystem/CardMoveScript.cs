@@ -6,12 +6,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler //NetworkBehaviour
+public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler //NetworkBehaviour
 {
     [SerializeField] public CardInfoScript cardInfoScript;
     public Camera MainCamera;
     private Vector3 offset;
     public Transform DeafoultParent;
+    [SyncVar]
+    public Transform DeafoultParentNetwork;
     public bool isDraggable;
 
     void Start()

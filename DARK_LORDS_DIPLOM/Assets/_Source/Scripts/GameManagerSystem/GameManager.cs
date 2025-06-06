@@ -64,7 +64,12 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SyncVar]
     public List<int> EnemyDeckId = new List<int>();
 
-//    [SyncVar]
+    [SyncVar]
+    public List<int> PlayerHandId = new List<int>();
+    [SyncVar]
+    public List<int> EnemyHandId = new List<int>();
+
+    //    [SyncVar]
     public List<CardInfoScript> PlayerHandCards = new List<CardInfoScript>(),
                                 EnemyHandCards = new List<CardInfoScript>();
 
@@ -170,6 +175,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [Server]
     private IEnumerator StartGameSequence()
     {
+        Debug.Log("");
         // Запускаем все необходимые операции
         RpcInitGame();
         Initilization();
@@ -182,7 +188,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         if (CurrentGame != null)
         {
             GiveFiveCardsToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
-            GiveFiveCardsToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
+            //GiveFiveCardsToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
         }
         else
         {
@@ -203,7 +209,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     }
 
 
-    [ClientRpc] //Ошибки возникают здесь!!!!!!!!!!!!!!
+    [ClientRpc] 
     public void RpcInitGame()
     {
         Debug.Log("RpcInitGame");
@@ -317,11 +323,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         {
             if (deckCharacter == DeckCharacter.Knight)
             {
-                GenerateAndDistributeCoreIdCard(1, 11);
+                GenerateAndDistributeCoreIdCard(0, CurrentGame.PlayerDeck.Count);
             }
             if (deckCharacter == DeckCharacter.Necromancer)
             {
-                GenerateAndDistributeCoreIdCard(11, 22);
+                GenerateAndDistributeCoreIdCard(0, CurrentGame.EnemyDeck.Count);
             }
             GiveCardToHand(whoseCard, deckCharacter);
         }
@@ -341,23 +347,10 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
-            int r = 999;
+            Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {CurrentGame.PlayerDeck[CoreIdCardToTake].Name}.");
 
-            Card card = CurrentGame.PlayerDeck[0]; // Заглушка
+            Card card = CurrentGame.PlayerDeck[CoreIdCardToTake];
 
-            Debug.Log("Knight while");
-            for (int j = 0; j < CurrentGame.PlayerDeck.Count; j++)
-            {
-                Debug.Log("Knight for");
-                if (CurrentGame.PlayerDeck[j].CoreID == CoreIdCardToTake)
-                {
-                    Debug.Log("Knight if");
-                    card = CurrentGame.PlayerDeck[j];
-                    r = j;
-                    Debug.Log($"Карта с CoreID {CoreIdCardToTake} найдена. Это карта {CurrentGame.PlayerDeck[r].CoreID} с именем {CurrentGame.PlayerDeck[r].Name}.");
-                    break;
-                }
-            }
             Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
 
             card.Health = card.MaxHealth;
@@ -369,14 +362,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             IdPlayerCardCount++;
             PlayerHandCards.Add(cardGO.GetComponent<CardInfoScript>());
 
-            int indexToRemoveDeckId = PlayerDeckId.IndexOf(CoreIdCardToTake);
-
             Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
-            Debug.Log("indexToRemoveDeck = " + r);
-            Debug.Log("indexToRemoveDeckId = " + indexToRemoveDeckId);
+            Debug.Log("indexToRemoveDeckId = " + PlayerDeckId[CoreIdCardToTake]);
 
-            PlayerDeckId.RemoveAt(indexToRemoveDeckId);
-            CurrentGame.PlayerDeck.RemoveAt(r);
+            PlayerDeckId.RemoveAt(CoreIdCardToTake);
+            CurrentGame.PlayerDeck.RemoveAt(CoreIdCardToTake);
         }
         if (deckCharacter == DeckCharacter.Necromancer)
         {
@@ -386,24 +376,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
-            int r = 999;
+            Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {CurrentGame.EnemyDeck[CoreIdCardToTake].Name}.");
 
-            Card card = CurrentGame.PlayerDeck[0]; // Заглушка
-
-
-            Debug.Log("Necromancer while");
-            for (int j = 0; j < CurrentGame.EnemyDeck.Count; j++)
-            {
-                Debug.Log("Necromancer for");
-                if (CurrentGame.EnemyDeck[j].CoreID == CoreIdCardToTake)
-                {
-                    Debug.Log("Necromancer if");
-                    card = CurrentGame.EnemyDeck[j];
-                    r = j;
-                    Debug.Log($"Карта с CoreID {CoreIdCardToTake} найдена. Это карта {CurrentGame.EnemyDeck[r].CoreID} с именем {CurrentGame.EnemyDeck[r].Name}.");
-                    break;
-                }
-            }
+            Card card = CurrentGame.PlayerDeck[CoreIdCardToTake];
 
             Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
 
@@ -416,14 +391,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             IdPlayerCardCount++;
             EnemyHandCards.Add(cardGO.GetComponent<CardInfoScript>());
 
-            int indexToRemoveDeckId = EnemyDeckId.IndexOf(CoreIdCardToTake);
-
             Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
-            Debug.Log("indexToRemoveDeck = " + r);
-            Debug.Log("indexToRemoveDeckId = " + indexToRemoveDeckId);
+            Debug.Log("indexToRemoveDeckId = " + EnemyDeckId[CoreIdCardToTake]);
 
-            EnemyDeckId.RemoveAt(indexToRemoveDeckId);
-            CurrentGame.EnemyDeck.RemoveAt(r);
+            EnemyDeckId.RemoveAt(CoreIdCardToTake);
+            CurrentGame.EnemyDeck.RemoveAt(CoreIdCardToTake);
         }
 
     }

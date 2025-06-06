@@ -12,8 +12,6 @@ public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler,
     public Camera MainCamera;
     private Vector3 offset;
     public Transform DeafoultParent;
-    [SyncVar]
-    public Transform DeafoultParentNetwork;
     public bool isDraggable;
 
     void Start()

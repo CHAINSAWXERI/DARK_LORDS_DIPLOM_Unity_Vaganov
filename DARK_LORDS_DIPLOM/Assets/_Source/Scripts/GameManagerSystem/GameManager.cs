@@ -188,7 +188,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         if (CurrentGame != null)
         {
             GiveFiveCardsToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
-            //GiveFiveCardsToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
+            GiveFiveCardsToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
         }
         else
         {
@@ -323,11 +323,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         {
             if (deckCharacter == DeckCharacter.Knight)
             {
-                GenerateAndDistributeCoreIdCard(0, CurrentGame.PlayerDeck.Count);
+                GenerateAndDistributeCoreIdCard(0, CurrentGame.PlayerDeck.Count - i);
             }
             if (deckCharacter == DeckCharacter.Necromancer)
             {
-                GenerateAndDistributeCoreIdCard(0, CurrentGame.EnemyDeck.Count);
+                GenerateAndDistributeCoreIdCard(0, CurrentGame.EnemyDeck.Count - i);
             }
             GiveCardToHand(whoseCard, deckCharacter);
         }
@@ -378,7 +378,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {CurrentGame.EnemyDeck[CoreIdCardToTake].Name}.");
 
-            Card card = CurrentGame.PlayerDeck[CoreIdCardToTake];
+            Card card = CurrentGame.EnemyDeck[CoreIdCardToTake];
 
             Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
 

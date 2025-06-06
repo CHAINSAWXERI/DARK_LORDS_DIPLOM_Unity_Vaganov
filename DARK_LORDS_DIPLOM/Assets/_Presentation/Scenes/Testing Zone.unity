@@ -3336,6 +3336,8 @@ MonoBehaviour:
   EndTurnBtnEnemy: {fileID: 548504539}
   PlayerDeckId: 
   EnemyDeckId: 
+  PlayerHandId: 
+  EnemyHandId: 
   PlayerHandCards: []
   EnemyHandCards: []
   PlayerDiscardedDeck: []

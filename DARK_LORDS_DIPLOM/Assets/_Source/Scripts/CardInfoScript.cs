@@ -6,7 +6,7 @@ using TMPro;
 using Mirror;
 //using static System.Net.Mime.MediaTypeNames;
 
-public class CardInfoScript : NetworkBehaviour //MonoBehaviour
+public class CardInfoScript : NetworkBehaviour  // MonoBehaviour
 {
     public Card SelfCard;
     public Image Logo;
@@ -21,6 +21,7 @@ public class CardInfoScript : NetworkBehaviour //MonoBehaviour
 
     public void ShowCardInfo(Card card, int id, GameManager gameManager, WhoseCard whoseCard)
     {
+        Debug.Log("ShowCardInfo");
         SelfCard = card;
         GameManager = gameManager;
 

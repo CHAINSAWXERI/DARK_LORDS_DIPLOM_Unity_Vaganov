@@ -625,8 +625,7 @@ GameObject:
   - component: {fileID: 6471586948865349529}
   - component: {fileID: -4785135995237626347}
   - component: {fileID: 3776698513044787978}
-  - component: {fileID: 3030160322494095048}
-  - component: {fileID: 4371935175711525744}
+  - component: {fileID: 3662731892171471956}
   m_Layer: 6
   m_Name: CardPref
   m_TagString: Untagged
@@ -708,9 +707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a0a6af8a65af246bf51c242af69ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   cardInfoScript: {fileID: -4785135995237626347}
   MainCamera: {fileID: 0}
   DeafoultParent: {fileID: 0}
@@ -728,9 +724,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79946a9bc58aab646a7f38e4278503b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   SelfCard:
     Name: 
     Logo: {fileID: 0}
@@ -765,7 +758,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3030160322494095048
+--- !u!114 &3662731892171471956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -782,37 +775,3 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
---- !u!114 &4371935175711525744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9040527998406349333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 1
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: 5262904024105094461}
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  onlySyncOnChange: 1
-  compressRotation: 1
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
-  coordinateSpace: 0
-  timelineOffset: 1
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  bufferResetMultiplier: 3
-  useFixedUpdate: 0
-  positionSensitivity: 0.01
-  rotationSensitivity: 0.01
-  scaleSensitivity: 0.01

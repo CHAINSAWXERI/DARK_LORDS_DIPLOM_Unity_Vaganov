@@ -6,32 +6,44 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler //NetworkBehaviour
+public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler // NetworkBehaviour
 {
     [SerializeField] public CardInfoScript cardInfoScript;
     public Camera MainCamera;
     private Vector3 offset;
     public Transform DeafoultParent;
+    public Transform DeafoultParentNetwork;
     public bool isDraggable;
 
     void Start()
     {
-        if (cardInfoScript.GameManager.GameType == GameType.PVP)
+        if (MainCamera == null)
         {
-            if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
+            if (cardInfoScript.GameManager.GameType == GameType.PVP)
             {
-                MainCamera = GameObject.Find("CameraPlayer").GetComponent<Camera>(); //Player
-                //Debug.Log("PLAYER CARD");
+                if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
+                {
+                    GameObject Cam = GameObject.Find("CameraPlayer");
+                    if (Cam != null)
+                    {
+                        MainCamera = Cam.GetComponent<Camera>(); //Player
+                                                                 //Debug.Log("PLAYER CARD");
+                    }
+                }
+                if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
+                {
+                    GameObject Cam = GameObject.Find("CameraEnemy");
+                    if (Cam != null)
+                    {
+                        MainCamera = Cam.GetComponent<Camera>(); //Enemy
+                                                                 //Debug.Log("ENEMY CARD");
+                    }
+                }
             }
-            if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
+            else
             {
-                MainCamera = GameObject.Find("CameraEnemy").GetComponent<Camera>(); //Enemy
-                //Debug.Log("ENEMY CARD");
+                MainCamera = Camera.main;
             }
-        }
-        else
-        {
-            MainCamera = Camera.main;
         }
     }
 
@@ -85,5 +97,11 @@ public class CardMoveScript : NetworkBehaviour, IBeginDragHandler, IDragHandler,
         cardInfoScript.GameManager.BlueSpellScreen.gameObject.SetActive(false);
         transform.SetParent(DeafoultParent);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+    }
+
+    //[ClientRpc]
+    public void UpdateDeafoultParent()
+    {
+        transform.SetParent(DeafoultParent);
     }
 }

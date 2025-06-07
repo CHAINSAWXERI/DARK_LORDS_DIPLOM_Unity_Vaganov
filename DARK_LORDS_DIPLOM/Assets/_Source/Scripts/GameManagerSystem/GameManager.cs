@@ -133,13 +133,13 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     private bool gameContinues = true;
 
 //    [SyncVar]
-    [HideInInspector] public bool firstCardPlayer = false;
+    public bool firstCardPlayer = false;
 //    [SyncVar]
-    [HideInInspector] public bool secondCardPlayer = false;
+    public bool secondCardPlayer = false;
 //    [SyncVar]
-    [HideInInspector] public bool firstCardEnemy = false;
+    public bool firstCardEnemy = false;
 //    [SyncVar]
-    [HideInInspector] public bool secondCardEnemy = false;
+    public bool secondCardEnemy = false;
 
     [HideInInspector] public PlayerCommands playerCommands;
 

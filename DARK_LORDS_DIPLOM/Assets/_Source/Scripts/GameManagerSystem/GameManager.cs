@@ -35,10 +35,10 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
     [SerializeField] public Slider EnemyHPSlider;
     [SerializeField] public Slider PlayerHPSlider;
-//    [SyncVar]
-    [HideInInspector] public int EnemyHP;
-//    [SyncVar]
-    [HideInInspector] public int PlayerHP;
+    [SyncVar]
+    [SerializeField] public int EnemyHP;
+    [SyncVar]
+    [SerializeField] public int PlayerHP;
 
 
     [SerializeField] public Transform EnemyHand;
@@ -121,9 +121,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 //    [SyncVar]
     [SerializeField] public GameObject WinScreenEnemy;
 
-    [SyncVar]
+//    [SyncVar]
     [SerializeField] public GameObject BlueSpellScreen;
-    [SyncVar]
+//    [SyncVar]
     [SerializeField] public GameObject RedSpellScreen;
 
     private int IdPlayerCardCount = 0;
@@ -168,6 +168,10 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         isInitilizationDone = false;
         isRandomTurnDone = false;
 
+        IsPlayerTurn = Random.value > 0.5f;
+        Debug.Log("IsPlayerTurn = " + IsPlayerTurn);
+        isRandomTurnDone = true;
+
         // Запускаем последовательное выполнение
         StartCoroutine(StartGameSequence());
     }
@@ -175,12 +179,10 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [Server]
     private IEnumerator StartGameSequence()
     {
-        Debug.Log("");
         // Запускаем все необходимые операции
+        
         RpcInitGame();
-        Initilization();
-        RandomTurn();
-
+        Initilization(IsPlayerTurn);
         // Ожидаем завершения всех операций
         yield return new WaitUntil(() => isRpcInitDone && isInitilizationDone && isRandomTurnDone);
 
@@ -196,16 +198,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         }
 
         // Начинаем игровой цикл
-        //StartCoroutine(TurnFunc());
-    }
-
-    [ClientRpc]
-    public void RandomTurn()
-    {
-        IsPlayerTurn = Random.value > 0.5f;
-        Debug.Log("IsPlayerTurn = " + IsPlayerTurn);
-        isRandomTurnDone = true; // Устанавливаем флаг завершения
-        Debug.Log("RandomTurn completed");
+        StartCoroutine(TurnFunc());
     }
 
 
@@ -230,12 +223,20 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     }
 
     [ClientRpc]
-    public void Initilization()
+    public void Initilization(bool isPlayerTurn)
     {
-        Debug.Log("Initilization");
+        Debug.Log("Initilization with isPlayerTurn: " + isPlayerTurn);
 
-        playerCommands.DisambledObjServer(BlueSpellScreen, false);
-        playerCommands.DisambledObjServer(RedSpellScreen, false);
+        // Устанавливаем флаг завершения
+
+        PlayerHPSlider.maxValue = PlayerHP;
+        EnemyHPSlider.maxValue = EnemyHP;
+
+        PlayerHPSlider.value = PlayerHP;
+        EnemyHPSlider.value = EnemyHP;
+
+        BlueSpellScreen.SetActive(false);
+        RedSpellScreen.SetActive(false);
 
         if (!EnemyHand.gameObject.activeInHierarchy)
         {
@@ -247,28 +248,34 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             TurnTimeTxtPlayer.gameObject.SetActive(true);
             PlayerHand.gameObject.SetActive(true);
         }
-        
-        if ((IsPlayerTurn) && (EnemyCamera.gameObject.activeInHierarchy)) //Враг \ Ход Игрока
+
+        if ((isPlayerTurn)) // Ход Игрока
         {
+            BlockPhone.SetActive(false);
             BlockPhoneEnemy.SetActive(true);
+
+            EndTurnBtnPlayer.SetActive(true);
             EndTurnBtnEnemy.SetActive(false);
         }
-        if ((!IsPlayerTurn) && (EnemyCamera.gameObject.activeInHierarchy)) //Враг \ Ход Врага 
+        if ((!isPlayerTurn)) // Ход Врага 
         {
+            BlockPhone.SetActive(true);
             BlockPhoneEnemy.SetActive(false);
+
+            EndTurnBtnPlayer.SetActive(false);
             EndTurnBtnEnemy.SetActive(true);
         }
 
-        if ((IsPlayerTurn) && (PlayerCamer.gameObject.activeInHierarchy)) //Игрок \ Ход Игрока
+        if ((EnemyCamera.gameObject.activeInHierarchy))
         {
-            BlockPhone.SetActive(false);
-            EndTurnBtnPlayer.SetActive(true);
+            TurnTimeTxtEnemy.gameObject.SetActive(true);
         }
-        if ((!IsPlayerTurn) && (PlayerCamer.gameObject.activeInHierarchy)) //Игрок \ Ход Врага 
+
+        if ((PlayerCamer.gameObject.activeInHierarchy))
         {
-            BlockPhone.SetActive(true);
-            EndTurnBtnPlayer.SetActive(false);
+            TurnTimeTxtPlayer.gameObject.SetActive(true);
         }
+
 
         /*
         if (BlockPhoneEnemy.gameObject.activeInHierarchy)
@@ -361,6 +368,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
             IdPlayerCardCount++;
             PlayerHandCards.Add(cardGO.GetComponent<CardInfoScript>());
+            PlayerHandId.Add(CoreIdCardToTake);
 
             Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
             Debug.Log("indexToRemoveDeckId = " + PlayerDeckId[CoreIdCardToTake]);
@@ -390,6 +398,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
             IdPlayerCardCount++;
             EnemyHandCards.Add(cardGO.GetComponent<CardInfoScript>());
+            EnemyHandId.Add(CoreIdCardToTake);
 
             Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
             Debug.Log("indexToRemoveDeckId = " + EnemyDeckId[CoreIdCardToTake]);
@@ -400,93 +409,36 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*
-    [ClientRpc]
-    public void GiveHandCardsEnemy()
-    {
-        //Debug.Log("11111");
-        int i = 0;
-        while (i++ < 4)
-        {
-            GiveCardsToHandEnemy();
-        }
-    }
-
-    ////(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer, CurrentGame.EnemyCharacter)
-    public void GiveCardsToHandEnemy()
-    {
-
-        //CurrentGame.Shuffle(CurrentGame.EnemyDeck);
-
-        if (CurrentGame.EnemyDeck.Count == 0)
-        {
-            return;
-        }
-
-        if (EnemyHandCards.Count == maxCardsInHand)
-        {
-            return;
-        }
-
-        int r = 0;
-        bool i = false;
-        Card card = CurrentGame.EnemyDeck[CurrentGame.EnemyDeck.Count - 1]; // Заглушка
-
-        int attempts = 0;
-        while (!i && attempts < 100)
-        {
-            for (int j = 0; j < CurrentGame.EnemyDeck.Count; j++)
-            {
-                if (CurrentGame.EnemyDeck[j].CoreID == CoreIdCardToTake)
-                {
-                    card = CurrentGame.EnemyDeck[j];
-                    r = j;
-                    i = true;
-                    Debug.Log($"Карта с CoreID {CoreIdCardToTake} найдена. Это карта {CurrentGame.EnemyDeck[j].CoreID} с именем {CurrentGame.EnemyDeck[j].Name}.");
-                    break;
-                }
-            }
-            attempts++;
-        }
-
-        card.Health = card.MaxHealth;
-        card.Attack = card.MaxAttack;
-
-        GameObject cardGO = Instantiate(CardPref, EnemyHand, false);
-
-        cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, WhoseCard.RedPlayer);
-        IdPlayerCardCount++;
-        EnemyHandCards.Add(cardGO.GetComponent<CardInfoScript>());
-        CurrentGame.EnemyDeck.RemoveAt(r);
-
-        Debug.Log($"Это карта с именем {CurrentGame.EnemyDeck[r].Name} и индексом {CurrentGame.EnemyDeck[r].CoreID}. Была Удалена из стопки");
-    }
-    */
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //[ClientRpc]
-    IEnumerator TurnFunc()
+    [Server]
+    public IEnumerator TurnFunc()
     {
         TurnTime = 30;
-        TurnTimeTxtPlayer.text = TurnTime.ToString();
-        TurnTimeTxtEnemy.text = TurnTime.ToString();
+        RpcUpdateTurnTimeText(TurnTime);
 
         if (IsPlayerTurn)
         {
-            BlockPhoneEnemy.SetActive(true);
             firstCardPlayer = false;
             secondCardPlayer = false;
-            while (TurnTime-- > 0)
+            while (TurnTime > 0)
             {
-                TurnTimeTxtPlayer.text = TurnTime.ToString();
-                TurnTimeTxtEnemy.text = TurnTime.ToString();
                 yield return new WaitForSeconds(1);
+                TurnTime--;
+                RpcUpdateTurnTimeText(TurnTime);
             }
         }
         else
         {
-            BlockPhone.SetActive(true);
+            if (GameType == GameType.PVP)
+            {
+                firstCardEnemy = false;
+                secondCardEnemy = false;
+                while (TurnTime > 0)
+                {
+                    yield return new WaitForSeconds(1);
+                    TurnTime--;
+                    RpcUpdateTurnTimeText(TurnTime);
+                }
+            }
             if (GameType == GameType.PVE)
             {
                 while (TurnTime-- > 27)
@@ -501,19 +453,15 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                     EnemyTurn(EnemyHandCards, EnemyField1, EnemyField2, EnemyField3, EnemyField4);
                 }
             }
-            if (GameType == GameType.PVP)
-            {
-                firstCardEnemy = false;
-                secondCardEnemy = false;
-                while (TurnTime-- > 0)
-                {
-                    TurnTimeTxtPlayer.text = TurnTime.ToString();
-                    TurnTimeTxtEnemy.text = TurnTime.ToString();
-                    yield return new WaitForSeconds(1);
-                }
-            }
         }
         ChangeTurn();
+    }
+
+    [ClientRpc]
+    void RpcUpdateTurnTimeText(int time)
+    {
+        TurnTimeTxtPlayer.text = time.ToString();
+        TurnTimeTxtEnemy.text = time.ToString();
     }
 
     void EnemyTurn(List<CardInfoScript> handCards, Transform field1, Transform field2, Transform field3, Transform field4)
@@ -660,45 +608,94 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         }
     }
 
+    
     public void ChangeTurn()
+    {
+        if (NetworkServer.active)
+        {
+            Debug.Log("HOST ChangeTurn");
+            ChangeTurnServer();
+        }
+        else if (NetworkClient.isConnected)
+        {
+            Debug.Log("CLIENT ChangeTurn");
+            ChangeTurnCommand();
+        }
+    }
+
+    [Server]
+    public void ChangeTurnServer()
     {
         StopAllCoroutines();
         Turn++;
         if (Turn > 2)
         {
-            Attack();
+            //Attack();
         }
 
         //EndTurnBtn.interactable = IsPlayerTurn;
+        IsPlayerTurn = !IsPlayerTurn;
+        ChangeTurnRPC(IsPlayerTurn);
 
         if (IsPlayerTurn)
         {
-            GiveFiveCardsToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter); // clientrpcCardsToHand(); // PreGiveCardsToHandPlayer();
-            BlockPhone.SetActive(false);
-            BlockPhoneEnemy.SetActive(true);
-            EndTurnBtnPlayer.SetActive(true);
-            EndTurnBtnEnemy.SetActive(false);
-            //GamePlaceCanvas.worldCamera =
+            GiveCardToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
         }
         else
         {
-            GiveFiveCardsToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter); // PreGiveCardsToHandEnemy();
-            BlockPhone.SetActive(true);
-            BlockPhoneEnemy.SetActive(false);
-            EndTurnBtnPlayer.SetActive(false);
-            EndTurnBtnEnemy.SetActive(true);
+            GiveCardToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
         }
 
         if (gameContinues)
         {
             StartCoroutine(TurnFunc());
         }
-
     }
 
-    public void Attack()
+    [ClientRpc]
+    public void ChangeTurnRPC(bool isPlayerTurn)
     {
-        if (IsPlayerTurn)
+        if (isPlayerTurn)
+        {
+            Debug.Log("PlayerTurn");
+            BlockPhone.SetActive(false);
+            BlockPhoneEnemy.SetActive(true);
+            EndTurnBtnPlayer.SetActive(true);
+            EndTurnBtnEnemy.SetActive(false);
+
+            Debug.Log("IsPlayerTurn " + isPlayerTurn);
+
+            Debug.Log("BlockPhone " + BlockPhone.activeInHierarchy);
+            Debug.Log("BlockPhoneEnemy " + BlockPhoneEnemy.activeInHierarchy);
+            Debug.Log("EndTurnBtnPlayer " + EndTurnBtnPlayer.activeInHierarchy);
+            Debug.Log("EndTurnBtnEnemy " + EndTurnBtnEnemy.activeInHierarchy);
+        }
+        else
+        {
+            Debug.Log("EnemyTurn");
+            BlockPhone.SetActive(true);
+            BlockPhoneEnemy.SetActive(false);
+            EndTurnBtnPlayer.SetActive(false);
+            EndTurnBtnEnemy.SetActive(true);
+
+            Debug.Log("IsPlayerTurn " + isPlayerTurn);
+
+            Debug.Log("BlockPhone " + BlockPhone.activeInHierarchy);
+            Debug.Log("BlockPhoneEnemy " + BlockPhoneEnemy.activeInHierarchy);
+            Debug.Log("EndTurnBtnPlayer " + EndTurnBtnPlayer.activeInHierarchy);
+            Debug.Log("EndTurnBtnEnemy " + EndTurnBtnEnemy.activeInHierarchy);
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    public void ChangeTurnCommand()
+    {
+        ChangeTurnServer();
+    }
+
+    public void Attack(bool isPlayerTurn)
+    {
+        if (isPlayerTurn)
         {
             Debug.Log("АТАКА ВРАГА!!!");
             if (CardEnemyField1 != null && CardEnemyField1.SelfCard.Attack > 0)

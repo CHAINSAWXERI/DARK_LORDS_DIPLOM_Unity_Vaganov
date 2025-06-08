@@ -66,41 +66,6 @@ public class PlayerCommands : NetworkBehaviour
 
     //////////////////////////////
 
-    public void SetCardClient(FieldType fieldType, FieldNum fieldNum, int findCoreId, int findID) //
-    {                        
-        Debug.Log("SetCardClient");
-        CmdSetCard(fieldType, fieldNum, findCoreId, findID); //
-    }
-
-    // Клиент -> Сервер
-    [Command(requiresAuthority = false)]
-    public void CmdSetCard(FieldType fieldType, FieldNum fieldNum, int findCoreId, int findID) //
-    {
-        Debug.Log("CmdSetCard");
-        CmdSetCardOnAllClients(fieldType, fieldNum, findCoreId, findID); //
-    }
-
-    [Server]
-    public void CmdSetCardOnAllClients(FieldType fieldType, FieldNum fieldNum, int findCoreId, int findID) //
-    {
-        Debug.Log("CmdSetCardOnAllClients");
-        DropPlaceScript dp_i;
-        DropPlaceScript[] DropPlaces = FindObjectsOfType<DropPlaceScript>();
-        // Перебираем все найденные объекты
-        foreach (DropPlaceScript dp in DropPlaces)
-        {
-            // Проверяем, равен ли CoreID 4
-            if (dp.fieldType == fieldType && dp.fieldNum == fieldNum)
-            {
-                Debug.Log(dp.fieldType + " FieldType");
-                Debug.Log(dp.fieldNum + " FieldNum");
-
-                dp_i = dp.gameObject.GetComponent<DropPlaceScript>();
-                dp_i.SetCardRpc(findCoreId, findCoreId);
-                break;
-            }
-        }
-    }
 
     //////////////////////////////
 }

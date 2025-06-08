@@ -69,8 +69,6 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                 return;
             }
 
-            GameManager.PlayerHandCards.RemoveAll(c => c.ID == cardInfo.ID);
-
             if (card)
             {
 
@@ -79,11 +77,15 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                 if (NetworkServer.active)
                 {
                     Debug.Log("HOST DROP PLACE");
+                    Debug.Log("cardInfo.CoreID" + cardInfo.CoreID);
+                    Debug.Log("cardInfo.ID" + cardInfo.ID);
                     SetCardRpc(cardInfo.CoreID, cardInfo.ID);
                 }
                 else if (NetworkClient.isConnected)
                 {
                     Debug.Log("CLIENT DROP PLACE");
+                    Debug.Log("cardInfo.CoreID" + cardInfo.CoreID);
+                    Debug.Log("cardInfo.ID" + cardInfo.ID);
                     CmdSetCard(cardInfo.CoreID, cardInfo.ID); //
                 }
 
@@ -142,7 +144,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
             {
                 Debug.Log("11111111111111111111111111111111111111111");
                 CardInfoScript newPlayerSpell = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
-                newPlayerSpell.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
+                //newPlayerSpell.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
                 GameManager.PlayerDiscardedDeck.Add(currentCard.GetComponent<CardInfoScript>().SelfCard);
                 Destroy(currentCard.gameObject);
                 currentCard = null;
@@ -152,7 +154,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
             {
                 Debug.Log("22222222222222222222222222222222222222222");
                 CardInfoScript newEnemySpell = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
-                newEnemySpell.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
+                //newEnemySpell.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
                 GameManager.PlayerDiscardedDeck.Add(currentCard.GetComponent<CardInfoScript>().SelfCard);
                 Destroy(currentCard.gameObject);
                 currentCard = null;
@@ -219,7 +221,6 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         currentCard = card;
         currentCard.UpdateDeafoultParent();
         */
-        Debug.Log("OOOOOOOOOOOOOOOOOO");
         CardInfoScript[] cardInfoScripts = FindObjectsOfType<CardInfoScript>();
         GameObject card;
         // Перебираем все найденные объекты
@@ -242,8 +243,30 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
 
                 card = cardInfo.gameObject;
 
+                Debug.Log("findCoreId " + findCoreId);
+                Debug.Log("findID " + findID);
+
                 GameManager.PlayerHandCards.RemoveAll(c => c.ID == findID);
                 GameManager.EnemyHandCards.RemoveAll(c => c.ID == findID);
+
+                GameManager.PlayerHandId.RemoveAll(c => c == findID);
+                GameManager.EnemyHandId.RemoveAll(c => c == findID);
+
+                int indexToRemovePlayer = GameManager.PlayerHandCoreID.IndexOf(findCoreId); // Находим индекс первого вхождения
+                int indexToRemoveEnemy = GameManager.EnemyHandCoreID.IndexOf(findCoreId); // Находим индекс первого вхождения
+
+                if (indexToRemovePlayer != -1) // Проверяем, найден ли элемент
+                {
+                    Debug.Log("indexToRemovePlayer");
+                    GameManager.PlayerHandCoreID.RemoveAt(indexToRemovePlayer); // Удаляем элемент по индексу
+                }
+
+                if (indexToRemoveEnemy != -1) // Проверяем, найден ли элемент
+                {
+                    Debug.Log("indexToRemoveEnemy");
+                    GameManager.EnemyHandCoreID.RemoveAt(indexToRemoveEnemy); // Удаляем элемент по индексу
+                }
+
                 //crdInfo.ShowCardInfo();
                 if (fieldType == FieldType.SELF_FIELD)
                 {

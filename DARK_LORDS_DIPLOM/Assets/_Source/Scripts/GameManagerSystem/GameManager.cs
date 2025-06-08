@@ -60,9 +60,14 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public GameObject EndTurnBtnEnemy;
 
     [SyncVar]
-    public List<int> PlayerDeckId = new List<int>();
+    public List<int> PlayerDeckCoreID = new List<int>();
     [SyncVar]
-    public List<int> EnemyDeckId = new List<int>();
+    public List<int> EnemyDeckCoreID = new List<int>();
+
+    [SyncVar]
+    public List<int> PlayerHandCoreID = new List<int>();
+    [SyncVar]
+    public List<int> EnemyHandCoreID = new List<int>();
 
     [SyncVar]
     public List<int> PlayerHandId = new List<int>();
@@ -210,8 +215,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         CurrentGame = new Game(
             Enemy.DeckObj.Deck,
             Player.DeckObj.Deck,
-            EnemyDeckId,
-            PlayerDeckId,
+            EnemyDeckCoreID,
+            PlayerDeckCoreID,
             WhoseCard.RedPlayer,
             WhoseCard.BluePlayer,
             Enemy.DeckObj.deckCharacter,
@@ -368,12 +373,13 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
             IdPlayerCardCount++;
             PlayerHandCards.Add(cardGO.GetComponent<CardInfoScript>());
-            PlayerHandId.Add(CoreIdCardToTake);
+            PlayerHandId.Add(IdPlayerCardCount);
+            PlayerHandCoreID.Add(card.CoreID);
 
             Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + PlayerDeckId[CoreIdCardToTake]);
+            Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[CoreIdCardToTake]);
 
-            PlayerDeckId.RemoveAt(CoreIdCardToTake);
+            PlayerDeckCoreID.RemoveAt(CoreIdCardToTake);
             CurrentGame.PlayerDeck.RemoveAt(CoreIdCardToTake);
         }
         if (deckCharacter == DeckCharacter.Necromancer)
@@ -398,12 +404,13 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
             IdPlayerCardCount++;
             EnemyHandCards.Add(cardGO.GetComponent<CardInfoScript>());
-            EnemyHandId.Add(CoreIdCardToTake);
+            EnemyHandId.Add(IdPlayerCardCount);
+            EnemyHandCoreID.Add(card.CoreID);
 
             Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + EnemyDeckId[CoreIdCardToTake]);
+            Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[CoreIdCardToTake]);
 
-            EnemyDeckId.RemoveAt(CoreIdCardToTake);
+            EnemyDeckCoreID.RemoveAt(CoreIdCardToTake);
             CurrentGame.EnemyDeck.RemoveAt(CoreIdCardToTake);
         }
 
@@ -630,20 +637,23 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         Turn++;
         if (Turn > 2)
         {
-            //Attack();
+            Attack(IsPlayerTurn, PlayerHP, EnemyHP);
         }
 
         //EndTurnBtn.interactable = IsPlayerTurn;
         IsPlayerTurn = !IsPlayerTurn;
         ChangeTurnRPC(IsPlayerTurn);
 
-        if (IsPlayerTurn)
+        if (Turn > 2)
         {
-            GiveCardToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
-        }
-        else
-        {
-            GiveCardToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
+            if (IsPlayerTurn)
+            {
+                GiveCardToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
+            }
+            else
+            {
+                GiveCardToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
+            }
         }
 
         if (gameContinues)
@@ -693,9 +703,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         ChangeTurnServer();
     }
 
-    public void Attack(bool isPlayerTurn)
+
+    [ClientRpc]
+    public void Attack(bool isPlayerTurn, int playerHP, int enemyHP)
     {
-        if (isPlayerTurn)
+        if (isPlayerTurn == false)
         {
             Debug.Log("АТАКА ВРАГА!!!");
             if (CardEnemyField1 != null && CardEnemyField1.SelfCard.Attack > 0)
@@ -715,7 +727,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 }
                 else
                 {
-                    PlayerHP = (int)(PlayerHPSlider.value) - CardEnemyField1.SelfCard.Attack;
+                    playerHP = playerHP - CardEnemyField1.SelfCard.Attack;
+                    PlayerHP = playerHP;
                     PlayerHPSlider.value = PlayerHP;
 
                     if (PlayerHPSlider.value <= 0)
@@ -745,7 +758,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 }
                 else
                 {
-                    PlayerHP = (int)(PlayerHPSlider.value) - CardEnemyField2.SelfCard.Attack;
+                    playerHP = playerHP - CardEnemyField2.SelfCard.Attack;
+                    PlayerHP = playerHP;
                     PlayerHPSlider.value = PlayerHP;
 
                     if (PlayerHPSlider.value <= 0)
@@ -775,7 +789,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 }
                 else
                 {
-                    PlayerHP = (int)(PlayerHPSlider.value) - CardEnemyField3.SelfCard.Attack;
+                    playerHP = playerHP - CardEnemyField3.SelfCard.Attack;
+                    PlayerHP = playerHP;
                     PlayerHPSlider.value = PlayerHP;
 
                     if (PlayerHPSlider.value <= 0)
@@ -805,7 +820,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 }
                 else
                 {
-                    PlayerHP = (int)(PlayerHPSlider.value) - CardEnemyField4.SelfCard.Attack;
+                    playerHP = playerHP - CardEnemyField4.SelfCard.Attack;
+                    PlayerHP = playerHP;
                     PlayerHPSlider.value = PlayerHP;
 
                     if (PlayerHPSlider.value <= 0)
@@ -839,7 +855,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 }
                 else
                 {
-                    EnemyHP = (int)(EnemyHPSlider.value) - CardPlayerField1.SelfCard.Attack;
+                    enemyHP = enemyHP - CardPlayerField1.SelfCard.Attack;
+                    EnemyHP = enemyHP;
                     EnemyHPSlider.value = EnemyHP;
 
                     if (EnemyHPSlider.value <= 0)
@@ -869,7 +886,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 }
                 else
                 {
-                    EnemyHP = (int)(EnemyHPSlider.value) - CardPlayerField2.SelfCard.Attack;
+                    enemyHP = enemyHP - CardPlayerField2.SelfCard.Attack;
+                    EnemyHP = enemyHP;
                     EnemyHPSlider.value = EnemyHP;
 
                     if (EnemyHPSlider.value <= 0)
@@ -899,7 +917,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 }
                 else
                 {
-                    EnemyHP = (int)(EnemyHPSlider.value) - CardPlayerField3.SelfCard.Attack;
+                    enemyHP = enemyHP - CardPlayerField3.SelfCard.Attack;
+                    EnemyHP = enemyHP;
                     EnemyHPSlider.value = EnemyHP;
 
                     if (EnemyHPSlider.value <= 0)
@@ -929,7 +948,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 }
                 else
                 {
-                    EnemyHP = (int)(EnemyHPSlider.value) - CardPlayerField4.SelfCard.Attack;
+                    enemyHP = enemyHP - CardPlayerField4.SelfCard.Attack;
+                    EnemyHP = enemyHP;
                     EnemyHPSlider.value = EnemyHP;
 
                     if (EnemyHPSlider.value <= 0)

@@ -3428,8 +3428,10 @@ MonoBehaviour:
   TurnTimeTxtEnemy: {fileID: 825359630}
   EndTurnBtnPlayer: {fileID: 1911081488}
   EndTurnBtnEnemy: {fileID: 548504539}
-  PlayerDeckId: 
-  EnemyDeckId: 
+  PlayerDeckCoreID: 
+  EnemyDeckCoreID: 
+  PlayerHandCoreID: 
+  EnemyHandCoreID: 
   PlayerHandId: 
   EnemyHandId: 
   PlayerHandCards: []

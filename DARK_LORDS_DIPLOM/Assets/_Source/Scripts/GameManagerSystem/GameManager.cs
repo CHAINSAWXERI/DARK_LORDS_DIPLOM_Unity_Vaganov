@@ -28,9 +28,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public Camera EnemyCamera;
     [SerializeField] public Camera PlayerCamer;
 
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public PlayerInfo Enemy;
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public PlayerInfo Player;
 
     [SerializeField] public Slider EnemyHPSlider;
@@ -45,18 +45,20 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public Transform PlayerHand;
     [SerializeField] public GameObject CardPref;
 
+    [SerializeField] public int TurnTimeConst;
+
     [SyncVar]
     int Turn;
     [SyncVar]
-    int TurnTime = 30;
+    int TurnTime;
 
 
     [SerializeField] public TextMeshProUGUI TurnTimeTxtPlayer;
     [SerializeField] public TextMeshProUGUI TurnTimeTxtEnemy;
 
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnPlayer;
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnEnemy;
 
     [SyncVar]
@@ -78,28 +80,28 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     public List<CardInfoScript> PlayerHandCards = new List<CardInfoScript>(),
                                 EnemyHandCards = new List<CardInfoScript>();
 
-//    [SyncVar]
+    //    [SyncVar]
     public List<Card> PlayerDiscardedDeck = new List<Card>(),
                       EnemyDiscardedDeck = new List<Card>();
 
     [SerializeField] public int maxCardsInHand;
 
-//    [SyncVar]
+    //    [SyncVar]
     public CardInfoScript CardEnemyField1;
-//    [SyncVar]
+    //    [SyncVar]
     public CardInfoScript CardEnemyField2;
-//    [SyncVar]
+    //    [SyncVar]
     public CardInfoScript CardEnemyField3;
-//    [SyncVar]
+    //    [SyncVar]
     public CardInfoScript CardEnemyField4;
 
-//    [SyncVar]
+    //    [SyncVar]
     public CardInfoScript CardPlayerField1; ///////
-//    [SyncVar]
+                                            //    [SyncVar]
     public CardInfoScript CardPlayerField2;
-//    [SyncVar]
+    //    [SyncVar]
     public CardInfoScript CardPlayerField3;
-//    [SyncVar]
+    //    [SyncVar]
     public CardInfoScript CardPlayerField4;
 
     [SerializeField] public Transform EnemyField1;
@@ -112,38 +114,38 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public Transform PlayerField3;
     [SerializeField] public Transform PlayerField4;
 
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject BlockPhone;
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject BlockPhoneEnemy;
 
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject LoseScreenPlayer;
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject WinScreenPlayer;
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject LoseScreenEnemy;
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject WinScreenEnemy;
 
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject BlueSpellScreen;
-//    [SyncVar]
+    //    [SyncVar]
     [SerializeField] public GameObject RedSpellScreen;
 
     private int IdPlayerCardCount = 0;
     private int IdEnemyCardCount = 0;
 
-//    [SyncVar]
+    //    [SyncVar]
     private bool gameContinues = true;
 
-//    [SyncVar]
+    //    [SyncVar]
     public bool firstCardPlayer = false;
-//    [SyncVar]
+    //    [SyncVar]
     public bool secondCardPlayer = false;
-//    [SyncVar]
+    //    [SyncVar]
     public bool firstCardEnemy = false;
-//    [SyncVar]
+    //    [SyncVar]
     public bool secondCardEnemy = false;
 
     [HideInInspector] public PlayerCommands playerCommands;
@@ -185,7 +187,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     private IEnumerator StartGameSequence()
     {
         // Запускаем все необходимые операции
-        
+
         RpcInitGame();
         Initilization(IsPlayerTurn);
         // Ожидаем завершения всех операций
@@ -207,7 +209,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     }
 
 
-    [ClientRpc] 
+    [ClientRpc]
     public void RpcInitGame()
     {
         Debug.Log("RpcInitGame");
@@ -304,7 +306,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     }
 
     /// //////////////////////////
-    
+
     [Server]
     public void GenerateAndDistributeCoreIdCard(int minInclusive, int maxExclusive)
     {
@@ -419,7 +421,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [Server]
     public IEnumerator TurnFunc()
     {
-        TurnTime = 30;
+        TurnTime = TurnTimeConst;
         RpcUpdateTurnTimeText(TurnTime);
 
         if (IsPlayerTurn)
@@ -615,7 +617,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         }
     }
 
-    
+
     public void ChangeTurn()
     {
         if (NetworkServer.active)

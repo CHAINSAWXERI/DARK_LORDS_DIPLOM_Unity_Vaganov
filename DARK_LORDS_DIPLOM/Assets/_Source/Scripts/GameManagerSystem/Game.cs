@@ -18,7 +18,7 @@ public class Game
         //Shuffle(playerDeckId);
     }
 
-    List<Card> GiveDeckCard(List<CardScriptable> Deck, List<int> DeckId, WhoseCard whoseCard) 
+    List<Card> GiveDeckCard(List<CardScriptable> Deck, List<int> DeckId, WhoseCard whoseCard)
     {
         List<Card> list = new List<Card>();
         for (int i = 0; i < Deck.Count; i++)
@@ -37,8 +37,8 @@ public class Game
         int n = list.Count;
         for (int i = 0; i < n; i++)
         {
-            int j = Random.Range(i, n); 
-                                        
+            int j = Random.Range(i, n);
+
             T temp = list[i];
             list[i] = list[j];
             list[j] = temp;

@@ -43,7 +43,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         card = eventData.pointerDrag.gameObject.GetComponent<CardMoveScript>();
         cardInfo = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
 
-        if ((fieldType == FieldType.SELF_FIELD) ||  (fieldType == FieldType.ENEMY_FIELD))
+        if ((fieldType == FieldType.SELF_FIELD) || (fieldType == FieldType.ENEMY_FIELD))
         {
             // Проверяем, является ли карта BluePlayer и поле SELF_FIELD
             if (cardInfo.WhoseCard == WhoseCard.BluePlayer && fieldType == FieldType.ENEMY_FIELD)
@@ -79,14 +79,14 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                     Debug.Log("HOST DROP PLACE");
                     Debug.Log("cardInfo.CoreID" + cardInfo.CoreID);
                     Debug.Log("cardInfo.ID" + cardInfo.ID);
-                    SetCardRpc(cardInfo.CoreID, cardInfo.ID);
+                    SetCardRpc(cardInfo.CoreID, cardInfo.ID, fieldType);
                 }
                 else if (NetworkClient.isConnected)
                 {
                     Debug.Log("CLIENT DROP PLACE");
                     Debug.Log("cardInfo.CoreID" + cardInfo.CoreID);
                     Debug.Log("cardInfo.ID" + cardInfo.ID);
-                    CmdSetCard(cardInfo.CoreID, cardInfo.ID); //
+                    CmdSetCard(cardInfo.CoreID, cardInfo.ID, fieldType); //
                 }
 
                 ////////////!!!!!!!!!!!!!!
@@ -162,7 +162,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
             }
         }
 
-        
+
     }
 
     public CardMoveScript GetCurrentCard()
@@ -213,7 +213,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
     }
 
     [ClientRpc]
-    public void SetCardRpc(int findCoreId, int findID)
+    public void SetCardRpc(int findCoreId, int findID, FieldType fieldType)
     {
         // FindObject with Core ID
         /*
@@ -246,26 +246,46 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                 Debug.Log("findCoreId " + findCoreId);
                 Debug.Log("findID " + findID);
 
-                GameManager.PlayerHandCards.RemoveAll(c => c.ID == findID);
-                GameManager.EnemyHandCards.RemoveAll(c => c.ID == findID);
 
-                GameManager.PlayerHandId.RemoveAll(c => c == findID);
-                GameManager.EnemyHandId.RemoveAll(c => c == findID);
-
-                int indexToRemovePlayer = GameManager.PlayerHandCoreID.IndexOf(findCoreId); // Находим индекс первого вхождения
-                int indexToRemoveEnemy = GameManager.EnemyHandCoreID.IndexOf(findCoreId); // Находим индекс первого вхождения
-
-                if (indexToRemovePlayer != -1) // Проверяем, найден ли элемент
+                if (fieldType == FieldType.SELF_FIELD || fieldType == FieldType.SELF_SPELL_FIELD)
                 {
-                    Debug.Log("indexToRemovePlayer");
-                    GameManager.PlayerHandCoreID.RemoveAt(indexToRemovePlayer); // Удаляем элемент по индексу
+                    Debug.Log("PLAYER CARD");
+
+                    GameManager.PlayerHandCards.RemoveAll(c => c.ID == findID);
+
+                    int indexToRemovePlayer = GameManager.PlayerHandCoreID.IndexOf(findCoreId); // Находим индекс первого вхождения
+                    int indexToRemovePlayerCoreId = GameManager.PlayerHandId.IndexOf(findID);
+
+                    if (indexToRemovePlayer != -1) // Проверяем, найден ли элемент
+                    {
+                        Debug.Log("indexToRemovePlayer");
+                        GameManager.PlayerHandCoreID.RemoveAt(indexToRemovePlayer); // Удаляем элемент по индексу
+                        GameManager.PlayerHandId.RemoveAt(indexToRemovePlayerCoreId);
+                    }
+
+                    if (indexToRemovePlayer != -1) // Проверяем, найден ли элемент
+                    {
+                        Debug.Log("indexToRemovePlayer");
+                        GameManager.PlayerHandCoreID.RemoveAt(indexToRemovePlayer); // Удаляем элемент по индексу
+                    }
+                }
+                if (fieldType == FieldType.ENEMY_FIELD || fieldType == FieldType.ENEMY_SPELL_FIELD)
+                {
+                    Debug.Log("ENEMY CARD");
+
+                    GameManager.EnemyHandCards.RemoveAll(c => c.ID == findID);
+
+                    int indexToRemoveEnemy = GameManager.EnemyHandCoreID.IndexOf(findCoreId); // Находим индекс первого вхождения
+                    int indexToRemoveEnemyCoreId = GameManager.EnemyHandId.IndexOf(findID);
+
+                    if (indexToRemoveEnemy != -1) // Проверяем, найден ли элемент
+                    {
+                        Debug.Log("indexToRemoveEnemy");
+                        GameManager.EnemyHandCoreID.RemoveAt(indexToRemoveEnemy); // Удаляем элемент по индексу
+                        GameManager.EnemyHandId.RemoveAt(indexToRemoveEnemyCoreId);
+                    }
                 }
 
-                if (indexToRemoveEnemy != -1) // Проверяем, найден ли элемент
-                {
-                    Debug.Log("indexToRemoveEnemy");
-                    GameManager.EnemyHandCoreID.RemoveAt(indexToRemoveEnemy); // Удаляем элемент по индексу
-                }
 
                 //crdInfo.ShowCardInfo();
                 if (fieldType == FieldType.SELF_FIELD)
@@ -379,17 +399,17 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdSetCard(int findCoreId, int findID) //
+    public void CmdSetCard(int findCoreId, int findID, FieldType fieldType) //
     {
         Debug.Log("CmdSetCard");
-        CmdSetCardOnAllClients(findCoreId, findID); //
+        CmdSetCardOnAllClients(findCoreId, findID, fieldType); //
     }
 
     [Server]
-    public void CmdSetCardOnAllClients(int findCoreId, int findID) //
+    public void CmdSetCardOnAllClients(int findCoreId, int findID, FieldType fieldType) //
     {
         Debug.Log("CmdSetCardOnAllClients");
-        SetCardRpc(findCoreId, findID);
+        SetCardRpc(findCoreId, findID, fieldType);
     }
 }
 /*

@@ -61,19 +61,19 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     //    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnEnemy;
 
-    [SyncVar]
+//    [SyncVar]
     public List<int> PlayerDeckCoreID = new List<int>();
-    [SyncVar]
+//    [SyncVar]
     public List<int> EnemyDeckCoreID = new List<int>();
 
-    [SyncVar]
+//    [SyncVar]
     public List<int> PlayerHandCoreID = new List<int>();
-    [SyncVar]
+//    [SyncVar]
     public List<int> EnemyHandCoreID = new List<int>();
 
-    [SyncVar]
+//    [SyncVar]
     public List<int> PlayerHandId = new List<int>();
-    [SyncVar]
+//    [SyncVar]
     public List<int> EnemyHandId = new List<int>();
 
     //    [SyncVar]
@@ -128,10 +128,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     //    [SyncVar]
     [SerializeField] public GameObject WinScreenEnemy;
 
-    //    [SyncVar]
-    [SerializeField] public GameObject BlueSpellScreen;
-    //    [SyncVar]
-    [SerializeField] public GameObject RedSpellScreen;
+    [SerializeField] public DropPlaceScript BlueSpellScreen;
+    [SerializeField] public DropPlaceScript RedSpellScreen;
 
     private int IdPlayerCardCount = 0;
     private int IdEnemyCardCount = 0;
@@ -147,6 +145,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     public bool firstCardEnemy = false;
     //    [SyncVar]
     public bool secondCardEnemy = false;
+
+    [SerializeField] public GameObject StartScreenPhone;
 
     [HideInInspector] public PlayerCommands playerCommands;
 
@@ -196,8 +196,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         // Теперь безопасно вызываем
         if (CurrentGame != null)
         {
-            GiveFiveCardsToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
-            GiveFiveCardsToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
+            GiveCardsToHandServer(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter, 4);
+            GiveCardsToHandServer(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter, 4);
         }
         else
         {
@@ -242,8 +242,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         PlayerHPSlider.value = PlayerHP;
         EnemyHPSlider.value = EnemyHP;
 
-        BlueSpellScreen.SetActive(false);
-        RedSpellScreen.SetActive(false);
+        BlueSpellScreen.gameObject.SetActive(false);
+        RedSpellScreen.gameObject.SetActive(false);
 
         if (!EnemyHand.gameObject.activeInHierarchy)
         {
@@ -283,6 +283,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             TurnTimeTxtPlayer.gameObject.SetActive(true);
         }
 
+        StartScreenPhone.SetActive(false);
 
         /*
         if (BlockPhoneEnemy.gameObject.activeInHierarchy)
@@ -328,12 +329,18 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     //(CurrentGame.PlayerDeck, PlayerHandCards, PlayerHand, WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
     //(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
 
+    [Command(requiresAuthority = false)]
+    public void GiveCardsToHandCommand(WhoseCard whoseCard, DeckCharacter deckCharacter, int howMuchCards)
+    {
+        GiveCardsToHandServer(whoseCard, deckCharacter, howMuchCards);
+    }
+
     [Server]
-    public void GiveFiveCardsToHand(WhoseCard whoseCard, DeckCharacter deckCharacter) //
+    public void GiveCardsToHandServer(WhoseCard whoseCard, DeckCharacter deckCharacter, int howMuchCards) //
     {
         //Debug.Log("11111");
         int i = 0;
-        while (i++ < 4)
+        while (i++ < howMuchCards)
         {
             if (deckCharacter == DeckCharacter.Knight)
             {
@@ -372,9 +379,10 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             GameObject cardGO = Instantiate(CardPref, PlayerHand, false);
 
-            cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
-            IdPlayerCardCount++;
-            PlayerHandCards.Add(cardGO.GetComponent<CardInfoScript>());
+            CardInfoScript cardGOInfo = cardGO.GetComponent<CardInfoScript>();
+
+            cardGOInfo.ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
+            PlayerHandCards.Add(cardGOInfo);
             PlayerHandId.Add(IdPlayerCardCount);
             PlayerHandCoreID.Add(card.CoreID);
 
@@ -383,6 +391,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             PlayerDeckCoreID.RemoveAt(CoreIdCardToTake);
             CurrentGame.PlayerDeck.RemoveAt(CoreIdCardToTake);
+            IdPlayerCardCount++;
         }
         if (deckCharacter == DeckCharacter.Necromancer)
         {
@@ -404,7 +413,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             GameObject cardGO = Instantiate(CardPref, EnemyHand, false);
 
             cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
-            IdPlayerCardCount++;
+            
             EnemyHandCards.Add(cardGO.GetComponent<CardInfoScript>());
             EnemyHandId.Add(IdPlayerCardCount);
             EnemyHandCoreID.Add(card.CoreID);
@@ -414,6 +423,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             EnemyDeckCoreID.RemoveAt(CoreIdCardToTake);
             CurrentGame.EnemyDeck.RemoveAt(CoreIdCardToTake);
+            IdPlayerCardCount++;
         }
 
     }
@@ -426,8 +436,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
         if (IsPlayerTurn)
         {
-            firstCardPlayer = false;
-            secondCardPlayer = false;
+            Debug.Log("CRDS firstCardPlayer " + firstCardPlayer);
+            Debug.Log("CRDS secondCardPlayer " + secondCardPlayer);
             while (TurnTime > 0)
             {
                 yield return new WaitForSeconds(1);
@@ -439,8 +449,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         {
             if (GameType == GameType.PVP)
             {
-                firstCardEnemy = false;
-                secondCardEnemy = false;
+                Debug.Log("CRDS firstCardEnemy" + firstCardEnemy);
+                Debug.Log("CRDS secondCardEnemy" + secondCardEnemy);
                 while (TurnTime > 0)
                 {
                     yield return new WaitForSeconds(1);
@@ -650,11 +660,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         {
             if (IsPlayerTurn)
             {
-                GiveCardToHand(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter);
+                GiveCardsToHandServer(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter, 1);
             }
             else
             {
-                GiveCardToHand(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
+                GiveCardsToHandServer(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter, 1);
             }
         }
 
@@ -674,13 +684,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             BlockPhoneEnemy.SetActive(true);
             EndTurnBtnPlayer.SetActive(true);
             EndTurnBtnEnemy.SetActive(false);
+            
+            firstCardPlayer = false;
+            secondCardPlayer = false;
 
             Debug.Log("IsPlayerTurn " + isPlayerTurn);
-
-            Debug.Log("BlockPhone " + BlockPhone.activeInHierarchy);
-            Debug.Log("BlockPhoneEnemy " + BlockPhoneEnemy.activeInHierarchy);
-            Debug.Log("EndTurnBtnPlayer " + EndTurnBtnPlayer.activeInHierarchy);
-            Debug.Log("EndTurnBtnEnemy " + EndTurnBtnEnemy.activeInHierarchy);
         }
         else
         {
@@ -690,12 +698,10 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             EndTurnBtnPlayer.SetActive(false);
             EndTurnBtnEnemy.SetActive(true);
 
-            Debug.Log("IsPlayerTurn " + isPlayerTurn);
+            firstCardEnemy = false;
+            secondCardEnemy = false;
 
-            Debug.Log("BlockPhone " + BlockPhone.activeInHierarchy);
-            Debug.Log("BlockPhoneEnemy " + BlockPhoneEnemy.activeInHierarchy);
-            Debug.Log("EndTurnBtnPlayer " + EndTurnBtnPlayer.activeInHierarchy);
-            Debug.Log("EndTurnBtnEnemy " + EndTurnBtnEnemy.activeInHierarchy);
+            Debug.Log("IsPlayerTurn " + isPlayerTurn);
         }
     }
 

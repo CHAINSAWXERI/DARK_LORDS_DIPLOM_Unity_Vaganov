@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 [CreateAssetMenu(fileName = "AddCardsAbilitie", menuName = "ScriptableObjects/Spells/AddAttackAbilitieSpell")]
 public class AddAttackAbilitieSpell : PassiveAbility

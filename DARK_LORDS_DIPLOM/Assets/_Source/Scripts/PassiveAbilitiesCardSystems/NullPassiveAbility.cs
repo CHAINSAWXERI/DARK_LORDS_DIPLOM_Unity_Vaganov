@@ -7,6 +7,7 @@ public class NullPassiveAbility : PassiveAbility
 {
     public override void Activate(DropPlaceScript dropPlaceOn, CardInfoScript fieldOn, CardInfoScript fieldOpposite, CardInfoScript fieldRight, CardInfoScript fieldLeft, GameManager gameManager)
     {
+        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!! THIS PASSIVEABILITY IS NULL !!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     public override string GetAbilityText()

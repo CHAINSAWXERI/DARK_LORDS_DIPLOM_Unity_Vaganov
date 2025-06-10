@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler // NetworkBehaviour
 {
     [SerializeField] public CardInfoScript cardInfoScript;
+    [SerializeField] public BigCardShow BigCard;
     public Camera MainCamera;
     private Vector3 offset;
     public Transform DeafoultParent;
@@ -21,22 +22,24 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         {
             if (cardInfoScript.GameManager.GameType == GameType.PVP)
             {
-                if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
+                Camera[] allCameras = FindObjectsOfType<Camera>(true); // true = включая неактивные
+                foreach (Camera cam in allCameras)
                 {
-                    GameObject Cam = GameObject.Find("CameraPlayer");
-                    if (Cam != null)
+                    if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer)
                     {
-                        MainCamera = Cam.GetComponent<Camera>(); //Player
-                                                                 //Debug.Log("PLAYER CARD");
+                        if (cam.gameObject.name == "CameraPlayer")
+                        {
+                            MainCamera = cam;
+                            break;
+                        }
                     }
-                }
-                if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
-                {
-                    GameObject Cam = GameObject.Find("CameraEnemy");
-                    if (Cam != null)
+                    if (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer)
                     {
-                        MainCamera = Cam.GetComponent<Camera>(); //Enemy
-                                                                 //Debug.Log("ENEMY CARD");
+                        if (cam.gameObject.name == "CameraEnemy")
+                        {
+                            MainCamera = cam;
+                            break;
+                        }
                     }
                 }
             }
@@ -49,6 +52,8 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        BigCard.BigCard.SetActive(false);
+        BigCard.CanTrigger = false;
 
         offset = transform.position - MainCamera.ScreenToWorldPoint(eventData.position);
         DeafoultParent = transform.parent;
@@ -97,6 +102,17 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         cardInfoScript.GameManager.BlueSpellScreen.gameObject.SetActive(false);
         transform.SetParent(DeafoultParent);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+        /*
+        if ((cardInfoScript.SelfCard.CardType == CardType.Spell) && (cardInfoScript.SelfCard.WhoseCard == WhoseCard.BluePlayer) && (cardInfoScript.GameManager.IsPlayerTurn == true))
+        {
+            cardInfoScript.GameManager.BlueSpellScreen.gameObject.SetActive(false);
+        }
+        if ((cardInfoScript.SelfCard.CardType == CardType.Spell) && (cardInfoScript.SelfCard.WhoseCard == WhoseCard.RedPlayer) && (cardInfoScript.GameManager.IsPlayerTurn == false))
+        {
+            cardInfoScript.GameManager.RedSpellScreen.gameObject.SetActive(false);
+        }
+        */
     }
 
     //[ClientRpc]

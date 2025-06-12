@@ -303,8 +303,6 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         NoteHostPlayer.SetActive(false);
         NoteClientPlayer.SetActive(false);
 
-        
-
 
         if (NetworkServer.active)
         {

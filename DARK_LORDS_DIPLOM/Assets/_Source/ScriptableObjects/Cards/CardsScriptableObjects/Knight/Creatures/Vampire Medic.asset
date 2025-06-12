@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: "\u0412\u0430\u043C\u043F\u0438\u0440 \u041C\u0435\u0434\u0438\u043A"
   Logo: {fileID: 21300000, guid: f7e0ec29f771f1e46b2bb8a660e5406a, type: 3}
   Attack: 1
-  Health: 7
+  Health: 5
   Power: 4
   PassiveAbilities: {fileID: 11400000, guid: f4f2f017e05ecb84cb72a3d6029e7129, type: 2}
   WhoseCard: 0

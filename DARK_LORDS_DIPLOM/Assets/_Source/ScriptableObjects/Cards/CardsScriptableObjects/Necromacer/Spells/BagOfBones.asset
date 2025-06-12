@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
-  m_Name: Fake Hero
+  m_Name: BagOfBones
   m_EditorClassIdentifier: 
-  CardType: 0
-  Name: "\u0424\u0430\u043B\u044C\u0448\u0438\u0432\u044B\u0439 \u0413\u0435\u0440\u043E\u0439"
-  Logo: {fileID: 21300000, guid: 42ffb032900bcb44c856b6d3bc2cd2ad, type: 3}
-  Attack: 3
-  Health: 4
-  Power: 10
-  PassiveAbilities: {fileID: 11400000, guid: df517c8f1266fea4c8824a50114f10b0, type: 2}
+  CardType: 1
+  Name: "\u041C\u0435\u0448\u043E\u043A \u041A\u043E\u0441\u0442\u0435\u0439"
+  Logo: {fileID: 21300000, guid: a9585ae47a720064488a877ba11360a3, type: 3}
+  Attack: 0
+  Health: 0
+  Power: 0
+  PassiveAbilities: {fileID: 11400000, guid: dbf870c865661234db068a8ed66ac25a, type: 2}
   WhoseCard: 0
-  CoreId: 4
+  CoreId: 19

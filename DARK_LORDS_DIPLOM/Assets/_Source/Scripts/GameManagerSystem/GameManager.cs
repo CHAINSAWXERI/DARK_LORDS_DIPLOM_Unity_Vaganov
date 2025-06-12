@@ -11,11 +11,18 @@ using Mirror;
 using UnityEngine.PlayerLoop;
 using System.Threading;
 using System.Linq;
+using UnityEditor.UIElements;
 
 public enum GameType
 {
     PVE,
     PVP
+}
+
+public enum FromDeck
+{
+    PlayDeck,
+    DiscaredDeck
 }
 
 
@@ -26,7 +33,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public GameType GameType;
 
     [SerializeField] public Camera EnemyCamera;
-    [SerializeField] public Camera PlayerCamer;
+    [SerializeField] public Camera PlayerCamera;
 
     //    [SyncVar]
     [SerializeField] public PlayerInfo Enemy;
@@ -61,19 +68,19 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     //    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnEnemy;
 
-//    [SyncVar]
+    //    [SyncVar]
     public List<int> PlayerDeckCoreID = new List<int>();
-//    [SyncVar]
+    //    [SyncVar]
     public List<int> EnemyDeckCoreID = new List<int>();
 
-//    [SyncVar]
+    //    [SyncVar]
     public List<int> PlayerHandCoreID = new List<int>();
-//    [SyncVar]
+    //    [SyncVar]
     public List<int> EnemyHandCoreID = new List<int>();
 
-//    [SyncVar]
+    //    [SyncVar]
     public List<int> PlayerHandId = new List<int>();
-//    [SyncVar]
+    //    [SyncVar]
     public List<int> EnemyHandId = new List<int>();
 
     //    [SyncVar]
@@ -131,7 +138,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public DropPlaceScript BlueSpellScreen;
     [SerializeField] public DropPlaceScript RedSpellScreen;
 
-    private int IdPlayerCardCount = 0;
+    [HideInInspector] public int IdPlayerCardCount = 0;
     private int IdEnemyCardCount = 0;
 
     //    [SyncVar]
@@ -149,6 +156,12 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public GameObject StartScreenPhone;
 
     [HideInInspector] public PlayerCommands playerCommands;
+
+    [SerializeField] public GameObject NoteHostEnemy;
+    [SerializeField] public GameObject NoteClientEnemy;
+
+    [SerializeField] public GameObject NoteHostPlayer;
+    [SerializeField] public GameObject NoteClientPlayer;
 
     [SyncVar]
     public bool IsPlayerTurn;
@@ -196,8 +209,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         // Теперь безопасно вызываем
         if (CurrentGame != null)
         {
-            GiveCardsToHandServer(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter, 4);
-            GiveCardsToHandServer(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter, 4);
+            GiveCardsToHandServer(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter, 4, FromDeck.PlayDeck);
+            GiveCardsToHandServer(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter, 4, FromDeck.PlayDeck);
         }
         else
         {
@@ -278,12 +291,29 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             TurnTimeTxtEnemy.gameObject.SetActive(true);
         }
 
-        if ((PlayerCamer.gameObject.activeInHierarchy))
+        if ((PlayerCamera.gameObject.activeInHierarchy))
         {
             TurnTimeTxtPlayer.gameObject.SetActive(true);
         }
 
         StartScreenPhone.SetActive(false);
+
+        NoteHostEnemy.SetActive(false);
+        NoteClientEnemy.SetActive(false);
+        NoteHostPlayer.SetActive(false);
+        NoteClientPlayer.SetActive(false);
+
+        
+
+
+        if (NetworkServer.active)
+        {
+
+        }
+        else if (NetworkClient.isConnected)
+        {
+
+        }
 
         /*
         if (BlockPhoneEnemy.gameObject.activeInHierarchy)
@@ -330,27 +360,45 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     //(CurrentGame.EnemyDeck, EnemyHandCards, EnemyHand, WhoseCard.RedPlayer, CurrentGame.EnemyCharacter);
 
     [Command(requiresAuthority = false)]
-    public void GiveCardsToHandCommand(WhoseCard whoseCard, DeckCharacter deckCharacter, int howMuchCards)
+    public void GiveCardsToHandCommand(WhoseCard whoseCard, DeckCharacter deckCharacter, int howMuchCards, FromDeck fromDeck)
     {
-        GiveCardsToHandServer(whoseCard, deckCharacter, howMuchCards);
+        GiveCardsToHandServer(whoseCard, deckCharacter, howMuchCards, fromDeck);
     }
 
     [Server]
-    public void GiveCardsToHandServer(WhoseCard whoseCard, DeckCharacter deckCharacter, int howMuchCards) //
+    public void GiveCardsToHandServer(WhoseCard whoseCard, DeckCharacter deckCharacter, int howMuchCards, FromDeck fromDeck) //
     {
         //Debug.Log("11111");
         int i = 0;
         while (i++ < howMuchCards)
         {
-            if (deckCharacter == DeckCharacter.Knight)
+            if (fromDeck == FromDeck.PlayDeck)
             {
-                GenerateAndDistributeCoreIdCard(0, CurrentGame.PlayerDeck.Count - i);
+                if (deckCharacter == DeckCharacter.Knight)
+                {
+                    GenerateAndDistributeCoreIdCard(0, CurrentGame.PlayerDeck.Count - i);
+                }
+                if (deckCharacter == DeckCharacter.Necromancer)
+                {
+                    GenerateAndDistributeCoreIdCard(0, CurrentGame.EnemyDeck.Count - i);
+                }
+
+                GiveCardToHand(whoseCard, deckCharacter);
             }
-            if (deckCharacter == DeckCharacter.Necromancer)
+            if (fromDeck == FromDeck.DiscaredDeck)
             {
-                GenerateAndDistributeCoreIdCard(0, CurrentGame.EnemyDeck.Count - i);
+                if (deckCharacter == DeckCharacter.Knight)
+                {
+                    GenerateAndDistributeCoreIdCard(0, PlayerDiscardedDeck.Count - i);
+                }
+                if (deckCharacter == DeckCharacter.Necromancer)
+                {
+                    GenerateAndDistributeCoreIdCard(0, EnemyDiscardedDeck.Count - i);
+                }
+
+                GiveCardToHandFromDiscared(whoseCard, deckCharacter);
             }
-            GiveCardToHand(whoseCard, deckCharacter);
+            
         }
     }
 
@@ -426,6 +474,75 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             IdPlayerCardCount++;
         }
 
+    }
+
+    [ClientRpc]
+    public void GiveCardToHandFromDiscared(WhoseCard whoseCard, DeckCharacter deckCharacter)
+    {
+        Debug.Log("------------------GiveCardToHandFromDiscared--------------------");
+        
+        //CoreIdCardToTake
+        if (deckCharacter == DeckCharacter.Knight)
+        {
+            Debug.Log("Cards to Knight");
+            if (PlayerDiscardedDeck.Count == 0 || PlayerHandCards.Count == maxCardsInHand)
+            {
+                return;
+            }
+
+            Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {PlayerDiscardedDeck[CoreIdCardToTake].Name}.");
+
+            Card card = PlayerDiscardedDeck[CoreIdCardToTake];
+
+            Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
+
+            card.Health = card.MaxHealth;
+            card.Attack = card.MaxAttack;
+
+            GameObject cardGO = Instantiate(CardPref, PlayerHand, false);
+
+            CardInfoScript cardGOInfo = cardGO.GetComponent<CardInfoScript>();
+
+            cardGOInfo.ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
+            PlayerHandCards.Add(cardGOInfo);
+            PlayerHandId.Add(IdPlayerCardCount);
+            PlayerHandCoreID.Add(card.CoreID);
+
+            Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
+            Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[CoreIdCardToTake]);
+
+            PlayerDiscardedDeck.RemoveAt(CoreIdCardToTake);
+        }
+        if (deckCharacter == DeckCharacter.Necromancer)
+        {
+            Debug.Log("Cards to Necromancer");
+            if (EnemyDiscardedDeck.Count == 0 || EnemyHandCards.Count == maxCardsInHand)
+            {
+                return;
+            }
+
+            Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {EnemyDiscardedDeck[CoreIdCardToTake].Name}.");
+
+            Card card = EnemyDiscardedDeck[CoreIdCardToTake];
+
+            Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
+
+            card.Health = card.MaxHealth;
+            card.Attack = card.MaxAttack;
+
+            GameObject cardGO = Instantiate(CardPref, EnemyHand, false);
+
+            cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
+
+            EnemyHandCards.Add(cardGO.GetComponent<CardInfoScript>());
+            EnemyHandId.Add(IdPlayerCardCount);
+            EnemyHandCoreID.Add(card.CoreID);
+
+            Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
+            Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[CoreIdCardToTake]);
+
+            CurrentGame.EnemyDeck.RemoveAt(CoreIdCardToTake);
+        }
     }
 
     [Server]
@@ -660,11 +777,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         {
             if (IsPlayerTurn)
             {
-                GiveCardsToHandServer(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter, 1);
+                GiveCardsToHandServer(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter, 1, FromDeck.PlayDeck);
             }
             else
             {
-                GiveCardsToHandServer(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter, 1);
+                GiveCardsToHandServer(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter, 1, FromDeck.PlayDeck);
             }
         }
 

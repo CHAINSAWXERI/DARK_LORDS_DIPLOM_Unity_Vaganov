@@ -1,6 +1,8 @@
 ﻿using Mirror;
+using Mirror.Examples.Common;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -134,7 +136,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                 return;
             }
 
-            GameManager.PlayerHandCards.RemoveAll(c => c.ID == cardInfo.ID);
+            //GameManager.PlayerHandCards.RemoveAll(c => c.ID == cardInfo.ID);
         }
 
         //StartCoroutine(IEDiscardSpell());
@@ -143,20 +145,6 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         
         */
 
-    }
-
-    private IEnumerator IEDiscardSpell()
-    {
-        // Запускаем все необходимые операции
-        // Ожидаем завершения всех операций
-        yield return new WaitUntil(() => SetCardDone);
-
-        DiscardSpell();
-    }
-
-    public void DiscardSpell()
-    {
-        
     }
 
     public CardMoveScript GetCurrentCard()
@@ -215,14 +203,16 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         currentCard = card;
         currentCard.UpdateDeafoultParent();
         */
-        CardInfoScript[] cardInfoScripts = FindObjectsOfType<CardInfoScript>();
+        CardInfoScript[] cardInfoScripts = FindObjectsOfType<CardInfoScript>(true);
         GameObject card;
+        CardInfoScript cardInf = null;
         // Перебираем все найденные объекты
         foreach (CardInfoScript cardInfo in cardInfoScripts)
         {
             // Проверяем, равен ли CoreID 4
             if (cardInfo.CoreID == findCoreId && cardInfo.ID == findID)
             {
+                cardInf = cardInfo;
                 Debug.Log(cardInfo.SelfCard.Name + " SelfCard Name");
                 Debug.Log(cardInfo.Name.text + " Name");
                 Debug.Log(cardInfo.CoreID + " CoreID");
@@ -240,6 +230,32 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                 Debug.Log("findCoreId " + findCoreId);
                 Debug.Log("findID " + findID);
 
+                /*
+                */
+                if (GameManager.EnemyCamera.gameObject.activeInHierarchy)
+                {
+                    if (fieldType == FieldType.SELF_FIELD)
+                    {
+                        Debug.Log("ПЕРЕВЕРНУЛИ КАРТУ ИГРОКА");
+                        RectTransform rectTransform = crd.gameObject.GetComponent<RectTransform>();
+
+                        rectTransform.localEulerAngles = new Vector3(rectTransform.localEulerAngles.x, rectTransform.localEulerAngles.y, 180);
+                    }
+                }
+
+                if (GameManager.PlayerCamera.gameObject.activeInHierarchy)
+                {
+                    if (fieldType == FieldType.ENEMY_FIELD)
+                    {
+                        Debug.Log("ПЕРЕВЕРНУЛИ КАРТУ ВРАГА");
+                        RectTransform rectTransform = crd.gameObject.GetComponent<RectTransform>();
+
+                        rectTransform.localEulerAngles = new Vector3(rectTransform.localEulerAngles.x, rectTransform.localEulerAngles.y, 0);
+                    }
+                }
+                
+
+
 
                 if (fieldType == FieldType.SELF_FIELD || fieldType == FieldType.SELF_SPELL_FIELD)
                 {
@@ -256,7 +272,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                 {
                     Debug.Log("ENEMY CARD");
 
-                    GameManager.EnemyHandCards.RemoveAll(c => c.ID == findID);
+                    GameManager.EnemyHandCards.RemoveAll(c => c.ID == findID); //////////////////////////////////////////////////////////////////////////
 
                     GameManager.EnemyHandCoreID.Remove(findCoreId);
                     GameManager.EnemyHandId.Remove(findID);
@@ -307,7 +323,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             if (GameManager.CardEnemyField1.SelfCard.PassiveAbilities != null)
                             {
                                 Debug.Log("11111111111");
-                                //GameManager.CardEnemyField1.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField1, GameManager.CardPlayerField1, GameManager.CardEnemyField2, null, GameManager);
+                                GameManager.CardEnemyField1.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField1, GameManager.CardPlayerField1, GameManager.CardEnemyField2, null, GameManager);
                             }
                             break;
                         case FieldNum.Num2:
@@ -315,7 +331,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             if (GameManager.CardEnemyField2.SelfCard.PassiveAbilities != null)
                             {
                                 Debug.Log("222222222222");
-                                //GameManager.CardEnemyField2.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField2, GameManager.CardPlayerField2, GameManager.CardEnemyField3, GameManager.CardEnemyField1, GameManager);
+                                GameManager.CardEnemyField2.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField2, GameManager.CardPlayerField2, GameManager.CardEnemyField3, GameManager.CardEnemyField1, GameManager);
                             }
                             break;
                         case FieldNum.Num3:
@@ -323,7 +339,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             if (GameManager.CardEnemyField3.SelfCard.PassiveAbilities != null)
                             {
                                 Debug.Log("33333333333");
-                                //GameManager.CardEnemyField3.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField3, GameManager.CardPlayerField3, GameManager.CardEnemyField4, GameManager.CardEnemyField2, GameManager);
+                                GameManager.CardEnemyField3.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField3, GameManager.CardPlayerField3, GameManager.CardEnemyField4, GameManager.CardEnemyField2, GameManager);
                             }
                             break;
                         case FieldNum.Num4:
@@ -331,7 +347,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             if (GameManager.CardEnemyField4.SelfCard.PassiveAbilities != null)
                             {
                                 Debug.Log("44444444444");
-                                //GameManager.CardEnemyField4.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField4, GameManager.CardPlayerField4, null, GameManager.CardEnemyField3, GameManager);
+                                GameManager.CardEnemyField4.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField4, GameManager.CardPlayerField4, null, GameManager.CardEnemyField3, GameManager);
                             }
                             break;
                     }
@@ -373,24 +389,26 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
             }
         }
 
-        SetCardDone = true;
-
         if (fieldType == FieldType.SELF_SPELL_FIELD)
         {
             Debug.Log("333333333333333333333333333333333333333333333");
-            GameManager.PlayerDiscardedDeck.Add(currentCard.GetComponent<CardInfoScript>().SelfCard);
-            //Destroy(currentCard.gameObject);
+            cardInf.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
+            GameManager.PlayerDiscardedDeck.Add(cardInf.SelfCard);
+            Destroy(currentCard.gameObject);
             currentCard = null;
             //gameObject.SetActive(false);
         }
         else if (fieldType == FieldType.ENEMY_SPELL_FIELD)
         {
             Debug.Log("4444444444444444444444444444444444444444444444444");
-            GameManager.EnemyDiscardedDeck.Add(currentCard.GetComponent<CardInfoScript>().SelfCard);
-            //Destroy(currentCard.gameObject);
+            cardInf.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
+            GameManager.EnemyDiscardedDeck.Add(cardInf.SelfCard);
+            Destroy(currentCard.gameObject);
             currentCard = null;
             //gameObject.SetActive(false);
         }
+
+        SetCardDone = true;
 
         Debug.Log("SetCardRpc");
     }

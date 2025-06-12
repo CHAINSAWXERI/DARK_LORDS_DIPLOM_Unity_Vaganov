@@ -12,39 +12,25 @@ public class BoostByOpCardsAbilitie : PassiveAbility
         if (dropPlaceOn.fieldType == FieldType.SELF_FIELD)
         {
             Debug.Log(gameManager.EnemyHandCards.Count);
-            int x = 0;
-            for (int i = 0; i < gameManager.EnemyHandCards.Count; i++)
+
+            for (int i = 2; (i <= gameManager.EnemyHandCards.Count) && (1 < gameManager.EnemyHandCards.Count); i += 2)
             {
-                if (x == 2)
-                {
-                    Debug.Log("Коррупционер +1");
-                    fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + 1;
-                    x = 0;
-                }
-                else
-                {
-                    x++;
-                }
+                fieldOn.SelfCard.Attack += 1;
             }
-            
+
+            fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager, fieldOn.WhoseCard);
+
         }
         if (dropPlaceOn.fieldType == FieldType.ENEMY_FIELD)
         {
             Debug.Log(gameManager.PlayerHandCards.Count);
-            int x = 0;
-            for (int i = 0; i < gameManager.PlayerHandCards.Count; i++)
+
+            for (int i = 2; (i <= gameManager.PlayerHandCards.Count) && (1 < gameManager.PlayerHandCards.Count); i += 2)
             {
-                if (x == 2)
-                {
-                    Debug.Log("Коррупционер +1");
-                    fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + 1;
-                    x = 0;
-                }
-                else
-                {
-                    x++;
-                }
+                fieldOn.SelfCard.Attack += 1;
             }
+
+            fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager, fieldOn.WhoseCard);
         }
         //
         fieldOn.ShowCardInfo(fieldOn.SelfCard, fieldOn.ID, gameManager, fieldOn.WhoseCard);

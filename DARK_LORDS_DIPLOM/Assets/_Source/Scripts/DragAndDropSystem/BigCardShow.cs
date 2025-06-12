@@ -3,15 +3,18 @@ using UnityEngine;
 
 public class BigCardShow : MonoBehaviour
 {
-    [SerializeField] public GameObject BigCard;
+    [SerializeField] public GameObject BigCardFirst;
+    [SerializeField] public GameObject BigCardSecond;
 
     public bool isMouseOver = false;
-    public bool CanTrigger = true;
+    public bool CanTriggerFirst = true;
+    public bool CanTriggerSecond = false;
     private Coroutine logCoroutine;
 
     private void Start()
     {
-        BigCard.SetActive(false);
+        BigCardFirst.SetActive(false);
+        BigCardSecond.SetActive(false);
     }
 
     private void Update()
@@ -24,9 +27,14 @@ public class BigCardShow : MonoBehaviour
         isMouseOver = true;
 
         // Запускаем корутину для вывода в лог через 5 секунд только один раз
-        if (logCoroutine == null && CanTrigger)
+        if (logCoroutine == null && CanTriggerFirst)
         {
-            logCoroutine = StartCoroutine(LogAfterDelay(1f));
+            logCoroutine = StartCoroutine(LogAfterDelayFirst(1f));
+        }
+
+        if (logCoroutine == null && CanTriggerSecond)
+        {
+            logCoroutine = StartCoroutine(LogAfterDelaySecond(1f));
         }
     }
 
@@ -41,13 +49,23 @@ public class BigCardShow : MonoBehaviour
             logCoroutine = null;
         }
 
-        BigCard.SetActive(false);
+        BigCardFirst.SetActive(false);
+        BigCardSecond.SetActive(false);
     }
 
-    private IEnumerator LogAfterDelay(float delay)
+    private IEnumerator LogAfterDelayFirst(float delay)
     {
         yield return new WaitForSeconds(delay);
-        BigCard.SetActive(true);
+        BigCardFirst.SetActive(true);
+
+        // Сбрасываем корутину после завершения
+        logCoroutine = null;
+    }
+
+    private IEnumerator LogAfterDelaySecond(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        BigCardSecond.SetActive(true);
 
         // Сбрасываем корутину после завершения
         logCoroutine = null;

@@ -15,7 +15,7 @@ MonoBehaviour:
   CardType: 0
   Name: "\u0418\u0441\u043A\u0430\u043B\u0435\u0447\u0435\u043D\u043D\u044B\u0439
     \u041A\u043E\u043C\u0430\u043D\u0434\u0438\u0440"
-  Logo: {fileID: 21300000, guid: 7d8f10daade2dbd4ea92a305c52e1971, type: 3}
+  Logo: {fileID: 21300000, guid: b6baf41f09c68be4ea41cc6bea450662, type: 3}
   Attack: 1
   Health: 2
   Power: 2

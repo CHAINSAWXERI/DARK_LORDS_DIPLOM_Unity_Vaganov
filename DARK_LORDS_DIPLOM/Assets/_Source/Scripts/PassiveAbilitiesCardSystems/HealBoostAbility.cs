@@ -11,28 +11,31 @@ public class HealBoostAbility : PassiveAbility
     {
         if (dropPlaceOn.fieldType == FieldType.SELF_FIELD)
         {
-            if ((fieldOn.SelfCard.Health + gameManager.PlayerDiscardedDeck.Count) < 8)
+            Debug.Log("SELF_FIELD");
+            if (gameManager.PlayerDiscardedDeck.Count < 6)
             {
+                Debug.Log("Player Discarded Deck Count" + gameManager.PlayerDiscardedDeck.Count);
                 fieldOn.SelfCard.MaxHealth = fieldOn.SelfCard.MaxHealth + gameManager.PlayerDiscardedDeck.Count;
                 fieldOn.SelfCard.Health = fieldOn.SelfCard.Health + gameManager.PlayerDiscardedDeck.Count;
             }
             else
             {
-                fieldOn.SelfCard.Health = 8;
-                fieldOn.SelfCard.MaxHealth = 8;
+                fieldOn.SelfCard.Health = 6;
+                fieldOn.SelfCard.MaxHealth = 6;
             }
         }
         if (dropPlaceOn.fieldType == FieldType.ENEMY_FIELD)
         {
-            if ((fieldOn.SelfCard.Health + gameManager.EnemyDiscardedDeck.Count) < 8)
+            Debug.Log("Enemy Discarded Deck Count" + gameManager.EnemyDiscardedDeck.Count);
+            if (gameManager.EnemyDiscardedDeck.Count < 6)
             {
-                fieldOn.SelfCard.MaxHealth = fieldOn.SelfCard.MaxHealth + gameManager.PlayerDiscardedDeck.Count;
-                fieldOn.SelfCard.Health = fieldOn.SelfCard.Health + gameManager.PlayerDiscardedDeck.Count;
+                fieldOn.SelfCard.MaxHealth = fieldOn.SelfCard.MaxHealth + gameManager.EnemyDiscardedDeck.Count;
+                fieldOn.SelfCard.Health = fieldOn.SelfCard.Health + gameManager.EnemyDiscardedDeck.Count;
             }
             else
             {
-                fieldOn.SelfCard.Health = 8;
-                fieldOn.SelfCard.MaxHealth = 8;
+                fieldOn.SelfCard.Health = 6;
+                fieldOn.SelfCard.MaxHealth = 6;
             }
         }
         //

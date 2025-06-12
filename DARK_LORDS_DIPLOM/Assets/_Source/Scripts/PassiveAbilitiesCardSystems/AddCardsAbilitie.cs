@@ -15,27 +15,13 @@ public class AddCardsAbilitie : PassiveAbility
         {
             Debug.Log("С ТВОЕЙ СТОРОНЫ");
 
-            gameManager.GiveCardsToHandServer(WhoseCard.BluePlayer, gameManager.CurrentGame.PlayerCharacter, 1);
-
-            if (NetworkServer.active)
-            {
-            }
-            else if (NetworkClient.isConnected)
-            {
-            }
+            gameManager.GiveCardsToHandServer(WhoseCard.BluePlayer, gameManager.CurrentGame.PlayerCharacter, 1, FromDeck.PlayDeck);
         }
         if ((dropPlaceOn.fieldType == FieldType.ENEMY_FIELD) || (dropPlaceOn.fieldType == FieldType.ENEMY_SPELL_FIELD))
         {
             Debug.Log("СО СТОРОНЫ ВРАГА");
 
-            gameManager.GiveCardsToHandServer(WhoseCard.RedPlayer, gameManager.CurrentGame.EnemyCharacter, 1);
-
-            if (NetworkServer.active)
-            {
-            }
-            else if (NetworkClient.isConnected)
-            {
-            }
+            gameManager.GiveCardsToHandServer(WhoseCard.RedPlayer, gameManager.CurrentGame.EnemyCharacter, 1, FromDeck.PlayDeck);
         }
     }
 

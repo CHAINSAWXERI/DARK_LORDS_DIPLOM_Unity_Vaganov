@@ -16,7 +16,7 @@ public class DiscardedDeckDamageAbility : PassiveAbility
                 for (int i = 0; i < gameManager.EnemyDiscardedDeck.Count; i++)
                 {
                     dc++;
-                    if (dc == 5)
+                    if (dc == 3)
                     {
                         fieldOpposite.SelfCard.Health = fieldOpposite.SelfCard.Health - 1;
                         fieldOpposite.ShowCardInfo(fieldOpposite.SelfCard, fieldOpposite.ID, gameManager, fieldOpposite.SelfCard.WhoseCard);
@@ -33,7 +33,7 @@ public class DiscardedDeckDamageAbility : PassiveAbility
                 for (int i = 0; i < gameManager.PlayerDiscardedDeck.Count; i++)
                 {
                     dc++;
-                    if (dc == 5)
+                    if (dc == 3)
                     {
                         fieldOpposite.SelfCard.Health = fieldOpposite.SelfCard.Health - 1;
                         fieldOpposite.ShowCardInfo(fieldOpposite.SelfCard, fieldOpposite.ID, gameManager, fieldOpposite.SelfCard.WhoseCard);

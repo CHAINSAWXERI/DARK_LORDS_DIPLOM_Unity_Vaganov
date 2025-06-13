@@ -497,13 +497,20 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     public void GiveCardToHandFromDiscared(WhoseCard whoseCard, DeckCharacter deckCharacter)
     {
         Debug.Log("------------------GiveCardToHandFromDiscared--------------------");
-        
+
         //CoreIdCardToTake
         if (deckCharacter == DeckCharacter.Knight)
         {
             Debug.Log("Cards to Knight");
             if (PlayerDiscardedDeck.Count == 0 || PlayerHandCards.Count == maxCardsInHand)
             {
+                return;
+            }
+
+            // Проверка корректности индекса
+            if (CoreIdCardToTake < 0 || CoreIdCardToTake >= PlayerDiscardedDeck.Count)
+            {
+                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;
             }
 
@@ -536,6 +543,13 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             Debug.Log("Cards to Necromancer");
             if (EnemyDiscardedDeck.Count == 0 || EnemyHandCards.Count == maxCardsInHand)
             {
+                return;
+            }
+
+            // Проверка корректности индекса
+            if (CoreIdCardToTake < 0 || CoreIdCardToTake >= PlayerDiscardedDeck.Count)
+            {
+                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;
             }
 

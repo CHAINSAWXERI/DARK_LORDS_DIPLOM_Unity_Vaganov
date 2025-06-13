@@ -46,7 +46,12 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public int EnemyHP;
     [SyncVar]
     [SerializeField] public int PlayerHP;
+    [SerializeField] public int HPMax;
 
+    [SerializeField] public TextMeshProUGUI HPTxtPlayerOnPlayer;
+    [SerializeField] public TextMeshProUGUI HPTxtEnemyOnPlayer;
+    [SerializeField] public TextMeshProUGUI HPTxtPlayerOnEnemy;
+    [SerializeField] public TextMeshProUGUI HPTxtEnemyOnEnemy;
 
     [SerializeField] public Transform EnemyHand;
     [SerializeField] public Transform PlayerHand;
@@ -245,15 +250,28 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [ClientRpc]
     public void Initilization(bool isPlayerTurn)
     {
-        Debug.Log("Initilization with isPlayerTurn: " + isPlayerTurn);
+        Debug.Log("Initilization with isPlayerTurn : " + isPlayerTurn);
 
         // Устанавливаем флаг завершения
 
-        PlayerHPSlider.maxValue = PlayerHP;
-        EnemyHPSlider.maxValue = EnemyHP;
+        PlayerHPSlider.maxValue = HPMax;
+        EnemyHPSlider.maxValue = HPMax;
 
-        PlayerHPSlider.value = PlayerHP;
-        EnemyHPSlider.value = EnemyHP;
+        PlayerHP = HPMax;
+        EnemyHP = HPMax;
+
+        PlayerHPSlider.value = HPMax;
+        EnemyHPSlider.value = HPMax;
+
+        HPTxtPlayerOnPlayer.gameObject.SetActive(true);
+        HPTxtEnemyOnPlayer.gameObject.SetActive(true);
+        HPTxtPlayerOnEnemy.gameObject.SetActive(true);
+        HPTxtEnemyOnEnemy.gameObject.SetActive(true);
+
+        HPTxtPlayerOnPlayer.text = PlayerHP.ToString();
+        HPTxtEnemyOnPlayer.text = EnemyHP.ToString();
+        HPTxtPlayerOnEnemy.text = PlayerHP.ToString();
+        HPTxtEnemyOnEnemy.text = EnemyHP.ToString();
 
         BlueSpellScreen.gameObject.SetActive(false);
         RedSpellScreen.gameObject.SetActive(false);
@@ -458,9 +476,10 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             GameObject cardGO = Instantiate(CardPref, EnemyHand, false);
 
-            cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
-            
-            EnemyHandCards.Add(cardGO.GetComponent<CardInfoScript>());
+            CardInfoScript cardGOInfo = cardGO.GetComponent<CardInfoScript>();
+
+            cardGOInfo.ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
+            EnemyHandCards.Add(cardGOInfo);
             EnemyHandId.Add(IdPlayerCardCount);
             EnemyHandCoreID.Add(card.CoreID);
 
@@ -509,6 +528,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
             Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[CoreIdCardToTake]);
 
+            IdPlayerCardCount++;
             PlayerDiscardedDeck.RemoveAt(CoreIdCardToTake);
         }
         if (deckCharacter == DeckCharacter.Necromancer)
@@ -530,16 +550,18 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             GameObject cardGO = Instantiate(CardPref, EnemyHand, false);
 
-            cardGO.GetComponent<CardInfoScript>().ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
+            CardInfoScript cardGOInfo = cardGO.GetComponent<CardInfoScript>();
 
-            EnemyHandCards.Add(cardGO.GetComponent<CardInfoScript>());
+            cardGOInfo.ShowCardInfo(card, IdPlayerCardCount, this, whoseCard);
+            EnemyHandCards.Add(cardGOInfo);
             EnemyHandId.Add(IdPlayerCardCount);
             EnemyHandCoreID.Add(card.CoreID);
 
             Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
             Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[CoreIdCardToTake]);
 
-            CurrentGame.EnemyDeck.RemoveAt(CoreIdCardToTake);
+            IdPlayerCardCount++;
+            EnemyDiscardedDeck.RemoveAt(CoreIdCardToTake);
         }
     }
 
@@ -762,7 +784,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     {
         StopAllCoroutines();
         Turn++;
-        if (Turn > 2)
+        if (Turn > 1)
         {
             Attack(IsPlayerTurn, PlayerHP, EnemyHP);
         }
@@ -771,7 +793,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         IsPlayerTurn = !IsPlayerTurn;
         ChangeTurnRPC(IsPlayerTurn);
 
-        if (Turn > 2)
+        if (Turn > 1)
         {
             if (IsPlayerTurn)
             {
@@ -853,6 +875,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                     playerHP = playerHP - CardEnemyField1.SelfCard.Attack;
                     PlayerHP = playerHP;
                     PlayerHPSlider.value = PlayerHP;
+                    HPTxtPlayerOnPlayer.text = PlayerHP.ToString();
+                    HPTxtPlayerOnEnemy.text = PlayerHP.ToString();
 
                     if (PlayerHPSlider.value <= 0)
                     {
@@ -884,6 +908,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                     playerHP = playerHP - CardEnemyField2.SelfCard.Attack;
                     PlayerHP = playerHP;
                     PlayerHPSlider.value = PlayerHP;
+                    HPTxtPlayerOnPlayer.text = PlayerHP.ToString();
+                    HPTxtPlayerOnEnemy.text = PlayerHP.ToString();
 
                     if (PlayerHPSlider.value <= 0)
                     {
@@ -915,6 +941,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                     playerHP = playerHP - CardEnemyField3.SelfCard.Attack;
                     PlayerHP = playerHP;
                     PlayerHPSlider.value = PlayerHP;
+                    HPTxtPlayerOnPlayer.text = PlayerHP.ToString();
+                    HPTxtPlayerOnEnemy.text = PlayerHP.ToString();
 
                     if (PlayerHPSlider.value <= 0)
                     {
@@ -946,6 +974,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                     playerHP = playerHP - CardEnemyField4.SelfCard.Attack;
                     PlayerHP = playerHP;
                     PlayerHPSlider.value = PlayerHP;
+                    HPTxtPlayerOnPlayer.text = PlayerHP.ToString();
+                    HPTxtPlayerOnEnemy.text = PlayerHP.ToString();
 
                     if (PlayerHPSlider.value <= 0)
                     {
@@ -981,6 +1011,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                     enemyHP = enemyHP - CardPlayerField1.SelfCard.Attack;
                     EnemyHP = enemyHP;
                     EnemyHPSlider.value = EnemyHP;
+                    HPTxtEnemyOnPlayer.text = EnemyHP.ToString();
+                    HPTxtEnemyOnEnemy.text = EnemyHP.ToString();
 
                     if (EnemyHPSlider.value <= 0)
                     {
@@ -1012,6 +1044,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                     enemyHP = enemyHP - CardPlayerField2.SelfCard.Attack;
                     EnemyHP = enemyHP;
                     EnemyHPSlider.value = EnemyHP;
+                    HPTxtEnemyOnPlayer.text = EnemyHP.ToString();
+                    HPTxtEnemyOnEnemy.text = EnemyHP.ToString();
 
                     if (EnemyHPSlider.value <= 0)
                     {
@@ -1043,6 +1077,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                     enemyHP = enemyHP - CardPlayerField3.SelfCard.Attack;
                     EnemyHP = enemyHP;
                     EnemyHPSlider.value = EnemyHP;
+                    HPTxtEnemyOnPlayer.text = EnemyHP.ToString();
+                    HPTxtEnemyOnEnemy.text = EnemyHP.ToString();
 
                     if (EnemyHPSlider.value <= 0)
                     {
@@ -1074,6 +1110,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                     enemyHP = enemyHP - CardPlayerField4.SelfCard.Attack;
                     EnemyHP = enemyHP;
                     EnemyHPSlider.value = EnemyHP;
+                    HPTxtEnemyOnPlayer.text = EnemyHP.ToString();
+                    HPTxtEnemyOnEnemy.text = EnemyHP.ToString();
 
                     if (EnemyHPSlider.value <= 0)
                     {

@@ -11,13 +11,31 @@ public class TakeCardFromDiscardAbilitySpell : PassiveAbility
     {
         if ((dropPlaceOn.fieldType == FieldType.ENEMY_SPELL_FIELD))
         {
-            gameManager.GiveCardsToHandServer(WhoseCard.RedPlayer, gameManager.CurrentGame. EnemyCharacter, 1, FromDeck.DiscaredDeck);
-            //gameManager.PreGiveCardsToHand(gameManager.EnemyDiscardedDeck, gameManager.EnemyHandCards, gameManager.EnemyHand, WhoseCard.RedPlayer, gameManager.CurrentGame.EnemyCharacter);
+            gameManager.GiveCardsToHandServer(WhoseCard.RedPlayer, gameManager.CurrentGame.EnemyCharacter, 1, FromDeck.DiscaredDeck);
+            /*
+            if ()
+            {
+                
+            }
+            else if ()
+            {
+                GiveCardsToHandCommand
+            }
+            */
         }
         if ((dropPlaceOn.fieldType == FieldType.SELF_SPELL_FIELD))
         {
             gameManager.GiveCardsToHandServer(WhoseCard.BluePlayer, gameManager.CurrentGame.PlayerCharacter, 1, FromDeck.DiscaredDeck);
-            //gameManager.PreGiveCardsToHandPlayer(gameManager.PlayerDiscardedDeck, gameManager.PlayerHandCards, gameManager.PlayerHand, WhoseCard.BluePlayer, gameManager.CurrentGame.PlayerCharacter);
+            /*
+            if ()
+            {
+                
+            }
+            else if ()
+            {
+                GiveCardsToHandCommand
+            }
+            */
         }
     }
 

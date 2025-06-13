@@ -45,9 +45,11 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         //
         card = eventData.pointerDrag.gameObject.GetComponent<CardMoveScript>();
         cardInfo = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
+        
 
         if ((fieldType == FieldType.SELF_FIELD) || (fieldType == FieldType.ENEMY_FIELD) || (fieldType == FieldType.SELF_SPELL_FIELD) || (fieldType == FieldType.ENEMY_SPELL_FIELD))
         {
+            card.canDrag = false;
             // Проверяем, является ли карта BluePlayer и поле SELF_FIELD
             if (cardInfo.WhoseCard == WhoseCard.BluePlayer && fieldType == FieldType.ENEMY_FIELD)
             {
@@ -389,6 +391,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
             }
         }
 
+
+        SetCardDone = true;
         if (fieldType == FieldType.SELF_SPELL_FIELD)
         {
             Debug.Log("333333333333333333333333333333333333333333333");
@@ -396,7 +400,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
             GameManager.PlayerDiscardedDeck.Add(cardInf.SelfCard);
             Destroy(currentCard.gameObject);
             currentCard = null;
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
         else if (fieldType == FieldType.ENEMY_SPELL_FIELD)
         {
@@ -405,10 +409,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
             GameManager.EnemyDiscardedDeck.Add(cardInf.SelfCard);
             Destroy(currentCard.gameObject);
             currentCard = null;
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
-
-        SetCardDone = true;
 
         Debug.Log("SetCardRpc");
     }

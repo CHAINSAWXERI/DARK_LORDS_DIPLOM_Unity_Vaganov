@@ -13,7 +13,7 @@ public class DiscardedDeckDamageAbility : PassiveAbility
         {
             if (dropPlaceOn.fieldType == FieldType.SELF_FIELD)
             {
-                for (int i = 0; i < gameManager.EnemyDiscardedDeck.Count; i++)
+                for (int i = 0; i < gameManager.PlayerDiscardedDeck.Count; i++)
                 {
                     dc++;
                     if (dc == 3)
@@ -30,7 +30,7 @@ public class DiscardedDeckDamageAbility : PassiveAbility
             }
             if (dropPlaceOn.fieldType == FieldType.ENEMY_FIELD)
             {
-                for (int i = 0; i < gameManager.PlayerDiscardedDeck.Count; i++)
+                for (int i = 0; i < gameManager.EnemyDiscardedDeck.Count; i++)
                 {
                     dc++;
                     if (dc == 3)

@@ -92,10 +92,11 @@ public class HealFromDiscardAbilitySpell : PassiveAbility
 
                 while (!i)
                 {
-                    int x = Random.Range(0, gameManager.PlayerDiscardedDeck.Count);
+                    int x = Random.Range(0, gameManager.EnemyDiscardedDeck.Count);
                     if (gameManager.EnemyDiscardedDeck[x].CardType == CardType.Creature)
                     {
                         gameManager.CardEnemyField1.SelfCard.Health = gameManager.CardEnemyField1.SelfCard.Health + gameManager.EnemyDiscardedDeck[x].MaxHealth;
+                        gameManager.CardEnemyField1.ShowCardInfo(gameManager.CardEnemyField1.SelfCard, gameManager.CardEnemyField1.ID, gameManager, gameManager.CardEnemyField1.WhoseCard);
                         i = true;
                     }
                 }
@@ -106,10 +107,11 @@ public class HealFromDiscardAbilitySpell : PassiveAbility
 
                 while (!i)
                 {
-                    int x = Random.Range(0, gameManager.PlayerDiscardedDeck.Count);
+                    int x = Random.Range(0, gameManager.EnemyDiscardedDeck.Count);
                     if (gameManager.EnemyDiscardedDeck[x].CardType == CardType.Creature)
                     {
                         gameManager.CardEnemyField2.SelfCard.Health = gameManager.CardEnemyField2.SelfCard.Health + gameManager.EnemyDiscardedDeck[x].MaxHealth;
+                        gameManager.CardEnemyField2.ShowCardInfo(gameManager.CardEnemyField2.SelfCard, gameManager.CardEnemyField2.ID, gameManager, gameManager.CardEnemyField2.WhoseCard);
                         i = true;
                     }
                 }
@@ -120,10 +122,11 @@ public class HealFromDiscardAbilitySpell : PassiveAbility
 
                 while (!i)
                 {
-                    int x = Random.Range(0, gameManager.PlayerDiscardedDeck.Count);
+                    int x = Random.Range(0, gameManager.EnemyDiscardedDeck.Count);
                     if (gameManager.EnemyDiscardedDeck[x].CardType == CardType.Creature)
                     {
                         gameManager.CardEnemyField3.SelfCard.Health = gameManager.CardEnemyField3.SelfCard.Health + gameManager.EnemyDiscardedDeck[x].MaxHealth;
+                        gameManager.CardEnemyField3.ShowCardInfo(gameManager.CardEnemyField3.SelfCard, gameManager.CardEnemyField3.ID, gameManager, gameManager.CardEnemyField3.WhoseCard);
                         i = true;
                     }
                 }
@@ -134,10 +137,11 @@ public class HealFromDiscardAbilitySpell : PassiveAbility
 
                 while (!i)
                 {
-                    int x = Random.Range(0, gameManager.PlayerDiscardedDeck.Count);
+                    int x = Random.Range(0, gameManager.EnemyDiscardedDeck.Count);
                     if (gameManager.EnemyDiscardedDeck[x].CardType == CardType.Creature)
                     {
                         gameManager.CardEnemyField4.SelfCard.Health = gameManager.CardEnemyField4.SelfCard.Health + gameManager.EnemyDiscardedDeck[x].MaxHealth;
+                        gameManager.CardEnemyField4.ShowCardInfo(gameManager.CardEnemyField4.SelfCard, gameManager.CardEnemyField4.ID, gameManager, gameManager.CardEnemyField4.WhoseCard);
                         i = true;
                     }
                 }

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f18a6011af1a2fb48a352d9c222bc439, type: 3}
-  m_Name: Spell 2
+  m_Name: CorpseFarm
   m_EditorClassIdentifier: 
   CardType: 1
-  Name: "\u0417\u0430\u043A\u043B\u0438\u043D\u0430\u043D\u0438\u0435 2"
-  Logo: {fileID: 0}
+  Name: "\u0424\u0435\u0440\u043C\u0430 \u0422\u0440\u0443\u043F\u043E\u0432"
+  Logo: {fileID: 21300000, guid: c98ba6bee0f61d142a4e104372d21925, type: 3}
   Attack: 0
   Health: 0
   Power: 0
-  PassiveAbilities: {fileID: 11400000, guid: df517c8f1266fea4c8824a50114f10b0, type: 2}
+  PassiveAbilities: {fileID: 11400000, guid: 6a6bcf1bda8e2494faee46e6f657363a, type: 2}
   WhoseCard: 0
-  CoreId: 20
+  CoreId: 17

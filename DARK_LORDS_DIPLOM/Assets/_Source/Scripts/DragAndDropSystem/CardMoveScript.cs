@@ -14,6 +14,7 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private Vector3 offset;
     public Transform DeafoultParent;
     public bool isDraggable;
+    [HideInInspector] public bool canDrag = true;
 
     void Start()
     {
@@ -51,6 +52,11 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!canDrag)
+        {
+            return;
+        }
+
         BigCard.BigCardFirst.SetActive(false);
         BigCard.CanTriggerFirst = false;
 
@@ -82,10 +88,16 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (!canDrag)
+        {
+            return;
+        }
+
         if (!isDraggable)
         {
             return;
         }
+
         Vector3 newPos = MainCamera.ScreenToWorldPoint(eventData.position);
         newPos.z = 0;
         transform.position = newPos + offset;
@@ -93,6 +105,11 @@ public class CardMoveScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!canDrag)
+        {
+            return;
+        }
+
         if (!isDraggable)
         {
             return;

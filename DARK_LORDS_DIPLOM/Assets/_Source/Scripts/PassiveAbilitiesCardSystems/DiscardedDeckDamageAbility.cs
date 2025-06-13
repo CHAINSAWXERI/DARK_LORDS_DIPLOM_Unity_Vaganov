@@ -19,7 +19,7 @@ public class DiscardedDeckDamageAbility : PassiveAbility
                     if (dc == 3)
                     {
                         fieldOpposite.SelfCard.Health = fieldOpposite.SelfCard.Health - 1;
-                        fieldOpposite.ShowCardInfo(fieldOpposite.SelfCard, fieldOpposite.ID, gameManager, fieldOpposite.SelfCard.WhoseCard);
+                        
                         if (fieldOpposite.SelfCard.Health == 0)
                         {
                             return;
@@ -27,6 +27,7 @@ public class DiscardedDeckDamageAbility : PassiveAbility
                         dc = 0;
                     }
                 }
+                fieldOpposite.ShowCardInfo(fieldOpposite.SelfCard, fieldOpposite.ID, gameManager, fieldOpposite.SelfCard.WhoseCard);
             }
             if (dropPlaceOn.fieldType == FieldType.ENEMY_FIELD)
             {
@@ -36,7 +37,7 @@ public class DiscardedDeckDamageAbility : PassiveAbility
                     if (dc == 3)
                     {
                         fieldOpposite.SelfCard.Health = fieldOpposite.SelfCard.Health - 1;
-                        fieldOpposite.ShowCardInfo(fieldOpposite.SelfCard, fieldOpposite.ID, gameManager, fieldOpposite.SelfCard.WhoseCard);
+                        
                         if (fieldOpposite.SelfCard.Health == 0)
                         {
                             return;
@@ -44,6 +45,7 @@ public class DiscardedDeckDamageAbility : PassiveAbility
                         dc = 0;
                     }
                 }
+                fieldOpposite.ShowCardInfo(fieldOpposite.SelfCard, fieldOpposite.ID, gameManager, fieldOpposite.SelfCard.WhoseCard);
             }
         }
     }

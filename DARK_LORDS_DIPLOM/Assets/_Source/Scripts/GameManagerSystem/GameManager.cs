@@ -468,12 +468,6 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
-            if (IdCardToTake > 21 || IdCardToTake < 11 || IdCardToTake < 0)
-            {
-                Debug.LogError($"Некорректный индекс: {IdCardToTake} (размер списка: {CurrentGame.EnemyDeck.Count})");
-                return;
-            }
-
             Debug.Log($"Карта По Индекск {IdCardToTake} найдена. Это карта с именем {CurrentGame.EnemyDeck[IdCardToTake].Name}.");
 
             Card card = CurrentGame.EnemyDeck[IdCardToTake];

@@ -407,14 +407,14 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
                 if (deckCharacter == DeckCharacter.Knight)
                 {
-                    randomIndex = Random.Range(0, PlayerDiscardedDeck.Count);
+                    GenerateAndDistributeCoreIdCard(0, PlayerDiscardedDeck.Count - i);
                 }
                 if (deckCharacter == DeckCharacter.Necromancer)
                 {
-                    randomIndex = Random.Range(0, EnemyDiscardedDeck.Count);
+                    GenerateAndDistributeCoreIdCard(0, EnemyDiscardedDeck.Count - i);
                 }
 
-                GiveCardToHandFromDiscared(whoseCard, deckCharacter, randomIndex);
+                GiveCardToHandFromDiscared(whoseCard, deckCharacter);
             }
             
         }
@@ -496,7 +496,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     }
 
     [ClientRpc]
-    public void GiveCardToHandFromDiscared(WhoseCard whoseCard, DeckCharacter deckCharacter, int randomIndex)
+    public void GiveCardToHandFromDiscared(WhoseCard whoseCard, DeckCharacter deckCharacter)
     {
         Debug.Log("------------------GiveCardToHandFromDiscared--------------------");
 
@@ -510,15 +510,15 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             }
 
             // Проверка корректности индекса
-            if (CoreIdCardToTake < 0 || randomIndex >= PlayerDiscardedDeck.Count)
+            if (CoreIdCardToTake < 0 || CoreIdCardToTake >= PlayerDiscardedDeck.Count)
             {
-                Debug.LogError($"Некорректный индекс: {randomIndex} (размер списка: {PlayerDiscardedDeck.Count})");
+                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;
             }
 
-            Debug.Log($"Карта По Индекск {randomIndex} найдена. Это карта с именем {PlayerDiscardedDeck[randomIndex].Name}.");
+            Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {PlayerDiscardedDeck[CoreIdCardToTake].Name}.");
 
-            Card card = PlayerDiscardedDeck[randomIndex];
+            Card card = PlayerDiscardedDeck[CoreIdCardToTake];
 
             Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
 
@@ -534,11 +534,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             PlayerHandId.Add(IdPlayerCardCount);
             PlayerHandCoreID.Add(card.CoreID);
 
-            Debug.Log("CoreIdCardToTake = " + randomIndex);
-            Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[randomIndex]);
+            Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
+            Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[CoreIdCardToTake]);
 
             IdPlayerCardCount++;
-            PlayerDiscardedDeck.RemoveAt(randomIndex);
+            PlayerDiscardedDeck.RemoveAt(CoreIdCardToTake);
         }
         if (deckCharacter == DeckCharacter.Necromancer)
         {
@@ -549,7 +549,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             }
 
             // Проверка корректности индекса
-            if (CoreIdCardToTake < 0 || CoreIdCardToTake >= PlayerDiscardedDeck.Count)
+            if (CoreIdCardToTake < 0 || CoreIdCardToTake >= EnemyDiscardedDeck.Count)
             {
                 Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;

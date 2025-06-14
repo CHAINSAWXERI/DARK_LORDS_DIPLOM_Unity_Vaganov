@@ -436,6 +436,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             if (CurrentGame.PlayerDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
             {
+                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {CurrentGame.PlayerDeck.Count})");
                 return;
             }
 
@@ -474,6 +475,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             if (CurrentGame.EnemyDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
             {
+                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {CurrentGame.EnemyDeck.Count})");
                 return;
             }
 
@@ -528,6 +530,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             if (PlayerDiscardedDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
             {
+                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;
             }
 
@@ -572,6 +575,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             if (EnemyDiscardedDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
             {
+                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {EnemyDiscardedDeck.Count})");
                 return;
             }
 

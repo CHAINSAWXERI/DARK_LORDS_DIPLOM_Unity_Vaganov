@@ -536,7 +536,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             PlayerHandCoreID.Add(card.CoreID);
 
             Debug.Log("CoreIdCardToTake = " + IdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[IdCardToTake]);
+            Debug.Log("indexToRemoveDeckId = " + PlayerDiscardedDeck[IdCardToTake]);
 
             IdPlayerCardCount++;
             PlayerDiscardedDeck.Remove(card);
@@ -575,7 +575,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             EnemyHandCoreID.Add(card.CoreID);
 
             Debug.Log("CoreIdCardToTake = " + IdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[IdCardToTake]);
+            Debug.Log("indexToRemoveDeckId = " + EnemyDiscardedDeck[IdCardToTake]);
 
             IdPlayerCardCount++;
             EnemyDiscardedDeck.Remove(card);

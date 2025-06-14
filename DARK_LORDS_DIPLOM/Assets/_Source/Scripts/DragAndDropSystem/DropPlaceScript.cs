@@ -255,9 +255,6 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                         rectTransform.localEulerAngles = new Vector3(rectTransform.localEulerAngles.x, rectTransform.localEulerAngles.y, 0);
                     }
                 }
-                
-
-
 
                 if (fieldType == FieldType.SELF_FIELD || fieldType == FieldType.SELF_SPELL_FIELD)
                 {

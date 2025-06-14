@@ -434,6 +434,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
+            if (CurrentGame.PlayerDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
+            {
+                return;
+            }
+
             Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {CurrentGame.PlayerDeck[CoreIdCardToTake].Name}.");
 
             Card card = CurrentGame.PlayerDeck[CoreIdCardToTake];
@@ -463,6 +468,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         {
             Debug.Log("Cards to Necromancer");
             if (CurrentGame.EnemyDeck.Count == 0 || EnemyHandCards.Count == maxCardsInHand)
+            {
+                return;
+            }
+
+            if (CurrentGame.EnemyDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
             {
                 return;
             }
@@ -516,6 +526,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
+            if (PlayerDiscardedDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
+            {
+                return;
+            }
+
             Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {PlayerDiscardedDeck[CoreIdCardToTake].Name}.");
 
             Card card = PlayerDiscardedDeck[CoreIdCardToTake];
@@ -552,6 +567,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             if (CoreIdCardToTake < 0 || CoreIdCardToTake >= EnemyDiscardedDeck.Count)
             {
                 Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
+                return;
+            }
+
+            if (EnemyDiscardedDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
+            {
                 return;
             }
 

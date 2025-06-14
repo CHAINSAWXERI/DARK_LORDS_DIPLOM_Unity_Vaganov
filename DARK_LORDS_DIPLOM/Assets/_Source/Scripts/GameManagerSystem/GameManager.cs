@@ -214,6 +214,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         // Теперь безопасно вызываем
         if (CurrentGame != null)
         {
+            Debug.Log("ВЫДАЮТСЯ КАРТЫ");
             GiveCardsToHandServer(WhoseCard.BluePlayer, CurrentGame.PlayerCharacter, 4, FromDeck.PlayDeck);
             GiveCardsToHandServer(WhoseCard.RedPlayer, CurrentGame.EnemyCharacter, 4, FromDeck.PlayDeck);
         }
@@ -434,7 +435,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
-            if (CurrentGame.PlayerDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
+            if (CoreIdCardToTake > 10 || CoreIdCardToTake < 0)
             {
                 Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {CurrentGame.PlayerDeck.Count})");
                 return;
@@ -462,7 +463,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[CoreIdCardToTake]);
 
             PlayerDeckCoreID.RemoveAt(CoreIdCardToTake);
-            CurrentGame.PlayerDeck.RemoveAt(CoreIdCardToTake);
+            CurrentGame.PlayerDeck.Remove(card);
             IdPlayerCardCount++;
         }
         if (deckCharacter == DeckCharacter.Necromancer)
@@ -473,7 +474,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
-            if (CurrentGame.EnemyDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
+            if (CoreIdCardToTake > 21 || CoreIdCardToTake < 11 || CoreIdCardToTake < 0)
             {
                 Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {CurrentGame.EnemyDeck.Count})");
                 return;
@@ -501,7 +502,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[CoreIdCardToTake]);
 
             EnemyDeckCoreID.RemoveAt(CoreIdCardToTake);
-            CurrentGame.EnemyDeck.RemoveAt(CoreIdCardToTake);
+            CurrentGame.EnemyDeck.Remove(card);
             IdPlayerCardCount++;
         }
 
@@ -528,7 +529,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
-            if (PlayerDiscardedDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
+            if (PlayerDiscardedDeck.Count < CoreIdCardToTake || CoreIdCardToTake < 0)
             {
                 Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;
@@ -556,7 +557,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[CoreIdCardToTake]);
 
             IdPlayerCardCount++;
-            PlayerDiscardedDeck.RemoveAt(CoreIdCardToTake);
+            PlayerDiscardedDeck.Remove(card);
         }
         if (deckCharacter == DeckCharacter.Necromancer)
         {
@@ -573,7 +574,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
-            if (EnemyDiscardedDeck.Count < CoreIdCardToTake || CoreIdCardToTake == -1)
+            if (EnemyDiscardedDeck.Count < CoreIdCardToTake || CoreIdCardToTake < 0)
             {
                 Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {EnemyDiscardedDeck.Count})");
                 return;
@@ -601,7 +602,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[CoreIdCardToTake]);
 
             IdPlayerCardCount++;
-            EnemyDiscardedDeck.RemoveAt(CoreIdCardToTake);
+            EnemyDiscardedDeck.Remove(card);
         }
     }
 

@@ -172,7 +172,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     public bool IsPlayerTurn;
 
     [SyncVar]
-    public int CoreIdCardToTake = 0;
+    public int IdCardToTake = 0;
 
     [SyncVar]
     private bool isRpcInitDone = false;
@@ -367,8 +367,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [ClientRpc]
     void RpcUpdateCoreIdCard(int coreId)
     {
-        CoreIdCardToTake = coreId;
-        Debug.Log($"[ClientRpc] CoreIdCardToTake updated to {CoreIdCardToTake} on client {NetworkClient.connection.identity.netId}");
+        IdCardToTake = coreId;
+        Debug.Log($"[ClientRpc] CoreIdCardToTake updated to {IdCardToTake} on client {NetworkClient.connection.identity.netId}");
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -404,6 +404,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             }
             if (fromDeck == FromDeck.DiscaredDeck)
             {
+                int randomIndex = 0;
+
                 if (deckCharacter == DeckCharacter.Knight)
                 {
                     GenerateAndDistributeCoreIdCard(0, PlayerDiscardedDeck.Count - i);
@@ -433,9 +435,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
-            Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {CurrentGame.PlayerDeck[CoreIdCardToTake].Name}.");
+            Debug.Log($"Карта По Индекск {IdCardToTake} найдена. Это карта с именем {CurrentGame.PlayerDeck[IdCardToTake].Name}.");
 
-            Card card = CurrentGame.PlayerDeck.FirstOrDefault(c => c.CoreID == CoreIdCardToTake);
+            Card card = CurrentGame.PlayerDeck[IdCardToTake];
 
             Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
 
@@ -451,10 +453,10 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             PlayerHandId.Add(IdPlayerCardCount);
             PlayerHandCoreID.Add(card.CoreID);
 
-            Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[CoreIdCardToTake]);
+            Debug.Log("CoreIdCardToTake = " + IdCardToTake);
+            Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[IdCardToTake]);
 
-            PlayerDeckCoreID.RemoveAt(CoreIdCardToTake);
+            PlayerDeckCoreID.RemoveAt(IdCardToTake);
             CurrentGame.PlayerDeck.Remove(card);
             IdPlayerCardCount++;
         }
@@ -466,15 +468,15 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
-            if (CoreIdCardToTake > 21 || CoreIdCardToTake < 11 || CoreIdCardToTake < 0)
+            if (IdCardToTake > 21 || IdCardToTake < 11 || IdCardToTake < 0)
             {
-                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {CurrentGame.EnemyDeck.Count})");
+                Debug.LogError($"Некорректный индекс: {IdCardToTake} (размер списка: {CurrentGame.EnemyDeck.Count})");
                 return;
             }
 
-            Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {CurrentGame.EnemyDeck[CoreIdCardToTake].Name}.");
+            Debug.Log($"Карта По Индекск {IdCardToTake} найдена. Это карта с именем {CurrentGame.EnemyDeck[IdCardToTake].Name}.");
 
-            Card card = CurrentGame.EnemyDeck.FirstOrDefault(c => c.CoreID == CoreIdCardToTake);
+            Card card = CurrentGame.EnemyDeck.[IdCardToTake];
 
             Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
 
@@ -490,10 +492,10 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             EnemyHandId.Add(IdPlayerCardCount);
             EnemyHandCoreID.Add(card.CoreID);
 
-            Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[CoreIdCardToTake]);
+            Debug.Log("CoreIdCardToTake = " + IdCardToTake);
+            Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[IdCardToTake]);
 
-            EnemyDeckCoreID.RemoveAt(CoreIdCardToTake);
+            EnemyDeckCoreID.RemoveAt(IdCardToTake);
             CurrentGame.EnemyDeck.Remove(card);
             IdPlayerCardCount++;
         }
@@ -515,15 +517,15 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             }
 
             // Проверка корректности индекса
-            if (CoreIdCardToTake < 0 || CoreIdCardToTake >= PlayerDiscardedDeck.Count)
+            if (IdCardToTake < 0 || IdCardToTake >= PlayerDiscardedDeck.Count)
             {
-                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
+                Debug.LogError($"Некорректный индекс: {IdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;
             }
 
-            Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {PlayerDiscardedDeck[CoreIdCardToTake].Name}.");
+            Debug.Log($"Карта По Индекск {IdCardToTake} найдена. Это карта с именем {PlayerDiscardedDeck[IdCardToTake].Name}.");
 
-            Card card = PlayerDiscardedDeck.FirstOrDefault(c => c.CoreID == CoreIdCardToTake);
+            Card card = PlayerDiscardedDeck[IdCardToTake];
 
             Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
 
@@ -539,8 +541,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             PlayerHandId.Add(IdPlayerCardCount);
             PlayerHandCoreID.Add(card.CoreID);
 
-            Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[CoreIdCardToTake]);
+            Debug.Log("CoreIdCardToTake = " + IdCardToTake);
+            Debug.Log("indexToRemoveDeckId = " + PlayerDeckCoreID[IdCardToTake]);
 
             IdPlayerCardCount++;
             PlayerDiscardedDeck.Remove(card);
@@ -554,15 +556,15 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             }
 
             // Проверка корректности индекса
-            if (CoreIdCardToTake < 0 || CoreIdCardToTake >= EnemyDiscardedDeck.Count)
+            if (IdCardToTake < 0 || IdCardToTake >= EnemyDiscardedDeck.Count)
             {
-                Debug.LogError($"Некорректный индекс: {CoreIdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
+                Debug.LogError($"Некорректный индекс: {IdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;
             }
 
-            Debug.Log($"Карта По Индекск {CoreIdCardToTake} найдена. Это карта с именем {EnemyDiscardedDeck[CoreIdCardToTake].Name}.");
+            Debug.Log($"Карта По Индекск {IdCardToTake} найдена. Это карта с именем {EnemyDiscardedDeck[IdCardToTake].Name}.");
 
-            Card card = EnemyDiscardedDeck.FirstOrDefault(c => c.CoreID == CoreIdCardToTake);
+            Card card = EnemyDiscardedDeck[IdCardToTake];
 
             Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
 
@@ -578,8 +580,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             EnemyHandId.Add(IdPlayerCardCount);
             EnemyHandCoreID.Add(card.CoreID);
 
-            Debug.Log("CoreIdCardToTake = " + CoreIdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[CoreIdCardToTake]);
+            Debug.Log("CoreIdCardToTake = " + IdCardToTake);
+            Debug.Log("indexToRemoveDeckId = " + EnemyDeckCoreID[IdCardToTake]);
 
             IdPlayerCardCount++;
             EnemyDiscardedDeck.Remove(card);

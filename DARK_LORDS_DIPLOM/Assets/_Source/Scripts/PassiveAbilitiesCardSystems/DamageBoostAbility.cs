@@ -13,8 +13,8 @@ public class DamageBoostAbility : PassiveAbility
         {
             if ((fieldOn.SelfCard.Attack + gameManager.PlayerDiscardedDeck.Count) < 5)
             {
-                fieldOn.SelfCard.MaxAttack = fieldOn.SelfCard.MaxAttack + gameManager.PlayerDiscardedDeck.Count;
-                fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + gameManager.PlayerDiscardedDeck.Count;
+                fieldOn.SelfCard.MaxAttack = gameManager.PlayerDiscardedDeck.Count;
+                fieldOn.SelfCard.Attack = gameManager.PlayerDiscardedDeck.Count;
             }
             else
             {
@@ -26,8 +26,8 @@ public class DamageBoostAbility : PassiveAbility
         {
             if ((fieldOn.SelfCard.Attack + gameManager.EnemyDiscardedDeck.Count) < 5)
             {
-                fieldOn.SelfCard.MaxAttack = fieldOn.SelfCard.MaxAttack + gameManager.EnemyDiscardedDeck.Count;
-                fieldOn.SelfCard.Attack = fieldOn.SelfCard.Attack + gameManager.EnemyDiscardedDeck.Count;
+                fieldOn.SelfCard.MaxAttack = gameManager.EnemyDiscardedDeck.Count;
+                fieldOn.SelfCard.Attack = gameManager.EnemyDiscardedDeck.Count;
             }
             else
             {

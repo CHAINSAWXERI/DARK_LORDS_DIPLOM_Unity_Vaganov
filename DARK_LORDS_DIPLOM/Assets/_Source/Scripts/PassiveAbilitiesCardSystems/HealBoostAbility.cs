@@ -15,8 +15,8 @@ public class HealBoostAbility : PassiveAbility
             if (gameManager.PlayerDiscardedDeck.Count < 6)
             {
                 Debug.Log("Player Discarded Deck Count" + gameManager.PlayerDiscardedDeck.Count);
-                fieldOn.SelfCard.MaxHealth = fieldOn.SelfCard.MaxHealth + gameManager.PlayerDiscardedDeck.Count;
-                fieldOn.SelfCard.Health = fieldOn.SelfCard.Health + gameManager.PlayerDiscardedDeck.Count;
+                fieldOn.SelfCard.MaxHealth = gameManager.PlayerDiscardedDeck.Count;
+                fieldOn.SelfCard.Health = gameManager.PlayerDiscardedDeck.Count;
             }
             else
             {
@@ -30,7 +30,7 @@ public class HealBoostAbility : PassiveAbility
             if (gameManager.EnemyDiscardedDeck.Count < 6)
             {
                 fieldOn.SelfCard.MaxHealth = fieldOn.SelfCard.MaxHealth + gameManager.EnemyDiscardedDeck.Count;
-                fieldOn.SelfCard.Health = fieldOn.SelfCard.Health + gameManager.EnemyDiscardedDeck.Count;
+                fieldOn.SelfCard.Health = gameManager.EnemyDiscardedDeck.Count;
             }
             else
             {

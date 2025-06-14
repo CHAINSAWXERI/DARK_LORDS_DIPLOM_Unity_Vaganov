@@ -476,7 +476,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
             Debug.Log($"Карта По Индекск {IdCardToTake} найдена. Это карта с именем {CurrentGame.EnemyDeck[IdCardToTake].Name}.");
 
-            Card card = CurrentGame.EnemyDeck.[IdCardToTake];
+            Card card = CurrentGame.EnemyDeck[IdCardToTake];
 
             Debug.Log($"Это карта с именем {card.Name} и индексом {card.CoreID}. Была Удалена из стопки");
 

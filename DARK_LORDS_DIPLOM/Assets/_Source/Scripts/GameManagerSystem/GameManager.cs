@@ -395,13 +395,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             {
                 if (deckCharacter == DeckCharacter.Knight)
                 {
-                    //GenerateAndDistributeCoreIdCard(0, CurrentGame.PlayerDeck.Count - i);
-                    IdCardToTake = Random.Range(0, CurrentGame.PlayerDeck.Count);
+                    GenerateAndDistributeCoreIdCard(0, CurrentGame.PlayerDeck.Count - i);
                 }
                 if (deckCharacter == DeckCharacter.Necromancer)
                 {
-                    //GenerateAndDistributeCoreIdCard(0, CurrentGame.EnemyDeck.Count - i);
-                    IdCardToTake = Random.Range(0, CurrentGame.EnemyDeck.Count);
+                    GenerateAndDistributeCoreIdCard(0, CurrentGame.EnemyDeck.Count - i);
                 }
 
                 GiveCardToHand(whoseCard, deckCharacter);
@@ -410,13 +408,11 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             {
                 if (deckCharacter == DeckCharacter.Knight)
                 {
-                    //GenerateAndDistributeCoreIdCard(0, PlayerDiscardedDeck.Count - i);
-                    IdCardToTake = Random.Range(0, PlayerDiscardedDeck.Count);
+                    GenerateAndDistributeCoreIdCard(0, PlayerDiscardedDeck.Count - i);
                 }
                 if (deckCharacter == DeckCharacter.Necromancer)
                 {
-                    //GenerateAndDistributeCoreIdCard(0, EnemyDiscardedDeck.Count - i);
-                    IdCardToTake = Random.Range(0, EnemyDiscardedDeck.Count);
+                    GenerateAndDistributeCoreIdCard(0, EnemyDiscardedDeck.Count - i);
                 }
 
                 GiveCardToHandFromDiscared(whoseCard, deckCharacter);

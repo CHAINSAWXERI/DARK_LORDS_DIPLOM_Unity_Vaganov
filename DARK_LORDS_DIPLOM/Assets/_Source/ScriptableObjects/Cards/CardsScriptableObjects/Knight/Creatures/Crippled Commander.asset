@@ -19,6 +19,6 @@ MonoBehaviour:
   Attack: 1
   Health: 2
   Power: 2
-  PassiveAbilities: {fileID: 11400000, guid: df517c8f1266fea4c8824a50114f10b0, type: 2}
+  PassiveAbilities: {fileID: 11400000, guid: b8e76c2cb6ada9c44be346a11ccbf435, type: 2}
   WhoseCard: 0
   CoreId: 3

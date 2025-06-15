@@ -73,6 +73,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     //    [SyncVar]
     [SerializeField] public GameObject EndTurnBtnEnemy;
 
+    [SerializeField] public GameObject MenuBtnPlayer;
+    [SerializeField] public GameObject MenuBtnEnemy;
+
     //    [SyncVar]
     public List<int> PlayerDeckCoreID = new List<int>();
     //    [SyncVar]
@@ -278,6 +281,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
         BlueSpellScreen.gameObject.SetActive(false);
         RedSpellScreen.gameObject.SetActive(false);
+
+        MenuBtnPlayer.gameObject.SetActive(true);
+        MenuBtnEnemy.gameObject.SetActive(true);
 
         if (!EnemyHand.gameObject.activeInHierarchy)
         {

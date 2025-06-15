@@ -14,6 +14,11 @@ public class NetworkDisconnecter : MonoBehaviour
             return;
         }
 
+        manager.StopHost();
+        manager.StopClient();
+        manager.StopServer();
+
+        /*
         // Определяем текущий режим работы
         bool isHost = NetworkServer.active && NetworkClient.isConnected;
         bool isClientOnly = NetworkClient.isConnected && !isHost;
@@ -39,5 +44,6 @@ public class NetworkDisconnecter : MonoBehaviour
         {
             Debug.LogWarning("Не подключено к сети!");
         }
+        */
     }
 }

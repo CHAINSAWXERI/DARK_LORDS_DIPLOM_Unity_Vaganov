@@ -9477,7 +9477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerHP: 20
-  DeckObj: {fileID: 11400000, guid: cd789ee64fa4aba4ab13cc2d4b27c797, type: 2}
+  DeckObj: {fileID: 11400000, guid: 999c234664cc80a4389bfc952d005c07, type: 2}
 --- !u!4 &1859306128
 Transform:
   m_ObjectHideFlags: 0

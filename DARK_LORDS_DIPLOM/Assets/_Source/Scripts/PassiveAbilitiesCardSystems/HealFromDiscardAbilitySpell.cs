@@ -11,6 +11,11 @@ public class HealFromDiscardAbilitySpell : PassiveAbility
     {
         if (dropPlaceOn.fieldType == FieldType.SELF_SPELL_FIELD)
         {
+            if (gameManager.PlayerDiscardedDeck.Count <= 0)
+            {
+                return;
+            }
+
             if (gameManager.CardPlayerField1 != null)
             {
                 bool i = false;
@@ -86,6 +91,11 @@ public class HealFromDiscardAbilitySpell : PassiveAbility
         }
         if (dropPlaceOn.fieldType == FieldType.ENEMY_SPELL_FIELD)
         {
+            if (gameManager.EnemyDiscardedDeck.Count <= 0)
+            {
+                return;
+            }
+
             if (gameManager.CardEnemyField1 != null)
             {
                 bool i = false;

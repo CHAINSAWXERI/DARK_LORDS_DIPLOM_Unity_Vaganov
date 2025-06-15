@@ -298,8 +298,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardPlayerField1 = crdInfo;
                             if (GameManager.CardPlayerField1.SelfCard.PassiveAbilities != null)
                             {
-                                GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>На Синее Поле 1 Положили Карту</color> <color=#142BAD>{crdInfo.SelfCard.Name}</color>";
-                                GameManager.LogTxtEnemy.text =  $"<color=#FFFFFF>На Синее Поле 1 Положили Карту</color> <color=#142BAD>{crdInfo.SelfCard.Name}</color>";
+                                GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>На Синее Поле 1 Положили Карту</color> <color=#1C1CFF>{crdInfo.SelfCard.Name}</color>";
+                                GameManager.LogTxtEnemy.text =  $"<color=#FFFFFF>На Синее Поле 1 Положили Карту</color> <color=#1C1CFF>{crdInfo.SelfCard.Name}</color>";
                                 GameManager.CardPlayerField1.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField1, GameManager.CardEnemyField1, GameManager.CardPlayerField2, null, GameManager);
                             }
                             break;
@@ -307,8 +307,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardPlayerField2 = crdInfo;
                             if (GameManager.CardPlayerField2.SelfCard.PassiveAbilities != null)
                             {
-                                GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>На Синее Поле 2 Положили Карту</color> <color=#142BAD>{crdInfo.SelfCard.Name}</color>";
-                                GameManager.LogTxtEnemy.text =  $"<color=#FFFFFF>На Синее Поле 2 Положили Карту</color> <color=#142BAD>{crdInfo.SelfCard.Name}</color>";
+                                GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>На Синее Поле 2 Положили Карту</color> <color=#1C1CFF>{crdInfo.SelfCard.Name}</color>";
+                                GameManager.LogTxtEnemy.text =  $"<color=#FFFFFF>На Синее Поле 2 Положили Карту</color> <color=#1C1CFF>{crdInfo.SelfCard.Name}</color>";
                                 GameManager.CardPlayerField2.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField2, GameManager.CardEnemyField2, GameManager.CardPlayerField3, GameManager.CardPlayerField1, GameManager);
                             }
                             break;
@@ -316,8 +316,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardPlayerField3 = crdInfo;
                             if (GameManager.CardPlayerField3.SelfCard.PassiveAbilities != null)
                             {
-                                GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>На Синее Поле 3 Положили Карту</color> <color=#142BAD>{crdInfo.SelfCard.Name}</color>";
-                                GameManager.LogTxtEnemy.text =  $"<color=#FFFFFF>На Синее Поле 3 Положили Карту</color> <color=#142BAD>{crdInfo.SelfCard.Name}</color>";
+                                GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>На Синее Поле 3 Положили Карту</color> <color=#1C1CFF>{crdInfo.SelfCard.Name}</color>";
+                                GameManager.LogTxtEnemy.text =  $"<color=#FFFFFF>На Синее Поле 3 Положили Карту</color> <color=#1C1CFF>{crdInfo.SelfCard.Name}</color>";
                                 GameManager.CardPlayerField3.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField3, GameManager.CardEnemyField3, GameManager.CardPlayerField4, GameManager.CardPlayerField2, GameManager);
                             }
                             break;
@@ -325,8 +325,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardPlayerField4 = crdInfo;
                             if (GameManager.CardPlayerField4.SelfCard.PassiveAbilities != null)
                             {
-                                GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>На Синее Поле 4 Положили Карту</color> <color=#142BAD>{crdInfo.SelfCard.Name}</color>";
-                                GameManager.LogTxtEnemy.text =  $"<color=#FFFFFF>На Синее Поле 4 Положили Карту</color> <color=#142BAD>{crdInfo.SelfCard.Name}</color>";
+                                GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>На Синее Поле 4 Положили Карту</color> <color=#1C1CFF>{crdInfo.SelfCard.Name}</color>";
+                                GameManager.LogTxtEnemy.text =  $"<color=#FFFFFF>На Синее Поле 4 Положили Карту</color> <color=#1C1CFF>{crdInfo.SelfCard.Name}</color>";
                                 GameManager.CardPlayerField4.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField4, GameManager.CardEnemyField4, null, GameManager.CardPlayerField3, GameManager);
                             }
                             break;
@@ -418,8 +418,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         SetCardDone = true;
         if (fieldType == FieldType.SELF_SPELL_FIELD)
         {
-            GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>Синий Игрок Разыграл Заклинание</color> <color=#142BAD>{cardInf.SelfCard.Name}</color> <color=#FFFFFF>со способностью</color> <color=#FFCC66>{cardInf.SelfCard.PassiveAbilitiesText}</color>";
-            GameManager.LogTxtEnemy.text = $"<color=#FFFFFF>Синий Игрок Разыграл Заклинание</color> <color=#142BAD>{cardInf.SelfCard.Name}</color> <color=#FFFFFF>со способностью</color> <color=#FFCC66>{cardInf.SelfCard.PassiveAbilitiesText}</color>";
+            GameManager.LogTxtPlayer.text = $"<color=#FFFFFF>Синий Игрок Разыграл Заклинание</color> <color=#1C1CFF>{cardInf.SelfCard.Name}</color> <color=#FFFFFF>со способностью</color> <color=#FFCC66>{cardInf.SelfCard.PassiveAbilitiesText}</color>";
+            GameManager.LogTxtEnemy.text = $"<color=#FFFFFF>Синий Игрок Разыграл Заклинание</color> <color=#1C1CFF>{cardInf.SelfCard.Name}</color> <color=#FFFFFF>со способностью</color> <color=#FFCC66>{cardInf.SelfCard.PassiveAbilitiesText}</color>";
             cardInf.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
             GameManager.PlayerDiscardedDeck.Add(cardInf.SelfCard);
             Destroy(currentCard.gameObject);

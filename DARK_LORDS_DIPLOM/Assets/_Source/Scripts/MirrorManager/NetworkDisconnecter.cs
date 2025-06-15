@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class NetworkDisconnecter : MonoBehaviour
 {
-    // Вызывайте эту функцию для отключения
+    // Вызывайте эту функцию для отключения..
     public void Disconnect()
     {
         NetworkManager manager = NetworkManager.singleton;

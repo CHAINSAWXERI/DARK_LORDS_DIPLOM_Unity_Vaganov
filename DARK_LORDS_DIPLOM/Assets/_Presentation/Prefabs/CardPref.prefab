@@ -2167,6 +2167,11 @@ MonoBehaviour:
   AttackForBigCard: {fileID: 8305751140952497672}
   HealthForBigCard: {fileID: 3671144925349965471}
   PassiveAbilitiesTextForBigCard: {fileID: 4069539210475989181}
+  LogoForBigCardSecond: {fileID: 3250687593945510794}
+  NameForBigCardSecond: {fileID: 5031154652983916381}
+  AttackForBigCardSecond: {fileID: 3562763700123142021}
+  HealthForBigCardSecond: {fileID: 8164060472085086055}
+  PassiveAbilitiesTextForBigCardSecond: {fileID: 9070983743506694314}
 --- !u!114 &8500007659682600787
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class CardInfoScript : NetworkBehaviour  // MonoBehaviour
     public TextMeshProUGUI HealthForBigCard;
     public TextMeshProUGUI PassiveAbilitiesTextForBigCard;
 
+    public Image LogoForBigCardSecond;
     public TextMeshProUGUI NameForBigCardSecond;
     public TextMeshProUGUI AttackForBigCardSecond;
     public TextMeshProUGUI HealthForBigCardSecond;
@@ -50,6 +51,9 @@ public class CardInfoScript : NetworkBehaviour  // MonoBehaviour
 
         LogoForBigCard.sprite = card.Logo;
         LogoForBigCard.preserveAspect = true;
+
+        LogoForBigCardSecond.sprite = card.Logo;
+        LogoForBigCardSecond.preserveAspect = true;
 
         Name.text = card.Name;
         NameForBigCard.text = card.Name;

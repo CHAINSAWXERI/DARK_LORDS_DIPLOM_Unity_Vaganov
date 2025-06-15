@@ -40,6 +40,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     //    [SyncVar]
     [SerializeField] public PlayerInfo Player;
 
+    [SyncVar]
+    [SerializeField] public int PlayerInScene;
+
     [SerializeField] public Slider EnemyHPSlider;
     [SerializeField] public Slider PlayerHPSlider;
     [SyncVar]
@@ -78,6 +81,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
 
     [SerializeField] public GameObject MenuBtnPlayer;
     [SerializeField] public GameObject MenuBtnEnemy;
+
+    [SerializeField] public ShowOnlyForHostWithSetActive BtnStartGamePlayer;
+    [SerializeField] public ShowOnlyForHostWithSetActive BtnStartGameEnemy;
 
     //    [SyncVar]
     public List<int> PlayerDeckCoreID = new List<int>();

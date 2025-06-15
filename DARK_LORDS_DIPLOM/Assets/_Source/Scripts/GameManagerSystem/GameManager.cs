@@ -53,6 +53,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SerializeField] public TextMeshProUGUI HPTxtPlayerOnEnemy;
     [SerializeField] public TextMeshProUGUI HPTxtEnemyOnEnemy;
 
+    [SerializeField] public TextMeshProUGUI LogTxtPlayer;
+    [SerializeField] public TextMeshProUGUI LogTxtEnemy;
+
     [SerializeField] public Transform EnemyHand;
     [SerializeField] public Transform PlayerHand;
     [SerializeField] public GameObject CardPref;
@@ -273,6 +276,9 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
         HPTxtEnemyOnPlayer.gameObject.SetActive(true);
         HPTxtPlayerOnEnemy.gameObject.SetActive(true);
         HPTxtEnemyOnEnemy.gameObject.SetActive(true);
+
+        LogTxtPlayer.gameObject.SetActive(true);
+        LogTxtEnemy.gameObject.SetActive(true);
 
         HPTxtPlayerOnPlayer.text = PlayerHP.ToString();
         HPTxtEnemyOnPlayer.text = EnemyHP.ToString();

@@ -287,6 +287,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardPlayerField1 = crdInfo;
                             if (GameManager.CardPlayerField1.SelfCard.PassiveAbilities != null)
                             {
+                                GameManager.LogTxtPlayer.text = $"На Синее Поле 1 Положили Карту {crdInfo.name}";
+                                GameManager.LogTxtEnemy.text = $"На Синее Поле 1 Положили Карту {crdInfo.name}";
                                 GameManager.CardPlayerField1.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField1, GameManager.CardEnemyField1, GameManager.CardPlayerField2, null, GameManager);
                             }
                             break;
@@ -294,6 +296,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardPlayerField2 = crdInfo;
                             if (GameManager.CardPlayerField2.SelfCard.PassiveAbilities != null)
                             {
+                                GameManager.LogTxtPlayer.text = $"На Синее Поле 2 Положили Карту {crdInfo.name}";
+                                GameManager.LogTxtEnemy.text = $"На Синее Поле 2 Положили Карту {crdInfo.name}";
                                 GameManager.CardPlayerField2.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField2, GameManager.CardEnemyField2, GameManager.CardPlayerField3, GameManager.CardPlayerField1, GameManager);
                             }
                             break;
@@ -301,6 +305,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardPlayerField3 = crdInfo;
                             if (GameManager.CardPlayerField3.SelfCard.PassiveAbilities != null)
                             {
+                                GameManager.LogTxtPlayer.text = $"На Синее Поле 3 Положили Карту {crdInfo.name}";
+                                GameManager.LogTxtEnemy.text = $"На Синее Поле 3 Положили Карту {crdInfo.name}";
                                 GameManager.CardPlayerField3.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField3, GameManager.CardEnemyField3, GameManager.CardPlayerField4, GameManager.CardPlayerField2, GameManager);
                             }
                             break;
@@ -308,6 +314,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardPlayerField4 = crdInfo;
                             if (GameManager.CardPlayerField4.SelfCard.PassiveAbilities != null)
                             {
+                                GameManager.LogTxtPlayer.text = $"На Синее Поле 4 Положили Карту {crdInfo.name}";
+                                GameManager.LogTxtEnemy.text = $"На Синее Поле 4 Положили Карту {crdInfo.name}";
                                 GameManager.CardPlayerField4.SelfCard.PassiveAbilities.Activate(this, GameManager.CardPlayerField4, GameManager.CardEnemyField4, null, GameManager.CardPlayerField3, GameManager);
                             }
                             break;
@@ -321,7 +329,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardEnemyField1 = crdInfo;
                             if (GameManager.CardEnemyField1.SelfCard.PassiveAbilities != null)
                             {
-                                Debug.Log("11111111111");
+                                GameManager.LogTxtPlayer.text = $"На Красное Поле 1 Положили Карту {crdInfo.name}";
+                                GameManager.LogTxtEnemy.text = $"На Красное Поле 1 Положили Карту {crdInfo.name}";
                                 GameManager.CardEnemyField1.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField1, GameManager.CardPlayerField1, GameManager.CardEnemyField2, null, GameManager);
                             }
                             break;
@@ -329,7 +338,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardEnemyField2 = crdInfo;
                             if (GameManager.CardEnemyField2.SelfCard.PassiveAbilities != null)
                             {
-                                Debug.Log("222222222222");
+                                GameManager.LogTxtPlayer.text = $"На Красное Поле 2 Положили Карту {crdInfo.name}";
+                                GameManager.LogTxtEnemy.text = $"На Красное Поле 2 Положили Карту {crdInfo.name}";
                                 GameManager.CardEnemyField2.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField2, GameManager.CardPlayerField2, GameManager.CardEnemyField3, GameManager.CardEnemyField1, GameManager);
                             }
                             break;
@@ -337,7 +347,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardEnemyField3 = crdInfo;
                             if (GameManager.CardEnemyField3.SelfCard.PassiveAbilities != null)
                             {
-                                Debug.Log("33333333333");
+                                GameManager.LogTxtPlayer.text = $"На Красное Поле 3 Положили Карту {crdInfo.name}";
+                                GameManager.LogTxtEnemy.text = $"На Красное Поле 3 Положили Карту {crdInfo.name}";
                                 GameManager.CardEnemyField3.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField3, GameManager.CardPlayerField3, GameManager.CardEnemyField4, GameManager.CardEnemyField2, GameManager);
                             }
                             break;
@@ -345,7 +356,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
                             GameManager.CardEnemyField4 = crdInfo;
                             if (GameManager.CardEnemyField4.SelfCard.PassiveAbilities != null)
                             {
-                                Debug.Log("44444444444");
+                                GameManager.LogTxtPlayer.text = $"На Красное Поле 4 Положили Карту {crdInfo.name}";
+                                GameManager.LogTxtEnemy.text = $"На Красное Поле 4 Положили Карту {crdInfo.name}";
                                 GameManager.CardEnemyField4.SelfCard.PassiveAbilities.Activate(this, GameManager.CardEnemyField4, GameManager.CardPlayerField4, null, GameManager.CardEnemyField3, GameManager);
                             }
                             break;
@@ -393,6 +405,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         if (fieldType == FieldType.SELF_SPELL_FIELD)
         {
             Debug.Log("333333333333333333333333333333333333333333333");
+            GameManager.LogTxtPlayer.text = $"Синий Игрок Разыграл Заклинание {cardInf.name} со способностью {cardInf.PassiveAbilitiesText}";
+            GameManager.LogTxtEnemy.text = $"Синий Игрок Разыграл Заклинание {cardInf.name} со способностью {cardInf.PassiveAbilitiesText}";
             cardInf.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
             GameManager.PlayerDiscardedDeck.Add(cardInf.SelfCard);
             Destroy(currentCard.gameObject);
@@ -402,6 +416,8 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         else if (fieldType == FieldType.ENEMY_SPELL_FIELD)
         {
             Debug.Log("4444444444444444444444444444444444444444444444444");
+            GameManager.LogTxtPlayer.text = $"Красный Игрок Разыграл Заклинание {cardInf.name} со способностью {cardInf.PassiveAbilitiesText}";
+            GameManager.LogTxtEnemy.text = $"Красный Игрок Разыграл Заклинание {cardInf.name} со способностью {cardInf.PassiveAbilitiesText}";
             cardInf.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
             GameManager.EnemyDiscardedDeck.Add(cardInf.SelfCard);
             Destroy(currentCard.gameObject);

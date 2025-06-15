@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -56,6 +56,7 @@ public class SetPlayerCommands : MonoBehaviour
 
         if (gameManager.PlayerInScene == 2)
         {
+            Debug.Log("2 ИГРОКА!!!!!!");
             gameManager.BtnStartGamePlayer.ShowObjectForHost();
             gameManager.BtnStartGameEnemy.ShowObjectForHost();
         }

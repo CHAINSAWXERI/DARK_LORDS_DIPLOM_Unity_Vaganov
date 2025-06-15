@@ -404,7 +404,6 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         SetCardDone = true;
         if (fieldType == FieldType.SELF_SPELL_FIELD)
         {
-            Debug.Log("333333333333333333333333333333333333333333333");
             GameManager.LogTxtPlayer.text = $"Синий Игрок Разыграл Заклинание {cardInf.SelfCard.Name} со способностью {cardInf.SelfCard.PassiveAbilitiesText}";
             GameManager.LogTxtEnemy.text = $"Синий Игрок Разыграл Заклинание {cardInf.SelfCard.Name} со способностью {cardInf.SelfCard.PassiveAbilitiesText}";
             cardInf.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);
@@ -415,7 +414,6 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         }
         else if (fieldType == FieldType.ENEMY_SPELL_FIELD)
         {
-            Debug.Log("4444444444444444444444444444444444444444444444444");
             GameManager.LogTxtPlayer.text = $"Красный Игрок Разыграл Заклинание {cardInf.SelfCard.Name} со способностью {cardInf.SelfCard.PassiveAbilitiesText}";
             GameManager.LogTxtEnemy.text = $"Красный Игрок Разыграл Заклинание {cardInf.SelfCard.Name} со способностью {cardInf.SelfCard.PassiveAbilitiesText}";
             cardInf.SelfCard.PassiveAbilities.Activate(this, null, null, null, null, GameManager);

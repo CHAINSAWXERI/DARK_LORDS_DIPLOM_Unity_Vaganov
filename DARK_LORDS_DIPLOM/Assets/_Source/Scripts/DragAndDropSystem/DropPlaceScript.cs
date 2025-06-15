@@ -45,11 +45,10 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         //
         card = eventData.pointerDrag.gameObject.GetComponent<CardMoveScript>();
         cardInfo = eventData.pointerDrag.gameObject.GetComponent<CardInfoScript>();
-        
 
         if ((fieldType == FieldType.SELF_FIELD) || (fieldType == FieldType.ENEMY_FIELD) || (fieldType == FieldType.SELF_SPELL_FIELD) || (fieldType == FieldType.ENEMY_SPELL_FIELD))
         {
-            card.canDrag = false;
+            
             // Проверяем, является ли карта BluePlayer и поле SELF_FIELD
             if (cardInfo.WhoseCard == WhoseCard.BluePlayer && fieldType == FieldType.ENEMY_FIELD)
             {
@@ -208,6 +207,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
         CardInfoScript[] cardInfoScripts = FindObjectsOfType<CardInfoScript>(true);
         GameObject card;
         CardInfoScript cardInf = null;
+        
         // Перебираем все найденные объекты
 
         //<color=#0000FF>Текст</color> Синий
@@ -220,6 +220,7 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
             if (cardInfo.CoreID == findCoreId && cardInfo.ID == findID)
             {
                 cardInf = cardInfo;
+                
                 Debug.Log(cardInfo.SelfCard.Name + " SelfCard Name");
                 Debug.Log(cardInfo.Name.text + " Name");
                 Debug.Log(cardInfo.CoreID + " CoreID");
@@ -227,12 +228,17 @@ public class DropPlaceScript : NetworkBehaviour, IDropHandler //MonoBehaviour
 
                 CardMoveScript crd = cardInfo.gameObject.GetComponent<CardMoveScript>();
                 CardInfoScript crdInfo = cardInfo.gameObject.GetComponent<CardInfoScript>();
+                BigCardShow bigCardShow = cardInfo.gameObject.GetComponent<BigCardShow>();
 
                 crd.DeafoultParent = transform;
                 currentCard = crd;
                 crd.UpdateDeafoultParent();
 
                 card = cardInfo.gameObject;
+
+                currentCard.canDrag = false;
+                bigCardShow.CanTriggerFirst = false;
+                bigCardShow.CanTriggerSecond = true;
 
                 Debug.Log("findCoreId " + findCoreId);
                 Debug.Log("findID " + findID);

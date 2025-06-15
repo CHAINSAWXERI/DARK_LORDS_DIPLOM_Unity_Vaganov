@@ -1396,7 +1396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 79.329956, y: 98}
+  m_AnchoredPosition: {x: 326.32996, y: 98}
   m_SizeDelta: {x: 158.66, y: 204.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8115073111381153007
@@ -2124,6 +2124,7 @@ MonoBehaviour:
   MainCamera: {fileID: 0}
   DeafoultParent: {fileID: 0}
   isDraggable: 0
+  canDrag: 1
 --- !u!114 &-4785135995237626347
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -180,6 +180,8 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     private bool isInitilizationDone = false;
     [SyncVar]
     private bool isRandomTurnDone = false;
+    [SyncVar]
+    public bool isRandomCardDone = false;
 
 
     [Server]
@@ -393,26 +395,28 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             {
                 if (deckCharacter == DeckCharacter.Knight)
                 {
-                    GenerateAndDistributeCoreIdCard(0, CurrentGame.PlayerDeck.Count - i);
+                    //GenerateAndDistributeCoreIdCard(0, CurrentGame.PlayerDeck.Count - i);
+                    IdCardToTake = Random.Range(0, CurrentGame.PlayerDeck.Count);
                 }
                 if (deckCharacter == DeckCharacter.Necromancer)
                 {
-                    GenerateAndDistributeCoreIdCard(0, CurrentGame.EnemyDeck.Count - i);
+                    //GenerateAndDistributeCoreIdCard(0, CurrentGame.EnemyDeck.Count - i);
+                    IdCardToTake = Random.Range(0, CurrentGame.EnemyDeck.Count);
                 }
 
                 GiveCardToHand(whoseCard, deckCharacter);
             }
             if (fromDeck == FromDeck.DiscaredDeck)
             {
-                int randomIndex = 0;
-
                 if (deckCharacter == DeckCharacter.Knight)
                 {
-                    GenerateAndDistributeCoreIdCard(0, PlayerDiscardedDeck.Count - i);
+                    //GenerateAndDistributeCoreIdCard(0, PlayerDiscardedDeck.Count - i);
+                    IdCardToTake = Random.Range(0, PlayerDiscardedDeck.Count);
                 }
                 if (deckCharacter == DeckCharacter.Necromancer)
                 {
-                    GenerateAndDistributeCoreIdCard(0, EnemyDiscardedDeck.Count - i);
+                    //GenerateAndDistributeCoreIdCard(0, EnemyDiscardedDeck.Count - i);
+                    IdCardToTake = Random.Range(0, EnemyDiscardedDeck.Count);
                 }
 
                 GiveCardToHandFromDiscared(whoseCard, deckCharacter);
@@ -426,7 +430,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     {
         Debug.Log("------------------GiveCardToHand--------------------");
 
-        //CoreIdCardToTake
+        //IdCardToTake
         if (deckCharacter == DeckCharacter.Knight)
         {
             Debug.Log("Cards to Knight");
@@ -501,7 +505,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     {
         Debug.Log("------------------GiveCardToHandFromDiscared--------------------");
 
-        //CoreIdCardToTake
+        //IdCardToTake
         if (deckCharacter == DeckCharacter.Knight)
         {
             Debug.Log("Cards to Knight");
@@ -510,12 +514,14 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
+            /*
             // Проверка корректности индекса
             if (IdCardToTake < 0 || IdCardToTake >= PlayerDiscardedDeck.Count)
             {
                 Debug.LogError($"Некорректный индекс: {IdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;
             }
+            */
 
             Debug.Log($"Карта По Индекск {IdCardToTake} найдена. Это карта с именем {PlayerDiscardedDeck[IdCardToTake].Name}.");
 
@@ -536,7 +542,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             PlayerHandCoreID.Add(card.CoreID);
 
             Debug.Log("CoreIdCardToTake = " + IdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + PlayerDiscardedDeck[IdCardToTake]);
+            Debug.Log("indexToRemoveDeckId = " + PlayerDiscardedDeck[0]);
 
             IdPlayerCardCount++;
             PlayerDiscardedDeck.Remove(card);
@@ -549,12 +555,14 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
                 return;
             }
 
+            /*
             // Проверка корректности индекса
             if (IdCardToTake < 0 || IdCardToTake >= EnemyDiscardedDeck.Count)
             {
                 Debug.LogError($"Некорректный индекс: {IdCardToTake} (размер списка: {PlayerDiscardedDeck.Count})");
                 return;
             }
+            */
 
             Debug.Log($"Карта По Индекск {IdCardToTake} найдена. Это карта с именем {EnemyDiscardedDeck[IdCardToTake].Name}.");
 
@@ -575,7 +583,7 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
             EnemyHandCoreID.Add(card.CoreID);
 
             Debug.Log("CoreIdCardToTake = " + IdCardToTake);
-            Debug.Log("indexToRemoveDeckId = " + EnemyDiscardedDeck[IdCardToTake]);
+            Debug.Log("indexToRemoveDeckId = " + EnemyDiscardedDeck[0]);
 
             IdPlayerCardCount++;
             EnemyDiscardedDeck.Remove(card);

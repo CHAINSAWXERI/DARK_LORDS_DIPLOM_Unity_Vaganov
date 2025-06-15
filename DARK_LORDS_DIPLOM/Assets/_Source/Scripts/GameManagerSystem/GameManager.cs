@@ -195,6 +195,16 @@ public class GameManager : NetworkBehaviour  //MonoBehaviour
     [SyncVar]
     public bool isRandomCardDone = false;
 
+    public void AddPlayer()
+    {
+        PlayerInScene++;
+        if (PlayerInScene == 2)
+        {
+            Debug.Log("2 ИГРОКА!!!!!!");
+            BtnStartGamePlayer.ShowObjectForHost();
+            BtnStartGameEnemy.ShowObjectForHost();
+        }
+    }
 
     [Server]
     public void StartGame()

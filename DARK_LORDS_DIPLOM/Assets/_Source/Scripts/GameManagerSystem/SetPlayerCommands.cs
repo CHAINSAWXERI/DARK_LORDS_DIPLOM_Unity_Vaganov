@@ -52,6 +52,7 @@ public class SetPlayerCommands : MonoBehaviour
             Debug.Log("commands.gameManager is null");
         }
 
+        /*
         gameManager.PlayerInScene++;
 
         if (gameManager.PlayerInScene == 2)
@@ -60,6 +61,7 @@ public class SetPlayerCommands : MonoBehaviour
             gameManager.BtnStartGamePlayer.ShowObjectForHost();
             gameManager.BtnStartGameEnemy.ShowObjectForHost();
         }
+        */
 
         Debug.Log("Commands Is Everywhere");
     }

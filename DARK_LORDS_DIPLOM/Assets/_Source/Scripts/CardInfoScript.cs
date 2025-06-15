@@ -25,6 +25,11 @@ public class CardInfoScript : NetworkBehaviour  // MonoBehaviour
     public TextMeshProUGUI HealthForBigCard;
     public TextMeshProUGUI PassiveAbilitiesTextForBigCard;
 
+    public TextMeshProUGUI NameForBigCardSecond;
+    public TextMeshProUGUI AttackForBigCardSecond;
+    public TextMeshProUGUI HealthForBigCardSecond;
+    public TextMeshProUGUI PassiveAbilitiesTextForBigCardSecond;
+
     public void ShowCardInfo(Card card, int id, GameManager gameManager, WhoseCard whoseCard)
     {
         Debug.Log("ShowCardInfo");
@@ -48,23 +53,29 @@ public class CardInfoScript : NetworkBehaviour  // MonoBehaviour
 
         Name.text = card.Name;
         NameForBigCard.text = card.Name;
+        NameForBigCardSecond.text = card.Name;
 
         if (SelfCard.CardType != CardType.Spell)
         {
             Attack.text = card.Attack.ToString();
             Health.text = card.Health.ToString();
             AttackForBigCard.text = card.Attack.ToString();
+            AttackForBigCardSecond.text = card.Attack.ToString();
             HealthForBigCard.text = card.Health.ToString();
+            HealthForBigCardSecond.text = card.Health.ToString();
         }
         else
         {
             Attack.text = "";
             Health.text = "";
             AttackForBigCard.text = "";
+            AttackForBigCardSecond.text = "";
             HealthForBigCard.text = "";
+            HealthForBigCardSecond.text = "";
         }
         PassiveAbilitiesText.text = card.PassiveAbilities.GetAbilityText();
         PassiveAbilitiesTextForBigCard.text = card.PassiveAbilities.GetAbilityText();
+        PassiveAbilitiesTextForBigCardSecond.text = card.PassiveAbilities.GetAbilityText();
         ID = id;
         WhoseCard = whoseCard;
         CoreID = card.CoreID;

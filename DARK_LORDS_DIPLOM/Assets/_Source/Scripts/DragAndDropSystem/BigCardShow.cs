@@ -17,11 +17,6 @@ public class BigCardShow : MonoBehaviour
         BigCardSecond.SetActive(false);
     }
 
-    private void Update()
-    {
-        // Не нужно ничего делать в Update
-    }
-
     private void OnMouseEnter()
     {
         isMouseOver = true;

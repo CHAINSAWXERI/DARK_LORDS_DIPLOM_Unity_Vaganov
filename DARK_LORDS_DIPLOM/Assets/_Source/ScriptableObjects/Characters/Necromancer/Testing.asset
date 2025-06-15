@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22def444bc94eb442aeba82797143fba, type: 3}
   m_Name: Testing
   m_EditorClassIdentifier: 
-  deckCharacter: 0
+  deckCharacter: 1
   Deck:
   - {fileID: 11400000, guid: e2ed3a493fb45f747b9d7883c58d8cd3, type: 2}
   - {fileID: 11400000, guid: e2ed3a493fb45f747b9d7883c58d8cd3, type: 2}

@@ -11,10 +11,16 @@ public class BoostAttackSideCardsPassiveAbility : PassiveAbility
     {
         if (fieldRight != null)
         {
+            fieldRight.SelfCard.Attack++;
+            fieldRight.ShowCardInfo(fieldRight.SelfCard, fieldRight.ID, gameManager, fieldRight.WhoseCard);
+
             Debug.Log("Field Right is Not Null");
         }
         if (fieldLeft != null)
         {
+            fieldLeft.SelfCard.Attack++;
+            fieldLeft.ShowCardInfo(fieldLeft.SelfCard, fieldLeft.ID, gameManager, fieldLeft.WhoseCard);
+
             Debug.Log("Field Left is Not Null");
         }
     }
